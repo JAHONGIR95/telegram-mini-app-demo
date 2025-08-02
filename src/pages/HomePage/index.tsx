@@ -1,9 +1,9 @@
 import { Link } from "react-router-dom"
 
-const Home = () => {
+const HomePage = () => {
   return (
     <>
-      <div>Home</div>
+      <div className="">Home</div>
       <Link to="/about">About</Link>
       <br />
       <Link to="/gallery">Gallery</Link>
@@ -11,4 +11,4 @@ const Home = () => {
   )
 }
 
-export default Home
+export default HomePage

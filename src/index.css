@@ -1,6 +1,32 @@
 @import "tailwindcss";
+
+@theme {
+      --color-globe: #F8F4ED; 
+      --color-island: #FFF7E8; 
+      --color-islandInner: #F5E6C8; 
+      --color-accent: #D8BFD8; 
+      --color-overlay: #2C271E80; 
+      --color-primary: #8000FF; 
+      --color-secondary: #2C3E50; 
+      --color-tertiary: #100717; 
+      --color-primaryWhite: #F5E8FF; 
+      --color-secondaryWhite: #DAC0ED; 
+      --color-tertiaryWhite: #BEA2CE; 
+      --color-placeholder: #4B008226; 
+      --color-link: #E6C200; 
+      --color-iconPrimaryDark: #4B0082; 
+      --color-iconPrimaryLight: #F5E8FF; 
+      --color-iconSecondary: #6B6B6B; 
+      --color-iconTertiary: #F5E6C8; 
+      --color-iconLink: #E6C200; 
+      --color-aaa: #aaa; 
+      --color-aaa: #aaa; 
+      --color-aaa: #aaa; 
+      --color-aaa: #aaa; 
+      --color-aaa: #aaa; 
+    }
 body {
-  background: var(--tg-theme-secondary-bg-color, white);
+background: #f8f4ed;
   padding: 0;
   margin: 0;
 }

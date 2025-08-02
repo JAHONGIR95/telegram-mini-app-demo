@@ -1,6 +1,6 @@
 import About from '@/pages/About';
 import Gallery from '@/pages/Gallery';
-import Home from '@/pages/Home';
+import Home from '@/pages/HomePage';
 import type { ComponentType, JSX } from 'react';
 
 interface Route {
