@@ -7,6 +7,7 @@ import HomeIcon from "../icons/HomeIcon"
 import SearchIcon from "../icons/SearchIcon"
 import BookmarksIcon from "../icons/BookmarksIcon"
 import UserIcon from "../icons/UserIcon"
+import { Page } from "../Page"
 
 interface ITab {
   id: string
@@ -54,26 +55,23 @@ const HomeLayout = () => {
     return tabs.find((tab) => pathSegments.includes(tab.id))?.id || tabs[0].id
   }
   const currentTab = getActiveTab()
-  console.log(currentTab)
-
-  console.log(location.pathname)
 
   const safeArea = viewport.safeAreaInsets()
 
   const safeAreaTop = safeArea?.top || 0
 
   return (
-    <div>
+    <Page back={true}>
       <div
-        className="flex justify-center py-4" //mt-[38px]
+        className="flex justify-center py-6 opacity-50" //mt-[38px]
         style={{ marginTop: `${safeAreaTop}px` }}
       >
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className={``}>
-          <h1 className="font-extrabold text-tertiary text-2xl text-center">
+          {/* <h1 className="font-extrabold text-tertiary text-2xl text-center">
             Dharma Human
-          </h1>
+          </h1> */}
 
         <Outlet />
 
@@ -89,7 +87,7 @@ const HomeLayout = () => {
           ))}
         </div>
       </div>
-    </div>
+    </Page>
   )
 }
 
