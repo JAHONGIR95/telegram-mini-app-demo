@@ -1,7 +1,7 @@
 import React from "react"
 import { Link, Outlet, useLocation } from "react-router-dom"
 
-import mainLogo from "@/assets/images/main-logo.png"
+import mainLogo from "@/assets/images/main-logo.svg"
 import { viewport } from "@telegram-apps/sdk-react"
 import HomeIcon from "../icons/HomeIcon"
 import SearchIcon from "../icons/SearchIcon"
@@ -60,22 +60,20 @@ const HomeLayout = () => {
 
   const safeArea = viewport.safeAreaInsets()
 
-  const safeAreaTop = safeArea?.top || 10
+  const safeAreaTop = safeArea?.top || 0
 
   return (
     <div>
       <div
-        className="flex justify-center " //mt-[38px]
+        className="flex justify-center py-4" //mt-[38px]
         style={{ marginTop: `${safeAreaTop}px` }}
       >
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className={``}>
-        <div className="flex justify-center">
-          <h1 className="font-extrabold text-[#6B6B6B] text-2xl">
+          <h1 className="font-extrabold text-tertiary text-2xl text-center">
             Dharma Human
           </h1>
-        </div>
 
         <Outlet />
 
