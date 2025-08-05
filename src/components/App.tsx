@@ -13,6 +13,8 @@ import About from "@/pages/About"
 import HomePage from "@/pages/HomePage"
 import HomeLayout from "./layouts/HomeLayout"
 import Gallery from "@/pages/Gallery"
+import NotificationsPage from "@/pages/Natification"
+import NotificationDetails from "@/pages/Natification/NotificationDetails"
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
@@ -29,6 +31,8 @@ export function App() {
             <Route index element={<HomePage />} />
             <Route path="/profile" element={<div>profile</div>} />
             <Route path="/search" element={<div>search</div>} />
+            <Route path="/notifications" element={<NotificationsPage />} />
+            <Route path="/notifications/:id" element={<NotificationDetails />} />
 
             <Route path="/bookmarks">
               <Route path="/bookmarks" element={<About />}>
