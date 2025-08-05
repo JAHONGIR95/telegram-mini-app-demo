@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import React, { useState } from "react";
 
-const FullTextCollapse = ({ children }: { children: React.ReactNode }) => {
+const FullTextCollapse = ({ children, overlayClass }: { children: React.ReactNode, overlayClass?: string }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -11,7 +11,7 @@ const FullTextCollapse = ({ children }: { children: React.ReactNode }) => {
     >
       <div
         className={clsx(
-          "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#f5f5f5] to-transparent transition-all duration-500",
+          "absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#f5f5f5] to-transparent transition-all duration-500", overlayClass,
           isOpen ? "h-0" : "h-16"
         )}
       />

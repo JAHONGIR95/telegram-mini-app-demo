@@ -4,7 +4,7 @@ import goToBookIcon from "@/assets/icons/go-to-book-icon.svg";
 import commentIcon from "@/assets/icons/comment-icon-2.svg";
 import shareIcon from "@/assets/icons/share-icon.svg";
 import bookmarkIcon from "@/assets/icons/bookmark-icon.svg";
-import FullTextCollapse from "../expandableText";
+import ExpandableText from "../expandableText/expandableText";
 
 export default function PostCard() {
   return (
@@ -27,14 +27,14 @@ export default function PostCard() {
           <span className="text-gray-400 font-extrabold">⋮</span>
         </div>
 
-        <FullTextCollapse>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta
-          recusandae architecto sunt officiis hic veniam molestiae ratione
-          reiciendis accusamus doloremque ipsam impedit, nam culpa facilis
-          libero aperiam qui possimus quo perferendis quos consequatur quae modi
-          et! Veritatis, laboriosam quibusdam! Accusantium praesentium aperiam
-          sapiente asperiores optio temporibus impedit ullam assumenda hic!
-        </FullTextCollapse>
+        <ExpandableText collapsedLines={3}>
+          “Мы говорим с тобой на разных языках, как всегда, - отозвался Воланд,
+          - но вещи, о которых мы говорим, от этого не меняются.”“Мы говорим с
+          тобой на разных языках, как всегда, - отозвался Воланд, - но вещи, о
+          которых мы говорим, от этого не меняются.”“Мы говорим с тобой на
+          разных языках, как всегда, - отозвался Воланд, - но вещи, о которых мы
+          говорим, от этого не меняются.”
+        </ExpandableText>
 
         <div className="mt-2 flex items-center justify-between">
           <span className="font-semibold text-[#6b6b6b]">
@@ -55,11 +55,24 @@ export default function PostCard() {
               <span>#Tag</span>
             </div>
 
-            <p className="text-sm font-medium text-gray-900 mt-1 leading-4">
-              Но тебе придется примириться с этим, – возразил Воланд, и усмешка
-              искривила его рот Но тебе придется примириться
-            </p>
-            <div className="absolute bottom-0 left-0 right-0 h-13 bg-gradient-to-t from-white via-white/80 to-transparent"></div>
+            <ExpandableText
+              overlayClass="bg-gradient-to-t from-white via-white/80 to-transparent"
+              collapsedLines={3}
+            >
+              "Но тебе придется примириться с этим, – возразил Воланд, и усмешка
+              искривила его рот, – не успел ты появиться на крыше, как уже сразу
+              отвесил нелепость, и я тебе скажу, в чем она, – в твоих
+              интонациях. Ты произнес «свои слова так, как будто ты не признаешь
+              теней, а также и зла. Не будешь ли ты так добр подумать над
+              вопросом: что бы делало твое добро, если бы не существовало зла, и
+              как бы выглядела земля, если бы с нее исчезли тени? Ведь тени
+              получаются от предметов и людей. Вот тень от моей шпаги. Но бывают
+              тени от деревьев и от живых существ. Не хочешь ли ты ободрать весь
+              земной шар, снеся с него прочь все деревья и все живое из-за твоей
+              фантазии наслаждаться голым светом? Ты глуп"
+            </ExpandableText>
+            {/* </p> */}
+            {/* <div className="absolute bottom-0 left-0 right-0 h-13 bg-gradient-to-t from-white via-white/80 to-transparent"></div> */}
           </div>
 
           <div className="border-b-1 border-[#bdbdbd] mx-3"></div>
