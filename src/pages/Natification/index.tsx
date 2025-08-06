@@ -101,7 +101,7 @@ const NotificationsPage = () => {
         Уведомления
       </h1>
 
-      <div className="px-3 pt-7 pb-20 overflow-y-auto space-y-2">
+      <div className="pt-7 pb-20 overflow-y-auto space-y-2">
         {notifications.map((notification) => (
           <NotificationCard data={notification} key={notification.id}>
             <Link to={`/notifications/${notification.id}`}>

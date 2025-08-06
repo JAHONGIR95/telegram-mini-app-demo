@@ -1,15 +1,16 @@
 @import "tailwindcss";
-@plugin "daisyui" {
+/* @plugin "daisyui" {
   themes: light --default;
-}
+} */
 
 @theme {
   --color-globe: #F8F4ED;
   --color-island: #F5F5F5;
   --color-islandInner: #F5E6C8;
+  --background-color-islandInner: #F5E6C8;
   --color-accent: #FFF0D8;
   --color-overlay: #2C271E80;
-  --color-primary: #170A08;
+  --color-primaryColor: #170A08;
   --color-secondary: #2C3E50;
   --color-tertiary: #6B6B6B;
   --color-primaryWhite: #F5E8FF;
@@ -46,6 +47,9 @@
   --background-image-iconLink: linear-gradient(180deg, #F5AB32 48.5%, #D97325 100%);
   --background-image-primaryClicked: linear-gradient(270deg, #FF983C 0%, #E37A1E 100%);
   --background-image-link: linear-gradient(180deg, #F5AB32 0%, #EB9132 100%);
+
+  --background-image-profile: radial-gradient(74.44% 33.5% at 50% 15.44%, #FFFFFF 39.52%, #F8F4ED 100%);
+
 
   --boxShadow-main: 1px 1px 0 15px rgba(59, 130, 246, 0.6)
 }
