@@ -20,9 +20,9 @@ const Button: React.FC<ButtonProps> = ({
     "btn", // DaisyUI asosiy btn classi
     "rounded-[20px]",
     {
-      "btn-primary": variant === "primary",
+      "btn-ghost p-3 text-sm font-medium text-primaryWhite bg-primaryClicked border-none": variant === "primary",
+      "btn-ghost p-3 text-sm font-medium text-tertiary bg-islandInner border-none": variant === "outline",
       "btn-secondary": variant === "secondary",
-      "btn-outline": variant === "outline",
       "btn-ghost": variant === "ghost",
       "btn-disabled": disabled || loading,
     },

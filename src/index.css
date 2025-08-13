@@ -1,13 +1,13 @@
 @import "tailwindcss";
-/* @plugin "daisyui" {
+@plugin "daisyui" {
   themes: light --default;
-} */
+}
 
 @theme {
   --color-globe: #F8F4ED;
   --color-island: #F5F5F5;
-  --color-islandInner: #F5E6C8;
-  --background-color-islandInner: #F5E6C8;
+  --color-islandInner: #FFFFFF;
+  --background-color-islandInner: #FFFFFF;
   --color-accent: #FFF0D8;
   --color-overlay: #2C271E80;
   --color-primaryColor: #170A08;
@@ -51,7 +51,7 @@
   --background-image-profile: radial-gradient(74.44% 33.5% at 50% 15.44%, #FFFFFF 39.52%, #F8F4ED 100%);
 
 
-  --boxShadow-main: 1px 1px 0 15px rgba(59, 130, 246, 0.6)
+  --boxShadow-main: 1px 1px 0 15px rgba(59, 130, 246, 0.6);
 }
 
 

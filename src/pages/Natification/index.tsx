@@ -1,7 +1,7 @@
-import mainLogo from "@/assets/images/main-logo.svg";
 import human from "@/assets/images/human.webp";
 import NotificationCard from "@/components/notificationCard";
 import { Link } from "react-router-dom";
+import Header from "@/components/Header";
 
 const NotificationsPage = () => {
   const notifications = [
@@ -92,16 +92,14 @@ const NotificationsPage = () => {
   ];
 
   return (
-    <div className="h-screen bg-accent px-3 flex flex-col">
-      <div className="flex justify-center py-6 opacity-50">
-        <img src={mainLogo} className="w-24 h-12" />
-      </div>
+    <div className="h-screen bg-accent flex flex-col">
+      <Header className="shadow-[0_15px_20px_-2px_#FFF0D8]">
+        <h1 className="font-extrabold text-tertiary text-2xl text-center pb-3">
+          Уведомления
+        </h1>
+      </Header>
 
-      <h1 className="font-extrabold text-tertiary text-2xl text-center">
-        Уведомления
-      </h1>
-
-      <div className="pt-7 pb-20 overflow-y-auto space-y-2">
+      <div className=" px-3 pt-4 pb-25 overflow-y-auto  space-y-2">
         {notifications.map((notification) => (
           <NotificationCard data={notification} key={notification.id}>
             <Link to={`/notifications/${notification.id}`}>

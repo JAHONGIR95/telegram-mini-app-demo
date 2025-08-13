@@ -6,7 +6,8 @@ import { Link } from "react-router-dom";
 // import Loader from "@/components/Loader"
 // import { useState } from "react";
 
-import mainLogo from "@/assets/images/main-logo.svg";
+import Header from "@/components/Header";
+// import Button from "@/components/buttons/Button";
 
 const HomePage = () => {
   // const [isLoading, setIsLoading] = useState(!false);
@@ -38,17 +39,16 @@ const HomePage = () => {
 
   return (
     <div className="flex flex-col h-screen bg-globe">
-      <div className="">
-        <div className="flex justify-center py-6 opacity-50">
-          <img src={mainLogo} className="w-24 h-12" />
-        </div>
-
-        <div className="flex items-center justify-between px-3">
+      <Header>
+        <div className="flex items-center justify-between px-3 pb-3">
           <div className="w-5" />
           <h1 className="font-extrabold text-tertiary text-2xl text-center">
             Dharma Human
           </h1>
-          <Link to="/notifications" className="relative inline-block cursor-pointer">
+          <Link
+            to="/notifications"
+            className="relative inline-block cursor-pointer"
+          >
             <img
               src={bell}
               alt="avatar"
@@ -60,10 +60,12 @@ const HomePage = () => {
             </span>
           </Link>
         </div>
-      </div>
+      </Header>
 
-      <div className="px-3 pt-7 pb-20 overflow-y-auto">
+      <div className="px-3 pt-4 pb-20 overflow-y-auto">
         <PostCard />
+        {/* <Button variant="primary">Primary</Button> */}
+        {/* <Button variant="outline">Click me</Button> */}
         <PostCard />
         <PostCard />
         <PostCard />
