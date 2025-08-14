@@ -16,6 +16,7 @@ import Gallery from "@/pages/Gallery"
 import NotificationsPage from "@/pages/Natification"
 import NotificationDetails from "@/pages/Natification/NotificationDetails"
 import ProfilePage from "@/pages/Profile"
+import Bookmarks from "@/pages/Bookmarks"
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
@@ -36,11 +37,11 @@ export function App() {
             <Route path="/notifications/:id" element={<NotificationDetails />} />
 
             <Route path="/bookmarks">
-              <Route path="/bookmarks" element={<About />}>
-                <Route path="books" element={<Gallery />} />
-                <Route path="drafts" element={<About />} />
+              {/* <Route path="/bookmarks" element={<Bookmarks />}> */}
+                <Route index  element={<Bookmarks />} />
+                {/* <Route path="drafts" element={<Drafts />} /> */}
                 <Route path="meanings" element={<Gallery />} />
-              </Route>
+              {/* </Route> */}
               
 
               {/* <Route path="folder" element={<BookmarkContainer />} /> */}

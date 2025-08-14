@@ -62,7 +62,7 @@ const HomePage = () => {
         </div>
       </Header>
 
-      <div className="px-3 pt-4 pb-20 overflow-y-auto">
+      <div className="px-3 pt-4 pb-25 overflow-y-auto space-y-5">
         <PostCard />
         {/* <Button variant="primary">Primary</Button> */}
         {/* <Button variant="outline">Click me</Button> */}

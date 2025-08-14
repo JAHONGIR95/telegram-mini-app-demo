@@ -2,7 +2,7 @@ import ExpandableText from "../expandableText/expandableText";
 
 export default function ResponseCard() {
   return (
-    <div className="rounded-2xl shadow-xl p-4 mb-5 bg-white ">
+    <div className="rounded-2xl shadow-xl p-4 bg-white ">
       {/* Автор */}
       <div className="flex justify-between mb-4">
         <div className="flex flex-col gap-1">

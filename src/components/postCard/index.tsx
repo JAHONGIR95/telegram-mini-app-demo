@@ -5,10 +5,15 @@ import commentIcon from "@/assets/icons/comment-icon-2.svg";
 import shareIcon from "@/assets/icons/share-icon.svg";
 import bookmarkIcon from "@/assets/icons/bookmark-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
+import React from "react";
 
-export default function PostCard() {
+export default function PostCard({
+  footer,
+}: {
+  footer?: () => React.ReactNode;
+}) {
   return (
-    <div className="rounded-2xl shadow-xl p-1 mb-5 bg-white ">
+    <div className="rounded-2xl shadow-xl p-1 bg-white ">
       {/* Автор */}
       <div className="bg-[#f5f5f5] rounded-2xl p-3">
         <div className="flex justify-between mb-4">
@@ -49,8 +54,8 @@ export default function PostCard() {
         </div>
 
         <div className="bg-white rounded-2xl -mx-3 -mb-3 mt-3 pb-3">
-          <div className="rounded-xl p-3 overflow-hidden relative ">
-            <div className="flex justify-between text-xs text-gray-500">
+          <div className="rounded-xl p-3 overflow-hidden relative">
+            <div className="flex justify-between text-xs text-gray-500 mb-2">
               <span>Раскрывает смысл</span>
               <span>#Tag</span>
             </div>
@@ -77,38 +82,42 @@ export default function PostCard() {
 
           <div className="border-b-1 border-[#bdbdbd] mx-3"></div>
 
-          <div className="flex items-center mt-4 px-3 gap-5">
-            <div className="flex items-center text-orange-500 font-semibold gap-2">
-              <img src={topIcon} alt="top" className="w-6" loading="lazy" />
-              <span>46</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600 font-semibold">
-              <img
-                src={commentIcon}
-                className="w-6"
-                alt="comments"
-                loading="lazy"
-              />
-              <span>3</span>
-            </div>
-            <div className="flex items-center gap-2 text-gray-600 font-semibold">
-              <img
-                src={shareIcon}
-                className="w-6 h-6"
-                alt="comments"
-                loading="lazy"
-              />
-            </div>
+          {footer ? (
+            <div className="mt-4 px-3 gap-5">{footer()}</div>
+          ) : (
+            <div className="flex items-center mt-4 px-3 gap-5">
+              <div className="flex items-center text-orange-500 font-semibold gap-2">
+                <img src={topIcon} alt="top" className="w-6" loading="lazy" />
+                <span>46</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600 font-semibold">
+                <img
+                  src={commentIcon}
+                  className="w-6"
+                  alt="comments"
+                  loading="lazy"
+                />
+                <span>3</span>
+              </div>
+              <div className="flex items-center gap-2 text-gray-600 font-semibold">
+                <img
+                  src={shareIcon}
+                  className="w-6 h-6"
+                  alt="comments"
+                  loading="lazy"
+                />
+              </div>
 
-            <div className="flex items-center gap-2 text-gray-600 font-semibold ml-auto">
-              <img
-                src={bookmarkIcon}
-                className="w-6 h-6"
-                alt="comments"
-                loading="lazy"
-              />
+              <div className="flex items-center gap-2 text-gray-600 font-semibold ml-auto">
+                <img
+                  src={bookmarkIcon}
+                  className="w-6 h-6"
+                  alt="comments"
+                  loading="lazy"
+                />
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </div>

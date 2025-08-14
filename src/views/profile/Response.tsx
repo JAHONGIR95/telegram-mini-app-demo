@@ -1,14 +1,14 @@
 import Loader from "@/components/Loader";
-import PostCard from "@/components/postCard";
+import ResponseCard from "@/components/responseCard";
 import  { useEffect, useState } from "react";
 
-const PostsView = () => {
+const ResponseView = () => {
   const [isLoading, setIsLoading] = useState(!false);
 
   const responses = [
-    { id: 1, title: "Posts 1" },
-    { id: 2, title: "Posts 2" },
-    { id: 3, title: "Posts 3" },
+    { id: 1, title: "Response 1" },
+    { id: 2, title: "Response 2" },
+    { id: 3, title: "Response 3" },
   ];
 
   useEffect(() => {
@@ -22,12 +22,12 @@ const PostsView = () => {
   }
 
   return (
-    <div>
+    <>
       {responses.map((response) => (
-        <PostCard key={response.id} />
+        <ResponseCard key={response.id} />
       ))}
-    </div>
+    </>
   );
 };
 
-export default PostsView;
+export default ResponseView;

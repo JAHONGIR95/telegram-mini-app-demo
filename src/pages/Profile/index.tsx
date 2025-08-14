@@ -1,75 +1,95 @@
 import { useState } from "react";
 import mainLogo from "@/assets/images/main-logo.svg";
-import ScrollableRow from "@/components/buttons/ScrollableButtons";
-// import PostCard from "@/components/postCard";
-// import ResponseCard from "@/components/responseCard";
-import ResponseView from "@/views/Response";
-import PostsView from "@/views/Posts";
+import ResponseView from "@/views/profile/Response";
+import PostsView from "@/views/profile/Posts";
+import CommentsView from "@/views/profile/Comments";
+import Button from "@/components/buttons/Button";
+import clsx from "clsx";
 
 const buttons = [
-  "Посты",
-  "Запросы",
-  "Комментарии",
-  "Продвинутые мной",
-  "Достижения",
+  {
+    label: "Посты",
+    value: "posts",
+  },
+  {
+    label: "Запросы",
+    value: "requests",
+  },
+  {
+    label: "Комментарии",
+    value: "comments",
+  },
+  {
+    label: "Продвинутые мной",
+    value: "advanced",
+  },
+  {
+    label: "Достижения",
+    value: "achievements",
+  },
 ];
 
 const ProfilePage = () => {
-  const [activeSection, setActiveSection] = useState<number>(0);
+  const [activeSection, setActiveSection] = useState<string>('posts');
   return (
     <div className="h-screen flex flex-col bg-profile">
       <div className="flex justify-center pt-6 pb-2 opacity-50">
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
-        <div className="flex flex-col items-center pt-16 pb-8 gap-3 h-auto bg-[url('src/assets/icons/tree.svg')] bg-contain bg-center bg-no-repeat">
+        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('src/assets/icons/tree.svg')] bg-contain bg-center bg-no-repeat">
           <img
             src="src/assets/images/ilon_mask.png"
             alt=""
             className="w-20 h-20 rounded-full"
             loading="lazy"
           />
-          <p className="text-2xl/6 font-extrabold text-primaryColor">
+          <p className="text-2xl leading-6 font-extrabold text-primaryColor">
             Илон Маск
           </p>
           <div className="flex justify-center gap-8">
             <div className="flex flex-col gap-1 items-center">
-              <p className="text-xs/3 font-extrabold">298</p>
-              <p className="text-[6px]/1.5 text-tertiary">Подписчиков</p>
+              <p className="text-sm leading-3 font-extrabold">298</p>
+              <p className="text-[10px] leading-1.5 text-tertiary">Подписчиков</p>
             </div>
             <div className="flex flex-col gap-1 items-center">
-              <p className="text-xs/3 font-extrabold">88</p>
-              <p className="text-[6px]/1.5 text-tertiary">Смыслов</p>
+              <p className="text-sm leading-3 font-extrabold">88</p>
+              <p className="text-[10px] leading-1.5 text-tertiary">Смыслов</p>
             </div>
             <div className="flex flex-col gap-1 items-center">
-              <p className="text-xs/3 font-extrabold">2654</p>
-              <p className="text-[6px]/1.5 text-tertiary">Подписок</p>
+              <p className="text-sm leading-3 font-extrabold">2654</p>
+              <p className="text-[10px] leading-1.5 text-tertiary">Подписок</p>
             </div>
           </div>
         </div>
-        <p className="font-normal text-tertiary text-[10px]/2.5 text-center px-12">
+        <p className="font-normal text-tertiary text-xs leading-4 text-center px-12">
           «Жизнь не обязана давать нам то, чего мы ждём. Надо брать то, что она
           даёт, и быть благодарным уже за то, что это так, а не хуже» (М.
           Митчелл, «Унесённые ветром»).
         </p>
-        <p className="text-[8px]/[8px] font-bold bg-gradientText text-transparent bg-clip-text text-center py-2">
+        <p className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3">
           см. ещё
         </p>
-        {/* <h1 className="font-extrabold text-tertiary text-xl text-center">
-        Смысл от 20.02.2025
-      </h1> */}
 
-        <div className="pl-3 mt-4">
-          <ScrollableRow
-            activeSection={activeSection}
-            buttons={buttons}
-            onClick={(val: number) => setActiveSection(val)}
-          />
+        <div className="pl-3 mt-3">
+          <div className="w-full overflow-x-auto no-scrollbar">
+            <div className="flex gap-2 w-max">
+              {buttons?.map((button, idx) => (
+                <Button key={idx} variant={button.value === activeSection ? "primary" : "outline"} className={clsx(button.value === activeSection && "bg-primaryClicked text-primaryWhite")} onClick={() => setActiveSection(button.value)}>
+                  {button.label}
+                </Button>
+              ))}
+            </div>
+          </div>
         </div>
+
         <div className="">
-          <div className="px-3 pt-7 pb-20 overflow-y-auto">
-            {activeSection === 0 && <PostsView />}
-            {activeSection === 1 && <ResponseView />}
+          <div className="px-3 pt-7 pb-25 overflow-y-auto space-y-5">
+            {activeSection === 'posts' && <PostsView />}
+            {activeSection === 'requests' && <ResponseView />}
+            {activeSection === 'comments' && <CommentsView />}
+            {activeSection === 'advanced' && <CommentsView />}
+            {activeSection === 'achievements' && <CommentsView />}
           </div>
         </div>
       </div>

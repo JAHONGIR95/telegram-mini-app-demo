@@ -1,4 +1,5 @@
 @import "tailwindcss";
+
 @plugin "daisyui" {
   themes: light --default;
 }
@@ -11,7 +12,7 @@
   --color-accent: #FFF0D8;
   --color-overlay: #2C271E80;
   --color-primaryColor: #170A08;
-  --color-secondary: #2C3E50;
+  --color-secondaryColor: #2C3E50;
   --color-tertiary: #6B6B6B;
   --color-primaryWhite: #F5E8FF;
   --color-secondaryWhite: #FFFFFFB2;
@@ -23,25 +24,27 @@
   --color-iconTertiary: #F5E6C8;
   --color-iconPlaceholder: #B0B0B0;
   --color-primaryDisabled: #D9D9D9;
-  
+  --color-borderColor: #E2E2E2;
+
   --color-secondaryDefault: #FFD5AE;
   --color-secondaryClicked: #F5E6C8;
   --color-secondaryDisabled: #F5E6C866;
-  
+
   --color-tertiaryDefault: #919191;
   --color-tertiaryDisabled: #4B008233;
   --color-tertiaryClicked: #6D6D6D;
-  
+
   --color-inputDefault: #B0B0B0;
   --color-inputClicked: #FC8F28;
   --color-inputDisabled: #4B008233;
-  
+
   --color-error: #E63946;
   --color-warning: #FFA500;
   --color-success: #36C036;
+  --color-main: #F5AB32;
 
   --background-image-gradientText: linear-gradient(180deg, #F5AB32 0%, #EB9132 100%);
-  
+
   --background-color-accent: #FFF0D8;
   --background-image-primaryDefault: linear-gradient(270deg, #D1B606 0%, #E37A1E 100%);
   --background-image-iconLink: linear-gradient(180deg, #F5AB32 48.5%, #D97325 100%);
