@@ -20,7 +20,7 @@ import Bookmarks from "@/pages/Bookmarks";
 import GuestProfile from "@/pages/GuestProfile";
 import Subscribers from "@/pages/Profile/Subscribers";
 import Subscriptions from "@/pages/Profile/Subscriptions";
-// import { viewport } from "@telegram-apps/sdk-react";
+import { viewport } from "@telegram-apps/sdk-react";
 import { useEffect } from "react";
 import WebApp from "@twa-dev/sdk";
 
@@ -29,9 +29,12 @@ export function App() {
   // const isDark = useSignal(isMiniAppDark)
 
   useEffect(() => {
-    WebApp.expand();
-    WebApp.enableClosingConfirmation();
-    WebApp.setHeaderColor("#ffffff"); // status bar qora qilib ko‘rsatadi
+    if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+      viewport.requestFullscreen();
+    }
+    WebApp.expand(); // to'liq ekranga kengaytiradi
+    WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
+    WebApp.setHeaderColor("#ffffff");
   }, []);
 
   return (

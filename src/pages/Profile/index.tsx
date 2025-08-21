@@ -39,7 +39,7 @@ const ProfilePage = () => {
 
   return (
     <div className="h-screen flex flex-col bg-profile">
-      <div className="flex justify-center pt-6 pb-2 opacity-50">
+      <div className="flex justify-center pt-10 pb-2 opacity-50">
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
