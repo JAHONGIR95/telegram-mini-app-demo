@@ -34,7 +34,8 @@ export function App() {
     }
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
-    WebApp.setHeaderColor("bg_color"); 
+    WebApp.setHeaderColor("secondary_bg_color"); 
+    WebApp.setBackgroundColor("#f5f5f5");
   }, []);
 
   return (
