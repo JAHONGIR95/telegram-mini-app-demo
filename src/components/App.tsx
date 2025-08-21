@@ -21,13 +21,20 @@ import GuestProfile from "@/pages/GuestProfile";
 import Subscribers from "@/pages/Profile/Subscribers";
 import Subscriptions from "@/pages/Profile/Subscriptions";
 import { viewport } from "@telegram-apps/sdk-react";
+import { useEffect } from "react";
+import WebApp from "@twa-dev/sdk";
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
-   if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
-    viewport.requestFullscreen();
-  }
+
+  useEffect(() => {
+    if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+      viewport.requestFullscreen();
+    }
+    WebApp.expand(); // to'liq ekranga kengaytiradi
+    WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
+  }, []);
 
   return (
     // <AppRoot
