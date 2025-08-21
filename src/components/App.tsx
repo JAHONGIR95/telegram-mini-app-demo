@@ -20,10 +20,14 @@ import Bookmarks from "@/pages/Bookmarks";
 import GuestProfile from "@/pages/GuestProfile";
 import Subscribers from "@/pages/Profile/Subscribers";
 import Subscriptions from "@/pages/Profile/Subscriptions";
+import { viewport } from "@telegram-apps/sdk-react";
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
+   if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+    viewport.requestFullscreen();
+  }
 
   return (
     // <AppRoot

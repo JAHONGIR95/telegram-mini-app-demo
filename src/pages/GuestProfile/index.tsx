@@ -59,7 +59,7 @@ const GuestProfile = () => {
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
-        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('icons/tree.svg')] bg-contain bg-center bg-no-repeat">
+        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('/icons/tree.svg')] bg-contain bg-center bg-no-repeat">
           <img
             src={human}
             alt=""
