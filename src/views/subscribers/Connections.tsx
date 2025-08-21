@@ -2,7 +2,7 @@ import Loader from "@/components/Loader";
 import ResponseCard from "@/components/responseCard";
 import { useEffect, useState } from "react";
 
-const ResponseView = () => {
+const Connections = () => {
   const [isLoading, setIsLoading] = useState(!false);
 
   const responses = [
@@ -24,7 +24,14 @@ const ResponseView = () => {
   return (
     <>
       {responses.map((response) => (
-        <ResponseCard key={response.id}>
+        <ResponseCard
+          key={response.id}
+          header={() => (
+            <p className="text-base leading-3.5 font-extrabold text-tertiary mb-4">
+              Мастер и Маргарита
+            </p>
+          )}
+        >
           “Мы говорим с тобой на разных языках, как всегда, - отозвался Воланд,
           - но вещи, о которых мы говорим, от этого не меняются.”“Мы говорим с
           тобой на разных языках, как всегда, - отозвался Воланд, - но вещи, о
@@ -37,4 +44,4 @@ const ResponseView = () => {
   );
 };
 
-export default ResponseView;
+export default Connections;

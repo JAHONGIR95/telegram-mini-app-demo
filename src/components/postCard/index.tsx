@@ -6,6 +6,7 @@ import shareIcon from "@/assets/icons/share-icon.svg";
 import bookmarkIcon from "@/assets/icons/bookmark-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
 import React from "react";
+import { Link } from "react-router-dom";
 
 export default function PostCard({
   footer,
@@ -17,7 +18,7 @@ export default function PostCard({
       {/* Автор */}
       <div className="bg-[#f5f5f5] rounded-2xl p-3">
         <div className="flex justify-between mb-4">
-          <div className="flex items-center gap-3">
+          <Link to="/guest-profile/1" className="flex items-center gap-3">
             <img
               src={human}
               alt="avatar"
@@ -28,7 +29,7 @@ export default function PostCard({
               <div className="font-semibold">Сергей Александрович</div>
               <div className="text-xs text-gray-500">5 мая</div>
             </div>
-          </div>
+          </Link>
           <span className="text-gray-400 font-extrabold">⋮</span>
         </div>
 

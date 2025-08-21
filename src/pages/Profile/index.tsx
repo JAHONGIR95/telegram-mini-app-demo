@@ -5,6 +5,10 @@ import PostsView from "@/views/profile/Posts";
 import CommentsView from "@/views/profile/Comments";
 import Button from "@/components/buttons/Button";
 import clsx from "clsx";
+import AdvancedView from "@/views/profile/Advanced";
+import AchievementsView from "@/views/profile/Achievements";
+import { Link } from "react-router-dom";
+import BottomSheet from "@/components/modals/BottomSheet";
 
 const buttons = [
   {
@@ -31,15 +35,17 @@ const buttons = [
 
 const ProfilePage = () => {
   const [activeSection, setActiveSection] = useState<string>('posts');
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+
   return (
     <div className="h-screen flex flex-col bg-profile">
       <div className="flex justify-center pt-6 pb-2 opacity-50">
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
-        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('src/assets/icons/tree.svg')] bg-contain bg-center bg-no-repeat">
+        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('icons/tree.svg')] bg-contain bg-center bg-no-repeat">
           <img
-            src="src/assets/images/ilon_mask.png"
+            src="images/ilon_mask.png"
             alt=""
             className="w-20 h-20 rounded-full"
             loading="lazy"
@@ -48,18 +54,18 @@ const ProfilePage = () => {
             Илон Маск
           </p>
           <div className="flex justify-center gap-8">
-            <div className="flex flex-col gap-1 items-center">
+            <Link to="/profile/subscribers" className="flex flex-col gap-1 items-center">
               <p className="text-sm leading-3 font-extrabold">298</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Подписчиков</p>
-            </div>
+            </Link>
             <div className="flex flex-col gap-1 items-center">
               <p className="text-sm leading-3 font-extrabold">88</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Смыслов</p>
             </div>
-            <div className="flex flex-col gap-1 items-center">
+            <Link to="/profile/subscriptions" className="flex flex-col gap-1 items-center">
               <p className="text-sm leading-3 font-extrabold">2654</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Подписок</p>
-            </div>
+            </Link>
           </div>
         </div>
         <p className="font-normal text-tertiary text-xs leading-4 text-center px-12">
@@ -67,7 +73,7 @@ const ProfilePage = () => {
           даёт, и быть благодарным уже за то, что это так, а не хуже» (М.
           Митчелл, «Унесённые ветром»).
         </p>
-        <p className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3">
+        <p className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3" onClick={() => setIsBottomSheetOpen(true)}>
           см. ещё
         </p>
 
@@ -88,11 +94,16 @@ const ProfilePage = () => {
             {activeSection === 'posts' && <PostsView />}
             {activeSection === 'requests' && <ResponseView />}
             {activeSection === 'comments' && <CommentsView />}
-            {activeSection === 'advanced' && <CommentsView />}
-            {activeSection === 'achievements' && <CommentsView />}
+            {activeSection === 'advanced' && <AdvancedView />}
+            {activeSection === 'achievements' && <AchievementsView />}
           </div>
         </div>
       </div>
+
+      <BottomSheet isOpen={isBottomSheetOpen} onClose={() => setIsBottomSheetOpen(false)} className="bg-white">
+        <h2 className="text-lg font-bold mb-2">Hello iPhone style!</h2>
+        <p className="text-sm text-gray-600">This is a bottom sheet modal.</p>
+        </BottomSheet>
     </div>
   );
 };

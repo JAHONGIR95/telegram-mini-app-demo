@@ -36,7 +36,7 @@ const Drafts = () => {
                 variant="outline"
                 className="!bg-island !text-primaryColor text-base font-semibold"
               >
-                к правилам <img src="src/assets/icons/arrow.svg" alt="arrow" />
+                к правилам <img src="icons/arrow.svg" alt="arrow" />
               </Button>
             </div>
           )}

@@ -4,7 +4,7 @@ const BookCard = ({ data }: { data: Record<string, string | number> }) => {
   return (
     <div className="flex gap-3 bg-islandInner rounded-[16px] p-4 border border-borderColor shadow-[0px_8px_16px_0px_#EAE2D5]">
       <img
-        src="src/assets/images/book.png"
+        src="images/book.png"
         alt="book"
         className="w-[104px] h-[144px]"
       />

@@ -14,7 +14,7 @@
   --color-primaryColor: #170A08;
   --color-secondaryColor: #2C3E50;
   --color-tertiary: #6B6B6B;
-  --color-primaryWhite: #F5E8FF;
+  --color-primaryWhite: #F8F5FF;
   --color-secondaryWhite: #FFFFFFB2;
   --color-tertiaryWhite: #FFFDFA;
   --color-placeholder: #4B008226;
@@ -67,3 +67,4 @@ body {
   padding: 0;
   margin: 0;
 }
+
