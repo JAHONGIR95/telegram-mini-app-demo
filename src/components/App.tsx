@@ -33,7 +33,8 @@ export function App() {
       viewport.requestFullscreen();
     }
     WebApp.expand(); // to'liq ekranga kengaytiradi
-    WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
+    // WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
+    WebApp.setHeaderColor("#6B6B6B"); 
   }, []);
 
   return (
