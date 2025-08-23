@@ -1,9 +1,9 @@
-import human from "@/assets/images/human.webp";
-import topIcon from "@/assets/icons/top-icon.svg";
-import goToBookIcon from "@/assets/icons/go-to-book-icon.svg";
-import commentIcon from "@/assets/icons/comment-icon-2.svg";
-import shareIcon from "@/assets/icons/share-icon.svg";
-import bookmarkIcon from "@/assets/icons/bookmark-icon.svg";
+import human from "/images/human.webp";
+import topIcon from "/icons/top-icon.svg";
+import goToBookIcon from "/icons/go-to-book-icon.svg";
+import commentIcon from "/icons/comment-icon-2.svg";
+import shareIcon from "/icons/share-icon.svg";
+import bookmarkIcon from "/icons/bookmark-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
 import React from "react";
 import { Link } from "react-router-dom";

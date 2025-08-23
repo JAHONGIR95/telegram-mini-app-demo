@@ -1,5 +1,5 @@
 import { useState } from "react";
-import mainLogo from "@/assets/images/main-logo.svg";
+import mainLogo from "/images/main-logo.svg";
 import ResponseView from "@/views/profile/Response";
 import PostsView from "@/views/profile/Posts";
 import CommentsView from "@/views/profile/Comments";
@@ -34,7 +34,7 @@ const buttons = [
 ];
 
 const ProfilePage = () => {
-  const [activeSection, setActiveSection] = useState<string>('posts');
+  const [activeSection, setActiveSection] = useState<string>("posts");
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   return (
@@ -54,15 +54,23 @@ const ProfilePage = () => {
             Илон Маск
           </p>
           <div className="flex justify-center gap-8">
-            <Link to="/profile/subscribers" className="flex flex-col gap-1 items-center">
+            <Link
+              to="/profile/subscribers"
+              className="flex flex-col gap-1 items-center"
+            >
               <p className="text-sm leading-3 font-extrabold">298</p>
-              <p className="text-[10px] leading-1.5 text-tertiary">Подписчиков</p>
+              <p className="text-[10px] leading-1.5 text-tertiary">
+                Подписчиков
+              </p>
             </Link>
             <div className="flex flex-col gap-1 items-center">
               <p className="text-sm leading-3 font-extrabold">88</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Смыслов</p>
             </div>
-            <Link to="/profile/subscriptions" className="flex flex-col gap-1 items-center">
+            <Link
+              to="/profile/subscriptions"
+              className="flex flex-col gap-1 items-center"
+            >
               <p className="text-sm leading-3 font-extrabold">2654</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Подписок</p>
             </Link>
@@ -73,7 +81,10 @@ const ProfilePage = () => {
           даёт, и быть благодарным уже за то, что это так, а не хуже» (М.
           Митчелл, «Унесённые ветром»).
         </p>
-        <p className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3" onClick={() => setIsBottomSheetOpen(true)}>
+        <p
+          className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3 cursor-pointer"
+          onClick={() => setIsBottomSheetOpen(true)}
+        >
           см. ещё
         </p>
 
@@ -81,7 +92,17 @@ const ProfilePage = () => {
           <div className="w-full overflow-x-auto no-scrollbar">
             <div className="flex gap-2 w-max">
               {buttons?.map((button, idx) => (
-                <Button key={idx} variant={button.value === activeSection ? "primary" : "outline"} className={clsx(button.value === activeSection && "bg-primaryClicked text-primaryWhite")} onClick={() => setActiveSection(button.value)}>
+                <Button
+                  key={idx}
+                  variant={
+                    button.value === activeSection ? "primary" : "outline"
+                  }
+                  className={clsx(
+                    button.value === activeSection &&
+                      "bg-primaryClicked text-primaryWhite"
+                  )}
+                  onClick={() => setActiveSection(button.value)}
+                >
                   {button.label}
                 </Button>
               ))}
@@ -91,19 +112,23 @@ const ProfilePage = () => {
 
         <div className="">
           <div className="px-3 pt-7 pb-25 overflow-y-auto space-y-5">
-            {activeSection === 'posts' && <PostsView />}
-            {activeSection === 'requests' && <ResponseView />}
-            {activeSection === 'comments' && <CommentsView />}
-            {activeSection === 'advanced' && <AdvancedView />}
-            {activeSection === 'achievements' && <AchievementsView />}
+            {activeSection === "posts" && <PostsView />}
+            {activeSection === "requests" && <ResponseView />}
+            {activeSection === "comments" && <CommentsView />}
+            {activeSection === "advanced" && <AdvancedView />}
+            {activeSection === "achievements" && <AchievementsView />}
           </div>
         </div>
       </div>
 
-      <BottomSheet isOpen={isBottomSheetOpen} onClose={() => setIsBottomSheetOpen(false)} className="bg-white">
+      <BottomSheet
+        isOpen={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+        className="bg-white"
+      >
         <h2 className="text-lg font-bold mb-2">Hello iPhone style!</h2>
         <p className="text-sm text-gray-600">This is a bottom sheet modal.</p>
-        </BottomSheet>
+      </BottomSheet>
     </div>
   );
 };

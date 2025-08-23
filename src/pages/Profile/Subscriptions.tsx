@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import human from "@/assets/images/human.webp";
+import human from "/images/human.webp";
 import { Link } from "react-router-dom";
 
 const Subscriptions = () => {

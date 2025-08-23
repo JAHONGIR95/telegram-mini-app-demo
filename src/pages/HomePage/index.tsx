@@ -1,7 +1,7 @@
 // import BottomSheet from "@/components/modals/FramerMotionModal";
 import PostCard from "@/components/postCard";
 // import { useState } from "react";
-import bell from "@/assets/icons/bell.svg";
+import bell from "/icons/bell.svg";
 import { Link } from "react-router-dom";
 // import Loader from "@/components/Loader"
 // import { useState } from "react";

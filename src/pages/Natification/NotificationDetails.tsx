@@ -1,5 +1,5 @@
 import PostCard from "@/components/postCard";
-import mainLogo from "@/assets/images/main-logo.svg";
+import mainLogo from "/images/main-logo.svg";
 
 const NotificationDetails = () => {
   return (

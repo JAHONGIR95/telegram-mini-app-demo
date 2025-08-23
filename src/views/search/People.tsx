@@ -1,72 +1,41 @@
 import human from "/images/human.webp";
 import { Link } from "react-router-dom";
 
-const Users = () => {
+const People = ({ search }: { search: string }) => {
   const subscribers = [
     {
       id: 1,
       img: human,
-      username: "Vladislav",
+      username: "Vladislav Vladislavovich",
     },
     {
       id: 2,
       img: human,
-      username: "Vladislav",
+      username: "Brid Gleason",
     },
     {
       id: 3,
       img: human,
-      username: "Vladislav",
+      username: "John Doe",
     },
     {
       id: 4,
       img: human,
-      username: "Vladislav",
+      username: "Anna Smith",
     },
-    {
-      id: 5,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 6,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 7,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 8,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 9,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 10,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 11,
-      img: human,
-      username: "Vladislav",
-    },
-    {
-      id: 12,
-      img: human,
-      username: "Vladislav",
-    },
-  ];
+  ].filter((subscriber) =>
+    subscriber.username.toLowerCase().includes(search.toLowerCase())
+  );
+
+  if (subscribers?.length === 0) {
+    return <div className="text-center font-bold mt-20">К сожалению ничего не нашлось (</div>;
+  }
 
   return (
     <>
+      <p className="text-base font-bold text-[#1E1D1E]">
+        По вашему поиску нашлось:
+      </p>
       {subscribers.map((subscriber) => (
         <Link
           to={`/guest-profile/${subscriber.id}`}
@@ -87,4 +56,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default People;

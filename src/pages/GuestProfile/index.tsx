@@ -1,5 +1,5 @@
 import { useState } from "react";
-import mainLogo from "@/assets/images/main-logo.svg";
+import mainLogo from "/images/main-logo.svg";
 import ResponseView from "@/views/profile/Response";
 import PostsView from "@/views/profile/Posts";
 import CommentsView from "@/views/profile/Comments";
@@ -7,7 +7,7 @@ import Button from "@/components/buttons/Button";
 import clsx from "clsx";
 import AdvancedView from "@/views/profile/Advanced";
 import AchievementsView from "@/views/profile/Achievements";
-import human from "@/assets/images/human.webp";
+import human from "/images/human.webp";
 import BottomSheet from "@/components/modals/BottomSheet";
 import Toggle from "@/components/toggle";
 
@@ -38,6 +38,7 @@ const GuestProfile = () => {
   const [activeSection, setActiveSection] = useState<string>("posts");
   const [subscribed, setSubscribed] = useState(false);
   const [isOpenSubscribe, setIsOpenSubscribe] = useState(false);
+  const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
 
   const [toggles, setToggles] = useState({
     publications: true,
@@ -84,8 +85,7 @@ const GuestProfile = () => {
               className="!bg-island !text-primaryColor"
               onClick={() => setIsOpenSubscribe(true)}
             >
-              Вы подписаны{" "}
-              <img src="icons/arrowbottom.svg" alt="arrow" />
+              Вы подписаны <img src="icons/arrowbottom.svg" alt="arrow" />
             </Button>
           )}
           <div className="flex justify-center gap-8">
@@ -110,7 +110,10 @@ const GuestProfile = () => {
           даёт, и быть благодарным уже за то, что это так, а не хуже» (М.
           Митчелл, «Унесённые ветром»).
         </p>
-        <p className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3">
+        <p
+          className="text-sm leading-3 font-bold bg-gradientText text-transparent bg-clip-text text-center py-3 cursor-pointer"
+          onClick={() => setIsBottomSheetOpen(true)}
+        >
           см. ещё
         </p>
 
@@ -185,6 +188,14 @@ const GuestProfile = () => {
             Отписаться
           </Button>
         </div>
+      </BottomSheet>
+      <BottomSheet
+        isOpen={isBottomSheetOpen}
+        onClose={() => setIsBottomSheetOpen(false)}
+        className="bg-white"
+      >
+        <h2 className="text-lg font-bold mb-2">Hello iPhone style!</h2>
+        <p className="text-sm text-gray-600">This is a bottom sheet modal.</p>
       </BottomSheet>
     </div>
   );

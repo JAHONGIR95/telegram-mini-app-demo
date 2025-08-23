@@ -23,6 +23,9 @@ import Subscriptions from "@/pages/Profile/Subscriptions";
 import { viewport } from "@telegram-apps/sdk-react";
 import { useEffect } from "react";
 import WebApp from "@twa-dev/sdk";
+import Folder from "@/pages/Bookmarks/folder";
+import Search from "@/pages/Search";
+import ConnectionDetails from "@/pages/Search/ConnectionDetails";
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
@@ -46,10 +49,14 @@ export function App() {
       <Routes>
         <Route element={<HomeLayout />} path="/">
           <Route index element={<HomePage />} />
-          <Route path="/search" element={<div>search</div>} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/notifications/:id" element={<NotificationDetails />} />
           <Route path="/guest-profile/:id" element={<GuestProfile />} />
+
+          <Route path="/search">
+            <Route index element={<Search />} />
+            <Route path="connection-details" element={<ConnectionDetails />} />
+          </Route>
 
           <Route path="/profile">
             <Route index element={<ProfilePage />} />
@@ -60,6 +67,7 @@ export function App() {
           <Route path="/bookmarks">
             <Route index element={<Bookmarks />} />
             <Route path="meanings" element={<Gallery />} />
+            <Route path="folder" element={<Folder />} />
           </Route>
 
           <Route path="/about" element={<About />} />

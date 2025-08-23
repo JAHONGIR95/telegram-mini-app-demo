@@ -1,4 +1,4 @@
-import human from "@/assets/images/human.webp";
+import human from "/images/human.webp";
 import NotificationCard from "@/components/notificationCard";
 import { Link } from "react-router-dom";
 import Header from "@/components/Header";
