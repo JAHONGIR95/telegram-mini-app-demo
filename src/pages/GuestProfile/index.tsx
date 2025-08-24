@@ -158,6 +158,7 @@ const GuestProfile = () => {
           <div className="flex justify-between items-center">
             <p className="text-primaryColor font-bold text-base">Публикации</p>
             <Toggle
+              name="publications"
               checked={toggles.publications}
               onChange={(state) => handleToggleChange("publications", state)}
             />
@@ -165,6 +166,7 @@ const GuestProfile = () => {
           <div className="flex justify-between items-center">
             <p className="text-primaryColor font-bold text-base">Запросы</p>
             <Toggle
+              name="requests"
               checked={toggles.requests}
               onChange={(state) => handleToggleChange("requests", state)}
             />
@@ -172,6 +174,7 @@ const GuestProfile = () => {
           <div className="flex justify-between items-center">
             <p className="text-primaryColor font-bold text-base">Достижения</p>
             <Toggle
+              name="achievements"
               checked={toggles.achievements}
               onChange={(state) => handleToggleChange("achievements", state)}
             />

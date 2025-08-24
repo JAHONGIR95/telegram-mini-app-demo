@@ -42,7 +42,7 @@ const HomePage = () => {
       <Header>
         <div className="flex items-center justify-between px-3 pb-3">
           <div className="w-5" />
-          <h1 className="font-extrabold text-tertiary text-2xl text-center">
+          <h1 className="font-extrabold text-tertiary text-[22px] leading-5.5 text-center font-rubik">
             Dharma Human
           </h1>
           <Link
@@ -63,6 +63,9 @@ const HomePage = () => {
       </Header>
 
       <div className="px-3 pt-4 pb-25 overflow-y-auto space-y-5">
+        <h5 className="text-tertiary leading-2 text-[18px] font-lato">Настройка уведомлений</h5>
+        <p className="text-tertiary font-bold leading-2 text-[18px] font-rubik">Настройка уведомленийd</p>
+        <p className="text-tertiary font-bold leading-2 text-[18px] font-nunito">Настройка уведомленийd</p>
         <PostCard />
         {/* <Button variant="primary">Primary</Button> */}
         {/* <Button variant="outline">Click me</Button> */}

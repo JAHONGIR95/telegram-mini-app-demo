@@ -26,6 +26,7 @@ import WebApp from "@twa-dev/sdk";
 import Folder from "@/pages/Bookmarks/folder";
 import Search from "@/pages/Search";
 import ConnectionDetails from "@/pages/Search/ConnectionDetails";
+import Settings from "@/pages/Profile/Settings";
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
@@ -62,6 +63,7 @@ export function App() {
             <Route index element={<ProfilePage />} />
             <Route path="subscribers" element={<Subscribers />} />
             <Route path="subscriptions" element={<Subscriptions />} />
+            <Route path="settings" element={<Settings />} />
           </Route>
 
           <Route path="/bookmarks">

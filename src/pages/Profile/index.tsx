@@ -43,13 +43,16 @@ const ProfilePage = () => {
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
-        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('/icons/tree.svg')] bg-contain bg-center bg-no-repeat">
+        <div className="flex flex-col items-center pt-4 pb-8 gap-4 h-auto bg-[url('/icons/tree.svg')] bg-contain bg-center bg-no-repeat relative">
           <img
             src="images/ilon_mask.png"
             alt=""
             className="w-20 h-20 rounded-full"
             loading="lazy"
           />
+          <Link to={"/profile/settings"}>
+            <img src="icons/settings.svg" alt="settings" className="w-5 h-5 absolute top-4 right-3 cursor-pointer" loading="lazy" />
+          </Link>
           <p className="text-2xl leading-6 font-extrabold text-primaryColor">
             Илон Маск
           </p>
