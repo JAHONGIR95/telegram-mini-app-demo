@@ -27,6 +27,7 @@ import Folder from "@/pages/Bookmarks/folder";
 import Search from "@/pages/Search";
 import ConnectionDetails from "@/pages/Search/ConnectionDetails";
 import Settings from "@/pages/Profile/Settings";
+import BookOverview from "@/pages/Book/BookOverview";
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
@@ -74,6 +75,7 @@ export function App() {
 
           <Route path="/about" element={<About />} />
         </Route>
+          <Route path="/book-overview/:id" element={<BookOverview />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </HashRouter>

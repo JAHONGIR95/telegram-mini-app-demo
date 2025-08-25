@@ -1,6 +1,7 @@
 import BookCard from "@/components/BookCard";
 import Loader from "@/components/Loader";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Books = () => {
   const [isLoading, setIsLoading] = useState(!false);
@@ -14,7 +15,7 @@ const Books = () => {
   if (isLoading) {
     return <Loader />;
   }
-  
+
   const data = [
     {
       id: 1,
@@ -70,8 +71,11 @@ const Books = () => {
   return (
     <>
       {data.map((book) => (
-        <BookCard data={book} key={book.id} />
+        <Link to={`/book-overview/${book.id}`} key={book.id}>
+          <BookCard data={book} />
+        </Link>
       ))}
+      {/* <BookCard data={book} key={book.id} /> */}
     </>
   );
 };

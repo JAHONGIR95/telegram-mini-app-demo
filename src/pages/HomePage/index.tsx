@@ -63,9 +63,9 @@ const HomePage = () => {
       </Header>
 
       <div className="px-3 pt-4 pb-25 overflow-y-auto space-y-5">
-        <h5 className="text-tertiary leading-2 text-[18px] font-lato">Настройка уведомлений</h5>
+        {/* <h5 className="text-tertiary leading-2 text-[18px] font-lato">Настройка уведомлений</h5>
         <p className="text-tertiary font-bold leading-2 text-[18px] font-rubik">Настройка уведомленийd</p>
-        <p className="text-tertiary font-bold leading-2 text-[18px] font-nunito">Настройка уведомленийd</p>
+        <p className="text-tertiary font-bold leading-2 text-[18px] font-nunito">Настройка уведомленийd</p> */}
         <PostCard />
         {/* <Button variant="primary">Primary</Button> */}
         {/* <Button variant="outline">Click me</Button> */}
