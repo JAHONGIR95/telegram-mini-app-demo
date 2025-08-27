@@ -71,7 +71,7 @@ const Books = () => {
   return (
     <>
       {data.map((book) => (
-        <Link to={`/book-overview/${book.id}`} key={book.id}>
+        <Link to={`/book-overview/${book.id}`} state={book} key={book.id} className="block">
           <BookCard data={book} />
         </Link>
       ))}
