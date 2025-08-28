@@ -47,7 +47,7 @@ const BookOverview = () => {
           <div className="absolute bottom-0 flex justify-between items-center px-4 pb-13 w-full">
             <div className="flex flex-col gap-2">
               <p className="text-primaryWhite text-2xl leading-6 font-extrabold font-nunito">
-                {book.bookName}
+                {book?.bookName}
               </p>
               <div className="flex items-start gap-5">
                 <div className="flex flex-col gap-1">
@@ -71,7 +71,7 @@ const BookOverview = () => {
                     Закладки
                   </p>
                   <p className="text-secondaryWhite text-xs font-extrabold font-nunito">
-                    {book.inMark}
+                    {book?.inMark}
                   </p>
                 </div>
               </div>

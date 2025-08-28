@@ -45,7 +45,7 @@ const Settings = () => {
                 className="text-sm font-semibold leading-3 font-inter text-black outline-none bg-transparent p-2 flex-1"
                 //   onChange={(e) => setSearch(e.target.value)}
               />
-              <span className="editable_pen_icon" />
+              <span className="icon editable_pen_icon" />
             </div>
             <label className="floating-label">
               <textarea

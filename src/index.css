@@ -97,8 +97,7 @@ body {
   border-bottom: 2px solid #FC8F28;
 }
 
-.editable_pen_icon,
-.arrow_down_icon {
+.icon {
   display: inline-block;
   mask-repeat: no-repeat;
   mask-position: center;
@@ -117,6 +116,14 @@ body {
   height: 12px;
   mask-image: url("/icons/editable-pen.svg");
   background-color: #6B6B6B;
+}
+
+.comment_send_icon {
+  width: 10px;
+  height: 7px;
+  transform: rotate(180deg);
+  mask-image: url("/icons/arrowbottom.svg");
+  background-color: var(--color-primaryWhite);
 }
 
 .main_heading {

@@ -1,7 +1,10 @@
+import Button from "@/components/buttons/Button";
+import BottomSheet from "@/components/modals/BottomSheet";
 import clsx from "clsx";
 import { useState } from "react";
 
 const Opinions = () => {
+  const [isResponseModalOpen, setIsResponseModalOpen] = useState(false);
   const opinions = [
     {
       id: 1,
@@ -81,21 +84,85 @@ const Opinions = () => {
       userImage: "images/human.webp",
       responses: [],
     },
+    {
+      id: 5,
+      userName: "John Doe",
+      date: "1 июня",
+      text: "Написание будет проще запомнить, если задуматься о происхождении слова.",
+      likes: 10,
+      userImage: "images/human.webp",
+      responses: [],
+    },
+    {
+      id: 6,
+      userName: "John Doe",
+      date: "1 июня",
+      text: "Написание будет проще запомнить, если задуматься о происхождении слова.",
+      likes: 10,
+      userImage: "images/human.webp",
+      responses: [],
+    },
   ];
 
+  interface User {
+    id: number,
+    userName: string,
+    date: string,
+    text: string,
+    likes: number,
+    userImage: string,
+  }
+  const [userData, setUserData] = useState<User | null>(null);
+
+  const handleResponse = (user: any) => {
+    setIsResponseModalOpen(true);
+    setUserData(user);
+  };
+
   return (
-    <div className="flex-1 mx-2 border p-4 flex flex-col gap-3 border-[#BDBDBD] rounded-2xl bg-white overflow-auto">
-      <div className="flex flex-col gap-3">
+    <div className="flex-1 mx-2 border p-4 flex flex-col gap-3 border-[#BDBDBD] rounded-2xl bg-white min-h-0">
+      <div className="flex-1 flex flex-col gap-3 overflow-y-auto">
         {opinions.map((opinion) => (
-            <Comment key={opinion.id} comment={opinion} />
+          <Comment
+            key={opinion.id}
+            comment={opinion}
+            handleResponse={handleResponse}
+          />
         ))}
       </div>
-      <div className="w-full bg-black h-12"></div>
+
+      <div className="flex items-center gap-4 border border-inputDefault rounded-[28px] py-2 px-3">
+        <input
+          type="text"
+          className="flex-1 border-none outline-none text-tertiary placeholder:text-[#4B008226] font-semibold leading-3.3 text-sm"
+          placeholder="Оставьте комментарий"
+        />
+        <Button variant="primary" className="w-10 h-10 !bg-primaryDefault">
+          <span className="icon comment_send_icon" />
+        </Button>
+      </div>
+
+      <BottomSheet
+        isOpen={isResponseModalOpen}
+        onClose={() => setIsResponseModalOpen(false)}
+        className="bg-white"
+      >
+        <h2 className="text-lg font-bold mb-2">Hello iPhone style!</h2>
+        <p className="text-sm text-gray-600">This is a bottom sheet modal.</p>
+        <p className="text-sm text-gray-600">{userData?.text}</p>
+        <p className="text-sm text-gray-600">This is a bottom sheet modal.</p>
+      </BottomSheet>
     </div>
   );
 };
 
-const Comment = ({ comment }: { comment: any }) => {
+const Comment = ({
+  comment,
+  handleResponse,
+}: {
+  comment: any;
+  handleResponse: (userdata: any) => void;
+}) => {
   const [isOpen, setIsOpen] = useState<boolean>();
 
   return (
@@ -131,7 +198,7 @@ const Comment = ({ comment }: { comment: any }) => {
               Посмотреть ответы:{" "}
               <span
                 className={clsx(
-                  "arrow_down_icon transition-transform duration-400",
+                  "icon arrow_down_icon transition-transform duration-400",
                   isOpen ? "-rotate-180" : "rotate-0"
                 )}
               />
@@ -140,7 +207,10 @@ const Comment = ({ comment }: { comment: any }) => {
             <div />
           )}
 
-          <span className="text-nunito font-extrabold leading-2 text-tertiary text-xs p-2">
+          <span
+            className="text-nunito font-extrabold leading-2 text-tertiary text-xs p-2"
+            onClick={() => handleResponse(comment)}
+          >
             Ответить
           </span>
         </div>
@@ -151,7 +221,11 @@ const Comment = ({ comment }: { comment: any }) => {
           )}
         >
           {comment?.responses?.map((res: any) => (
-            <Comment key={res.id} comment={res} />
+            <Comment
+              key={res.id}
+              comment={res}
+              handleResponse={() => handleResponse(res)}
+            />
           ))}
         </div>
       </div>

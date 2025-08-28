@@ -98,7 +98,7 @@ const Search = () => {
             Категории:{" "}
             <span
               className={clsx(
-                "arrow_down_icon transition-transform duration-400",
+                "icon arrow_down_icon transition-transform duration-400",
                 isOpen ? "-rotate-180" : "rotate-0"
               )}
             />
