@@ -265,7 +265,7 @@ const Opinions = () => {
             }}
             className="flex-1 border-none outline-none resize-none overflow-y-auto
                    text-tertiary placeholder:text-[#4B008226] placeholder:font-semibold font-medium
-                   leading-3.3 text-sm max-h-[80px]"
+                   leading-3.3 text-sm max-h-[80px] focus:fixed focus:bottom-0 focus:z-100 focus:left-0 focus:w-full"
             placeholder={
               replyTo ? `Ответить ${replyTo.userName}` : "Оставьте комментарий"
             }
