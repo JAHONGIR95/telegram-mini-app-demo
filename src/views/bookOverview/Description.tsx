@@ -1,7 +1,7 @@
 const Description = () => {
   return (
     <div className="px-4 pb-6 flex-1 overflow-y-auto">
-      <p className="text-black font-semibold text-xs leading-3.5 text-justify">
+      <p className="text-black font-medium text-xs leading-3.5 text-justify">
         Роман Михаила Афанасьевича Булгакова, работа над которым началась, по
         одним данным, в 1928 году, по другим - в 1929-м. Работа над «Мастером и
         Маргаритой» продолжалась вплоть до смерти писателя в марте 1940 года.

@@ -24,6 +24,8 @@ const BookOverview = () => {
   const { state } = useLocation();
   const book = state as Book;
 
+  console.log(book);
+
   const buttons = [
     {
       label: "Описание",
@@ -111,23 +113,37 @@ const BookOverview = () => {
           {activeSection === "opinions" && <Opinions />}
 
           <div className="px-4">
-            <Link to="/">
-              <Button
-                className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
-                variant="primary"
-              >
-                Читать
-              </Button>
-            </Link>
-
-            {/* <Link to={"/"}>
-            <Button
-            className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
-            variant="primary"
-            >
-            Продолжить читать
-            </Button>
-            </Link> */}
+            {book?.yourIdea ? (
+              <div className="flex flex-col gap-2.5">
+                <div className="flex items-center gap-2">
+                  <p className="text-secondaryColor font-nunito text-sm font-extrabold">
+                    Вы читаете: 64%
+                  </p>
+                  <progress
+                    className="progress  text-[#F5AB32] flex-1"
+                    value={64}
+                    max="100"
+                  />
+                </div>
+                <Link to={"/"}>
+                  <Button
+                    className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
+                    variant="primary"
+                  >
+                    Продолжить читать
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <Link to="/">
+                <Button
+                  className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
+                  variant="primary"
+                >
+                  Читать
+                </Button>
+              </Link>
+            )}
           </div>
         </div>
       </div>
