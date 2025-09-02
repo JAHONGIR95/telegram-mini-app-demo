@@ -271,6 +271,7 @@ const Opinions = () => {
             }
           />
         </div>
+          <input type="text" className="border border-borderColor" />
         <Button
           variant="primary"
           className="w-10 h-10 !bg-primaryDefault"
