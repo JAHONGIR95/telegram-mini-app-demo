@@ -252,17 +252,17 @@ const Opinions = () => {
             maxLength={200}
             onInput={handleInput}
             onFocus={() => {
-    // Keyboard chiqsa, webapp balandlashadi
-    viewport.expand();
+              // Keyboard chiqsa, webapp balandlashadi
+              viewport.expand();
 
-    // Textarea yuqoriga scroll qilinadi
-    setTimeout(() => {
-      textareaRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }, 300);
-  }}
+              // Textarea yuqoriga scroll qilinadi
+              setTimeout(() => {
+                textareaRef.current?.scrollIntoView({
+                  behavior: "smooth",
+                  block: "center",
+                });
+              }, 300);
+            }}
             className="flex-1 border-none outline-none resize-none overflow-y-auto
                    text-tertiary placeholder:text-[#4B008226] placeholder:font-semibold font-medium
                    leading-3.3 text-sm max-h-[80px]"
