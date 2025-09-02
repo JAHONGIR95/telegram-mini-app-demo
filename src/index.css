@@ -60,7 +60,10 @@
   --font-inter: 'Inter', sans-serif;
 }
 
-
+html,
+body {
+  height: -webkit-fill-available;
+}
 
 body {
   font-family: 'Lato', sans-serif;

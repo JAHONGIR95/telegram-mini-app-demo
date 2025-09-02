@@ -111,6 +111,7 @@ const allOpinions: Opinion[] = [
 import Button from "@/components/buttons/Button";
 import Comment from "@/components/comment";
 import { useRef, useState } from "react";
+import { viewport } from "@telegram-apps/sdk-react";
 
 interface Opinion {
   id: number | string;
@@ -153,8 +154,16 @@ const Opinions = () => {
     setReplyTo(user);
     if (textareaRef.current) {
       textareaRef.current.focus();
+      // Fokusta avtomatik scroll qilish
+      viewport.expand(); // ekran balandligini kengaytiradi
       textareaRef.current.value = `@${user.userName} `; // mention
     }
+    setTimeout(() => {
+      textareaRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 300);
   };
 
   const handleInput = () => {
