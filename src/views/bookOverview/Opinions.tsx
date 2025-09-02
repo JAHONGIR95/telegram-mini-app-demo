@@ -111,7 +111,6 @@ const allOpinions: Opinion[] = [
 import Button from "@/components/buttons/Button";
 import Comment from "@/components/comment";
 import { useRef, useState } from "react";
-import { viewport } from "@telegram-apps/sdk-react";
 
 interface Opinion {
   id: number | string;
@@ -154,16 +153,8 @@ const Opinions = () => {
     setReplyTo(user);
     if (textareaRef.current) {
       textareaRef.current.focus();
-      // Fokusta avtomatik scroll qilish
-      viewport.expand(); // ekran balandligini kengaytiradi
       textareaRef.current.value = `@${user.userName} `; // mention
     }
-    setTimeout(() => {
-      textareaRef.current?.scrollIntoView({
-        behavior: "smooth",
-        block: "center",
-      });
-    }, 300);
   };
 
   const handleInput = () => {
@@ -233,7 +224,7 @@ const Opinions = () => {
   };
 
   return (
-    <div className="flex-1 mx-2 border p-4 flex flex-col gap-3 border-[#BDBDBD] rounded-2xl bg-white min-h-0">
+    <div className="flex-1 mx-2 border p-4 flex flex-col gap-3 border-[#BDBDBD] rounded-2xl bg-white min-h-0 relative">
       <div className="flex-1 flex flex-col gap-3 overflow-y-auto">
         {opinions.map((opinion) => (
           <Comment
@@ -244,34 +235,21 @@ const Opinions = () => {
           />
         ))}
       </div>
-      <div className="flex items-end gap-4">
+      <div className="flex items-end gap-4 focus-within:sticky focus-within:bottom-0 focus-within:w-[100%] focus-within:left-0 focus-within:right-0">
         <div className="flex items-start border flex-1 border-inputDefault rounded-[28px] py-2 px-3">
           <textarea
             ref={textareaRef}
             rows={1}
             maxLength={200}
             onInput={handleInput}
-            onFocus={() => {
-              // Keyboard chiqsa, webapp balandlashadi
-              viewport.expand();
-
-              // Textarea yuqoriga scroll qilinadi
-              setTimeout(() => {
-                textareaRef.current?.scrollIntoView({
-                  behavior: "smooth",
-                  block: "center",
-                });
-              }, 300);
-            }}
             className="flex-1 border-none outline-none resize-none overflow-y-auto
                    text-tertiary placeholder:text-[#4B008226] placeholder:font-semibold font-medium
-                   leading-3.3 text-sm max-h-[80px] focus:fixed focus:bottom-0 focus:z-100 focus:left-0 focus:w-full"
+                   leading-3.3 text-sm max-h-[80px]"
             placeholder={
               replyTo ? `Ответить ${replyTo.userName}` : "Оставьте комментарий"
             }
           />
         </div>
-          <input type="text" className="border border-borderColor" />
         <Button
           variant="primary"
           className="w-10 h-10 !bg-primaryDefault"
