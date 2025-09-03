@@ -68,7 +68,7 @@ const HomeLayout = () => {
 
           <Outlet />
 
-          <div className={`fixed bottom-${safeAreaBottom || 0} left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}>
+          <div style={{ bottom: safeAreaBottom }} className={`fixed  left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}>
             {tabs.map(({ id, Icon }) => (
               <Link
                 to={`/${id}`}
