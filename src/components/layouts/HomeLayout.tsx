@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { viewport } from "@telegram-apps/sdk-react";
 import HomeIcon from "../icons/HomeIcon";
@@ -54,10 +54,18 @@ const HomeLayout = () => {
   };
   const currentTab = getActiveTab();
 
-  const safeArea = viewport.safeAreaInsets();
+  // const safeArea = viewport.safeAreaInsets();
 
   // const safeAreaTop = safeArea?.top || 0
-  const safeAreaBottom = safeArea?.bottom || 0;
+  // const safeAreaBottom = safeArea?.bottom || 0;
+
+  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+
+  useEffect(() => {
+    const safeArea = viewport.safeAreaInsets();
+    const safeAreaBottom = safeArea?.bottom || 0;
+    setSafeAreaBottom(safeAreaBottom);
+  }, [viewport.safeAreaInsets()]);
 
   return (
     <Page back={true}>
@@ -76,13 +84,13 @@ const HomeLayout = () => {
           <div
             style={{ bottom: safeAreaBottom }}
             // className={`fixed left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}
-            className={`fixed left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]`}
+            className={`fixed left-0 right-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]`}
           >
             {tabs.map(({ id, Icon }) => (
               <Link
                 to={`/${id}`}
                 key={id}
-                className={`flex flex-col items-center justify-center h-full`}
+                className={`flex flex-col items-center justify-center h-full w-full`}
               >
                 <Icon isActive={id === currentTab} />
               </Link>
