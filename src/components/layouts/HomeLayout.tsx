@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-// import { viewport } from "@telegram-apps/sdk-react"
+import { viewport } from "@telegram-apps/sdk-react"
 import HomeIcon from "../icons/HomeIcon";
 import SearchIcon from "../icons/SearchIcon";
 import BookmarksIcon from "../icons/BookmarksIcon";
@@ -54,9 +54,10 @@ const HomeLayout = () => {
   };
   const currentTab = getActiveTab();
 
-  // const safeArea = viewport.safeAreaInsets()
+  const safeArea = viewport.safeAreaInsets()
 
   // const safeAreaTop = safeArea?.top || 0
+  const safeAreaBottom = safeArea?.bottom || 0
 
   return (
     <Page back={true}>
@@ -67,7 +68,7 @@ const HomeLayout = () => {
 
           <Outlet />
 
-          <div className="fixed bottom-0 left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]">
+          <div className={`fixed bottom-${safeAreaBottom || 0} left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}>
             {tabs.map(({ id, Icon }) => (
               <Link
                 to={`/${id}`}
