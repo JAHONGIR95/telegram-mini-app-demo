@@ -40,7 +40,7 @@ export function App() {
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
     WebApp.setHeaderColor("#ffffff");
-    WebApp.setBottomBarColor
+    WebApp.setBottomBarColor("#ffffff");
   }, []);
 
   return (
