@@ -1,6 +1,6 @@
 import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { viewport } from "@telegram-apps/sdk-react"
+import { viewport } from "@telegram-apps/sdk-react";
 import HomeIcon from "../icons/HomeIcon";
 import SearchIcon from "../icons/SearchIcon";
 import BookmarksIcon from "../icons/BookmarksIcon";
@@ -54,21 +54,29 @@ const HomeLayout = () => {
   };
   const currentTab = getActiveTab();
 
-  const safeArea = viewport.safeAreaInsets()
+  const safeArea = viewport.safeAreaInsets();
 
   // const safeAreaTop = safeArea?.top || 0
-  const safeAreaBottom = safeArea?.bottom || 0
+  const safeAreaBottom = safeArea?.bottom || 0;
 
   return (
     <Page back={true}>
       <div className="">
-
         <div className={``}>
-
-
           <Outlet />
+          {/* Safe area uchun fon */}
+          <div
+            style={{
+              height: safeAreaBottom,
+              backgroundColor: "#fff", // bu yerda fon rangini o'zgartirasiz
+            }}
+            className="fixed left-0 right-0 bottom-0"
+          />
 
-          <div style={{ bottom: safeAreaBottom }} className={`fixed  left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}>
+          <div
+            style={{ bottom: safeAreaBottom }}
+            className={`fixed left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}
+          >
             {tabs.map(({ id, Icon }) => (
               <Link
                 to={`/${id}`}
