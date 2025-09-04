@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
 import { viewport } from "@telegram-apps/sdk-react";
 import HomeIcon from "../icons/HomeIcon";
@@ -44,7 +44,7 @@ const tabs: Array<ITab> = [
   },
 ];
 
-const HomeLayout = () => {
+const HomeLayout = ({ safeAreaBottom }: { safeAreaBottom: number }) => {
   const location = useLocation();
 
   // const [currentTab, setCurrentTab] = useState(tabs[0].id);
@@ -59,19 +59,19 @@ const HomeLayout = () => {
   // const safeAreaTop = safeArea?.top || 0
   // const safeAreaBottom = safeArea?.bottom || 0;
 
-  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+  // const [safeAreaBottom, setSafeAreaBottom] = useState(0);
 
   useEffect(() => {
-    const safeArea = viewport.safeAreaInsets();
-    const safeAreaBottom = safeArea?.bottom || 0;
-    setSafeAreaBottom(safeAreaBottom);
+    // const safeArea = viewport.safeAreaInsets();
+    // const safeAreaBottom = safeArea?.bottom || 0;
+    // setSafeAreaBottom(safeAreaBottom);
   }, [viewport.safeAreaInsets()]);
 
   return (
     <Page back={true}>
       {/* <NavigationBar color="#ffffff" /> */}
 
-      <div className="relative flex-1" style={{ marginBottom: safeAreaBottom }}>
+      <div className="relative flex-1" style={{ paddingBottom: safeAreaBottom }}>
           <Outlet />
           {/* Safe area uchun fon */}
           {/* <div

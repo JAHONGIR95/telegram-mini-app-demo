@@ -41,20 +41,34 @@ export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
 
-  useEffect(() => {
-    if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
-      // viewport.requestFullscreen();
-    }
-    viewport.contentSafeAreaInsetBottom();
-    viewport.safeAreaInsetBottom();
-    viewport.safeAreaInsets();
-    // WebApp.expand(); // to'liq ekranga kengaytiradi
-    WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
-    WebApp.isVerticalSwipesEnabled;
+  // useEffect(() => {
+  //   if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+  //     // viewport.requestFullscreen();
+  //   }
+  //   viewport.contentSafeAreaInsetBottom();
+  //   viewport.safeAreaInsetBottom();
+  //   viewport.safeAreaInsets();
+  //   // WebApp.expand(); // to'liq ekranga kengaytiradi
+  //   WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
+  //   WebApp.isVerticalSwipesEnabled;
+  //   WebApp.enableVerticalSwipes();
+  //   WebApp.setHeaderColor("#ffffff");
+  // }, []);
+  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+
+    useEffect(() => {
+    // Header hududini kengaytiradi
+    WebApp.expand();
+
+    // Safe area qiymatini olish
+    const insets = viewport.safeAreaInsets();
+    setSafeAreaBottom(insets?.bottom || 0);
+
+    // Boshqa kerakli sozlamalar
+    WebApp.enableClosingConfirmation();
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
   }, []);
-
   return (
     // <AppRoot
     //   appearance={isDark ? "dark" : "light"}
@@ -62,7 +76,7 @@ export function App() {
     // >
     <HashRouter>
       <Routes>
-        <Route element={<HomeLayout />} path="/">
+        <Route element={<HomeLayout safeAreaBottom={safeAreaBottom} />} path="/">
           <Route index element={<HomePage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/notifications/:id" element={<NotificationDetails />} />
