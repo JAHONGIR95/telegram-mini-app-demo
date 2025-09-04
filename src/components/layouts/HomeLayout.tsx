@@ -73,13 +73,15 @@ const HomeLayout = () => {
         <div className={``}>
           <Outlet />
           {/* Safe area uchun fon */}
-          {/* <div
+          <div
             style={{
               height: safeAreaBottom,
-              backgroundColor: "#fff", // bu yerda fon rangini o'zgartirasiz
+              backgroundColor: "#000", // bu yerda fon rangini o'zgartirasiz
+              opacity: 0.5,
+              color: "#000",
             }}
-            className="fixed left-0 right-0 bottom-0 z-10"
-          /> */}
+            className="fixed left-0 right-0 bottom-0"
+          />
 
           <div
             style={{ bottom: safeAreaBottom }}
