@@ -71,7 +71,7 @@ const HomeLayout = ({ safeAreaBottom }: { safeAreaBottom: number }) => {
     <Page back={true}>
       {/* <NavigationBar color="#ffffff" /> */}
 
-      <div className="relative flex-1" style={{ paddingBottom: safeAreaBottom }}>
+      <div className="relative h-screen" style={{ paddingBottom: safeAreaBottom }}>
           <Outlet />
           {/* Safe area uchun fon */}
           {/* <div
