@@ -37,24 +37,40 @@ declare global {
 
 export {};
 
+export function useSafeAreaBottom() {
+  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+
+  useEffect(() => {
+    const updateSafeArea = () => {
+      const insets = viewport.safeAreaInsets();
+      setSafeAreaBottom(insets?.bottom || 0);
+    };
+
+    updateSafeArea(); // Birinchi marta chaqiramiz
+
+    // VisualViewport orqali safe area o'zgarishini kuzatamiz
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener("resize", updateSafeArea);
+    }
+
+    // cleanup
+    return () => {
+      if (window.visualViewport) {
+        window.visualViewport.removeEventListener("resize", updateSafeArea);
+      }
+    };
+  }, []);
+
+  return safeAreaBottom;
+}
+
+
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
 
-  // useEffect(() => {
-  //   if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
-  //     // viewport.requestFullscreen();
-  //   }
-  //   viewport.contentSafeAreaInsetBottom();
-  //   viewport.safeAreaInsetBottom();
-  //   viewport.safeAreaInsets();
-  //   // WebApp.expand(); // to'liq ekranga kengaytiradi
-  //   WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
-  //   WebApp.isVerticalSwipesEnabled;
-  //   WebApp.enableVerticalSwipes();
-  //   WebApp.setHeaderColor("#ffffff");
-  // }, []);
-  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+  // const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+  const safeAreaBottom = useSafeAreaBottom();
 
   useEffect(() => {
     // Header hududini kengaytiradi
@@ -67,15 +83,15 @@ export function App() {
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
 
-    const updateSafeArea = () => {
-      const insets = viewport.safeAreaInsets();
-      setSafeAreaBottom(insets?.bottom || 0);
-    };
+    // const updateSafeArea = () => {
+      // const insets = viewport.safeAreaInsets();
+      // setSafeAreaBottom(insets?.bottom || 0);
+    // };
 
-    updateSafeArea(); // birinchi chaqirish
-    const interval = setInterval(updateSafeArea, 500); // 500ms da tekshiradi
+    // updateSafeArea(); // birinchi chaqirish
+    // const interval = setInterval(updateSafeArea, 100); // 500ms da tekshiradi
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   return (
