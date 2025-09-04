@@ -65,7 +65,9 @@ export function App() {
     
     // Safe area qiymatini olish
     const insets = viewport.safeAreaInsets();
-    setSafeAreaBottom(insets?.bottom || 0);
+    setTimeout(() => {
+      setSafeAreaBottom(insets?.bottom || 0);
+    }, 0);
 
     // Boshqa kerakli sozlamalar
     WebApp.enableVerticalSwipes();
@@ -79,7 +81,7 @@ export function App() {
     <HashRouter>
       <Routes>
         <Route
-          element={<HomeLayout safeAreaBottom={viewport.safeAreaInsetBottom() ?? safeAreaBottom} />}
+          element={<HomeLayout safeAreaBottom={safeAreaBottom} />}
           path="/"
         >
           <Route index element={<HomePage />} />
