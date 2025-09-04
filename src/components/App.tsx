@@ -21,7 +21,7 @@ import GuestProfile from "@/pages/GuestProfile";
 import Subscribers from "@/pages/Profile/Subscribers";
 import Subscriptions from "@/pages/Profile/Subscriptions";
 import { viewport } from "@telegram-apps/sdk-react";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import WebApp from "@twa-dev/sdk";
 import Folder from "@/pages/Bookmarks/folder";
 import Search from "@/pages/Search";
