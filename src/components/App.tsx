@@ -48,7 +48,7 @@ export function App() {
       viewport.safeAreaInsetBottom();
       viewport.safeAreaInsets();
     }
-    WebApp.expand(); // to'liq ekranga kengaytiradi
+    // WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
     WebApp.isVerticalSwipesEnabled;
     WebApp.enableVerticalSwipes();
