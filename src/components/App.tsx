@@ -49,6 +49,11 @@ export function App() {
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
     WebApp.setHeaderColor("#ffffff");
+
+    const webApp = window.Telegram?.WebApp;
+    if (webApp?.isVersionAtLeast("7.10")) {
+      webApp.setBottomBarColor("#000000");
+    }
     // if (WebApp) {
     //   WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
     // }
