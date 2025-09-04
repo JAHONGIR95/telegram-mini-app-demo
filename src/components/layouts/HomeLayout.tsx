@@ -44,34 +44,34 @@ const tabs: Array<ITab> = [
   },
 ];
 
-const NavigationBar = ({ color = "#000000" }) => {
-  const safeArea = viewport.safeAreaInsets();
-  const safeAreaBottom = safeArea?.bottom || 0;
+// const NavigationBar = ({ color = "#000000" }) => {
+//   const safeArea = viewport.safeAreaInsets();
+//   const safeAreaBottom = safeArea?.bottom || 0;
 
-  // Android navigation bar rangini o‘rnatish
-  useEffect(() => {
-    let themeMeta = document.querySelector("meta[name='theme-color']");
-    if (!themeMeta) {
-      themeMeta = document.createElement("meta");
-      themeMeta.setAttribute("name", "theme-color");
-      document.head.appendChild(themeMeta);
-    }
-    themeMeta.setAttribute("content", color);
-  }, [color]);
+//   // Android navigation bar rangini o‘rnatish
+//   useEffect(() => {
+//     let themeMeta = document.querySelector("meta[name='theme-color']");
+//     if (!themeMeta) {
+//       themeMeta = document.createElement("meta");
+//       themeMeta.setAttribute("name", "theme-color");
+//       document.head.appendChild(themeMeta);
+//     }
+//     themeMeta.setAttribute("content", color);
+//   }, [color]);
 
-  return (
-    <>
-      {/* Safe area uchun fon */}
-      <div
-        style={{
-          height: safeAreaBottom,
-          backgroundColor: color, // safe area fon rangi
-        }}
-        className="fixed left-0 right-0 bottom-0"
-      />
-    </>
-  );
-};
+//   return (
+//     <>
+//       {/* Safe area uchun fon */}
+//       <div
+//         style={{
+//           height: safeAreaBottom,
+//           backgroundColor: color, // safe area fon rangi
+//         }}
+//         className="fixed left-0 right-0 bottom-0"
+//       />
+//     </>
+//   );
+// };
 
 const HomeLayout = () => {
   const location = useLocation();
@@ -98,7 +98,7 @@ const HomeLayout = () => {
 
   return (
     <Page back={true}>
-      <NavigationBar color="#ffffff" />
+      {/* <NavigationBar color="#ffffff" /> */}
 
       <div className="">
         <div className={``}>
