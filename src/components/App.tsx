@@ -62,15 +62,15 @@ export function App() {
     if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
       viewport.requestFullscreen();
     }
+    
     // Safe area qiymatini olish
     const insets = viewport.safeAreaInsets();
     setSafeAreaBottom(insets?.bottom || 0);
 
     // Boshqa kerakli sozlamalar
-    WebApp.enableClosingConfirmation();
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
-  }, []);
+  }, [viewport.safeAreaInsets()]);
   return (
     // <AppRoot
     //   appearance={isDark ? "dark" : "light"}
@@ -79,7 +79,7 @@ export function App() {
     <HashRouter>
       <Routes>
         <Route
-          element={<HomeLayout safeAreaBottom={safeAreaBottom} />}
+          element={<HomeLayout safeAreaBottom={viewport.safeAreaInsetBottom() ?? safeAreaBottom} />}
           path="/"
         >
           <Route index element={<HomePage />} />

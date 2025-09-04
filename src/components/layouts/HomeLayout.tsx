@@ -1,6 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link, Outlet, useLocation } from "react-router-dom";
-import { viewport } from "@telegram-apps/sdk-react";
 import HomeIcon from "../icons/HomeIcon";
 import SearchIcon from "../icons/SearchIcon";
 import BookmarksIcon from "../icons/BookmarksIcon";
@@ -54,34 +53,12 @@ const HomeLayout = ({ safeAreaBottom }: { safeAreaBottom: number }) => {
   };
   const currentTab = getActiveTab();
 
-  // const safeArea = viewport.safeAreaInsets();
-
-  // const safeAreaTop = safeArea?.top || 0
-  // const safeAreaBottom = safeArea?.bottom || 0;
-
-  // const [safeAreaBottom, setSafeAreaBottom] = useState(0);
-
-  useEffect(() => {
-    // const safeArea = viewport.safeAreaInsets();
-    // const safeAreaBottom = safeArea?.bottom || 0;
-    // setSafeAreaBottom(safeAreaBottom);
-  }, [viewport.safeAreaInsets()]);
-
   return (
     <Page back={true}>
       {/* <NavigationBar color="#ffffff" /> */}
 
       <div className="relative h-50" style={{ paddingBottom: safeAreaBottom }}>
           <Outlet />
-          {/* Safe area uchun fon */}
-          {/* <div
-            style={{
-              height: safeAreaBottom,
-              backgroundColor: "#000", // bu yerda fon rangini o'zgartirasiz
-              opacity: 0.7,
-            }}
-            className="fixed left-0 right-0 bottom-0"
-          /> */}
 
           <div
             style={{ bottom: safeAreaBottom }}
