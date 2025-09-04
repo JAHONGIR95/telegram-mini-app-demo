@@ -29,6 +29,15 @@ import ConnectionDetails from "@/pages/Search/ConnectionDetails";
 import Settings from "@/pages/Profile/Settings";
 import BookOverview from "@/pages/Book/BookOverview";
 
+declare global {
+  interface Window {
+    Telegram?: any; // Agar aniq type kerak bo‘lsa, men yozib beraman
+  }
+}
+
+export {};
+
+
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
@@ -40,10 +49,27 @@ export function App() {
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
     WebApp.setHeaderColor("#ffffff");
-    if (WebApp) {
-      WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
-    }
+    // if (WebApp) {
+    //   WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
+    // }
     // WebApp.setBottomBarColor("#ffffff");
+  }, []);
+
+  useEffect(() => {
+    const webApp = window.Telegram?.WebApp;
+    if (!webApp) return;
+
+    const applyColor = () => {
+      const theme = webApp.themeParams;
+      const defaultColor = "#000000";
+      const chosen = theme.bottom_bar_bg_color || theme.bg_color || defaultColor;
+
+      if (webApp.isVersionAtLeast("7.10")) {
+        webApp.setBottomBarColor(chosen);
+      }
+    };
+
+    applyColor();
   }, []);
 
   return (
