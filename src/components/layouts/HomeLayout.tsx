@@ -71,17 +71,17 @@ const HomeLayout = () => {
     <Page back={true}>
       {/* <NavigationBar color="#ffffff" /> */}
 
-      <div className="relative flex-1" style={{ paddingBottom: safeAreaBottom }}>
+      <div className="relative flex-1" style={{ marginBottom: safeAreaBottom }}>
           <Outlet />
           {/* Safe area uchun fon */}
-          <div
+          {/* <div
             style={{
               height: safeAreaBottom,
               backgroundColor: "#000", // bu yerda fon rangini o'zgartirasiz
               opacity: 0.7,
             }}
             className="fixed left-0 right-0 bottom-0"
-          />
+          /> */}
 
           <div
             style={{ bottom: safeAreaBottom }}
