@@ -37,6 +37,37 @@ declare global {
 
 export {};
 
+const NavigationBar = ({ color = "#000000" }) => {
+  const safeArea = viewport.safeAreaInsets();
+  const safeAreaBottom = safeArea?.bottom || 0;
+
+  // Android navigation bar rangini o‘rnatish
+  useEffect(() => {
+    let themeMeta = document.querySelector("meta[name='theme-color']");
+    if (!themeMeta) {
+      themeMeta = document.createElement("meta");
+      themeMeta.setAttribute("name", "theme-color");
+      document.head.appendChild(themeMeta);
+    }
+    themeMeta.setAttribute("content", color);
+  }, [color]);
+
+  return (
+    <>
+      {/* Safe area uchun fon */}
+      <div
+        style={{
+          height: safeAreaBottom,
+          backgroundColor: color, // safe area fon rangi
+        }}
+        className="fixed left-0 right-0 bottom-0"
+      />
+    </>
+  );
+};
+
+export default NavigationBar;
+
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
