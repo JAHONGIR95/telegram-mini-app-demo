@@ -52,7 +52,7 @@ export function App() {
 
     const webApp = window.Telegram?.WebApp;
     if (webApp?.isVersionAtLeast("7.10")) {
-      webApp.setBottomBarColor("#ffffff");
+      webApp.setBottomBarColor("#000000");
     }
     // if (WebApp) {
     //   WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
@@ -67,7 +67,7 @@ export function App() {
     const applyColor = () => {
 
       if (webApp.isVersionAtLeast("7.10")) {
-        webApp.setBottomBarColor('#ffffff');
+        webApp.setBottomBarColor('#000000');
       }
     };
 
