@@ -44,6 +44,7 @@ export function App() {
   useEffect(() => {
     if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
       viewport.requestFullscreen();
+      viewport.contentSafeAreaInsetBottom();
     }
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
