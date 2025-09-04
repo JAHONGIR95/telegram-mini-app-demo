@@ -37,38 +37,6 @@ declare global {
 
 export {};
 
-const NavigationBar = ({ color = "#000000" }) => {
-  const safeArea = viewport.safeAreaInsets();
-  const safeAreaBottom = safeArea?.bottom || 0;
-
-  // Android navigation bar rangini o‘rnatish
-  useEffect(() => {
-    let themeMeta = document.querySelector("meta[name='theme-color']");
-    if (!themeMeta) {
-      themeMeta = document.createElement("meta");
-      themeMeta.setAttribute("name", "theme-color");
-      document.head.appendChild(themeMeta);
-    }
-    themeMeta.setAttribute("content", color);
-  }, [color]);
-
-  return (
-    <>
-      {/* Safe area uchun fon */}
-      <div
-        style={{
-          height: safeAreaBottom,
-          backgroundColor: color, // safe area fon rangi
-        }}
-        className="fixed left-0 right-0 bottom-0"
-      />
-    </>
-  );
-};
-
-export default NavigationBar;
-
-
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
@@ -80,49 +48,6 @@ export function App() {
     WebApp.expand(); // to'liq ekranga kengaytiradi
     WebApp.enableClosingConfirmation(); // foydalanuvchi chiqib ketganda so'raydi
     WebApp.setHeaderColor("#ffffff");
-
-    const webApp = window.Telegram?.WebApp;
-    if (webApp?.isVersionAtLeast("7.10")) {
-      webApp.setBottomBarColor("#ffffff");
-    }
-    // if (WebApp) {
-    //   WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
-    // }
-    // WebApp.setBottomBarColor("#ffffff");
-  }, []);
-
-  useEffect(() => {
-    const tg = window.Telegram?.WebApp;
-    if (!tg) return;
-
-    const theme = tg.themeParams;
-
-    // SecondaryButton sozlamalari
-    tg.SecondaryButton.setParams({
-      text: "Ortga",
-      color: theme.bottom_bar_bg_color || "#e0e0e0", // fon rangi
-      text_color: theme.button_color || "#000000" // matn rangi
-    });
-
-    tg.SecondaryButton.show();
-  }, []);
-
-  useEffect(() => {
-    const webApp = window.Telegram?.WebApp;
-    if (!webApp) return;
-
-    const applyColor = () => {
-      const theme = webApp.themeParams;
-      console.log('theme ', theme)
-      const defaultColor = "#ffffff";
-      const chosen = theme.bottom_bar_bg_color || theme.bg_color || defaultColor;
-
-      if (webApp.isVersionAtLeast("7.10")) {
-        webApp.setBottomBarColor(chosen);
-      }
-    };
-
-    applyColor();
   }, []);
 
   return (
