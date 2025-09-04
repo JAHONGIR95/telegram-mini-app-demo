@@ -43,7 +43,7 @@ export function App() {
 
   useEffect(() => {
     if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
-      viewport.requestFullscreen();
+      // viewport.requestFullscreen();
       viewport.contentSafeAreaInsetBottom();
       viewport.safeAreaInsetBottom();
       viewport.safeAreaInsets();
