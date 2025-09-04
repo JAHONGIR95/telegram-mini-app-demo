@@ -38,7 +38,7 @@ const HomePage = () => {
   }
 
   return (
-    <div className="flex flex-col h-screen bg-globe">
+    <div className="flex flex-col h-screen bg-globe pb-20">
       <Header>
         <div className="flex items-center justify-between px-3 pb-3">
           <div className="w-5" />

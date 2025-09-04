@@ -56,10 +56,10 @@ export function App() {
   // }, []);
   const [safeAreaBottom, setSafeAreaBottom] = useState(0);
 
-    useEffect(() => {
+  useEffect(() => {
     // Header hududini kengaytiradi
     WebApp.expand();
-if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+    if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
       viewport.requestFullscreen();
     }
     // Safe area qiymatini olish
@@ -78,7 +78,10 @@ if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
     // >
     <HashRouter>
       <Routes>
-        <Route element={<HomeLayout safeAreaBottom={safeAreaBottom} />} path="/">
+        <Route
+          element={<HomeLayout safeAreaBottom={safeAreaBottom} />}
+          path="/"
+        >
           <Route index element={<HomePage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/notifications/:id" element={<NotificationDetails />} />
@@ -104,7 +107,7 @@ if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
 
           <Route path="/about" element={<About />} />
         </Route>
-          <Route path="/book-overview/:id" element={<BookOverview />} />
+        <Route path="/book-overview/:id" element={<BookOverview />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </HashRouter>
