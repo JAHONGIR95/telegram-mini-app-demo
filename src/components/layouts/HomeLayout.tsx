@@ -101,7 +101,7 @@ const HomeLayout = ({ safeAreaBottom }: { safeAreaBottom: number }) => {
           <div
           style={{
             height: safeAreaBottom,
-            backgroundColor: "#fff", // safe area fon rangi
+            backgroundColor: "#000", // safe area fon rangi
           }}
           className="fixed left-0 right-0 bottom-0"
         />
