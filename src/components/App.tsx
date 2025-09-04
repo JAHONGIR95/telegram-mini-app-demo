@@ -59,7 +59,9 @@ export function App() {
     useEffect(() => {
     // Header hududini kengaytiradi
     WebApp.expand();
-
+if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
+      viewport.requestFullscreen();
+    }
     // Safe area qiymatini olish
     const insets = viewport.safeAreaInsets();
     setSafeAreaBottom(insets?.bottom || 0);
