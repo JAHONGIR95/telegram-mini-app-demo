@@ -62,17 +62,22 @@ export function App() {
     if (viewport.requestFullscreen.isAvailable() && !viewport.isFullscreen()) {
       viewport.requestFullscreen();
     }
-    
-    // Safe area qiymatini olish
-    const insets = viewport.safeAreaInsets();
-    setTimeout(() => {
-      setSafeAreaBottom(insets?.bottom || 0);
-    }, 0);
 
     // Boshqa kerakli sozlamalar
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
-  }, [viewport.safeAreaInsets()]);
+
+    const updateSafeArea = () => {
+      const insets = viewport.safeAreaInsets();
+      setSafeAreaBottom(insets?.bottom || 0);
+    };
+
+    updateSafeArea(); // birinchi chaqirish
+    const interval = setInterval(updateSafeArea, 500); // 500ms da tekshiradi
+
+    return () => clearInterval(interval);
+  }, []);
+
   return (
     // <AppRoot
     //   appearance={isDark ? "dark" : "light"}
