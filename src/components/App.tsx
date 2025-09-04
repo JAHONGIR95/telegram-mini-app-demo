@@ -52,7 +52,7 @@ export function App() {
 
     const webApp = window.Telegram?.WebApp;
     if (webApp?.isVersionAtLeast("7.10")) {
-      webApp.setBottomBarColor("#000000");
+      webApp.setBottomBarColor("#ffffff");
     }
     // if (WebApp) {
     //   WebApp.setBottomBarColor("#000000"); // Rangni o‘zgartirish
@@ -61,13 +61,33 @@ export function App() {
   }, []);
 
   useEffect(() => {
+    const tg = window.Telegram?.WebApp;
+    if (!tg) return;
+
+    const theme = tg.themeParams;
+
+    // SecondaryButton sozlamalari
+    tg.SecondaryButton.setParams({
+      text: "Ortga",
+      color: theme.bottom_bar_bg_color || "#e0e0e0", // fon rangi
+      text_color: theme.button_color || "#000000" // matn rangi
+    });
+
+    tg.SecondaryButton.show();
+  }, []);
+
+  useEffect(() => {
     const webApp = window.Telegram?.WebApp;
     if (!webApp) return;
 
     const applyColor = () => {
+      const theme = webApp.themeParams;
+      console.log('theme ', theme)
+      const defaultColor = "#ffffff";
+      const chosen = theme.bottom_bar_bg_color || theme.bg_color || defaultColor;
 
       if (webApp.isVersionAtLeast("7.10")) {
-        webApp.setBottomBarColor('#000000');
+        webApp.setBottomBarColor(chosen);
       }
     };
 
