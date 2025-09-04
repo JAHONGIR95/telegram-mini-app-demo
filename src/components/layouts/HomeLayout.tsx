@@ -98,7 +98,7 @@ const HomeLayout = () => {
 
   return (
     <Page back={true}>
-      <NavigationBar color="#000000" />
+      <NavigationBar color="#ffffff" />
 
       <div className="">
         <div className={``}>
