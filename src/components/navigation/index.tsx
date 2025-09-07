@@ -29,7 +29,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ tabs, safeAreaBotto
   return (
     <div
       style={{ paddingBottom: safeAreaBottom }}
-      className="absolute left-0 right-0 bottom-0 bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d] z-50"
+      className="absolute left-0 right-0 bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d] z-50"
     >
       <div className="flex justify-around items-center h-[60px]">
         {tabs.map(({ id, Icon }) => (

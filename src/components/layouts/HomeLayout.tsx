@@ -87,21 +87,21 @@ const HomeLayout = () => {
 
     <Page back={true}>
       <div className="relative flex flex-col min-h-screen">
-      {/* Scroll area */}
-      <div className="flex-1 overflow-y-auto">
-        <Outlet />
-      </div>
+        {/* Scroll area */}
+        <div className="flex-1 overflow-y-auto">
+          <Outlet />
+        </div>
 
-      {/* Bottom navigation */}
-      <BottomNavigation tabs={tabs} safeAreaBottom={safeAreaBottom} />
-      <div
+        {/* Bottom navigation */}
+        <BottomNavigation tabs={tabs} safeAreaBottom={safeAreaBottom} />
+        <div
           style={{
             height: safeAreaBottom,
             backgroundColor: "#000", // safe area fon rangi
           }}
           className="fixed left-0 right-0 bottom-0"
         />
-    </div>
+      </div>
     </Page>
   );
 };
