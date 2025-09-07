@@ -1,11 +1,13 @@
 import React from "react";
-import { Link, Outlet, useLocation } from "react-router-dom";
+// import { Link, Outlet, useLocation } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import HomeIcon from "../icons/HomeIcon";
 import SearchIcon from "../icons/SearchIcon";
 import BookmarksIcon from "../icons/BookmarksIcon";
 import UserIcon from "../icons/UserIcon";
 import { Page } from "../Page";
 import { useSafeAreaBottom } from "../App";
+import BottomNavigation from "../navigation";
 
 interface ITab {
   id: string;
@@ -45,14 +47,14 @@ const tabs: Array<ITab> = [
 ];
 
 const HomeLayout = () => {
-  const location = useLocation();
+  // const location = useLocation();
   const { safeAreaBottom } = useSafeAreaBottom();
 
-  const getActiveTab = () => {
-    const pathSegments = location.pathname.split("/").filter(Boolean);
-    return tabs.find((tab) => pathSegments.includes(tab.id))?.id || tabs[0].id;
-  };
-  const currentTab = getActiveTab();
+  // const getActiveTab = () => {
+  //   const pathSegments = location.pathname.split("/").filter(Boolean);
+  //   return tabs.find((tab) => pathSegments.includes(tab.id))?.id || tabs[0].id;
+  // };
+  // const currentTab = getActiveTab();
 
   return (
     // <Page back={true}>
@@ -84,7 +86,7 @@ const HomeLayout = () => {
     // </Page>
 
     <Page back={true}>
-      <div
+      {/* <div
         className="relative flex flex-col min-h-screen"
         style={{ paddingBottom: safeAreaBottom }}
       >
@@ -92,9 +94,9 @@ const HomeLayout = () => {
           <Outlet />
         </div>
 
-        <div className="relative">
+        <div className="relative"> */}
           {/* Navigation bar */}
-          <div
+          {/* <div
             className="absolute left-0 right-0 bottom-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]"
             style={{ paddingBottom: safeAreaBottom }}
           >
@@ -109,7 +111,17 @@ const HomeLayout = () => {
             ))}
           </div>
         </div>
+      </div> */}
+
+      <div className="relative flex flex-col min-h-screen">
+      {/* Scroll area */}
+      <div className="flex-1 overflow-y-auto">
+        <Outlet />
       </div>
+
+      {/* Bottom navigation */}
+      <BottomNavigation tabs={tabs} safeAreaBottom={safeAreaBottom} />
+    </div>
     </Page>
   );
 };
