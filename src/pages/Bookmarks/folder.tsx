@@ -14,8 +14,8 @@ const Folder = () => {
   ];
 
   const handlePostComment = (data: Post) => {
-      console.log(data);
-    };
+    console.log(data);
+  };
 
   const [activeSort, setActiveSort] = useState("date");
   return (
@@ -60,8 +60,7 @@ const Folder = () => {
             data={post}
             handlePostComment={handlePostComment}
           />
-        ))
-        }
+        ))}
       </div>
     </div>
   );

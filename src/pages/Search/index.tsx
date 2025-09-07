@@ -55,7 +55,7 @@ const Search = () => {
   ];
 
   return (
-    <div className="flex flex-col h-screen bg-globe">
+    <div className="flex flex-col h-full bg-globe">
       <Header imageClassName="!pb-2">
         <div className="px-3">
           <div className="search_wrapper mb-4">
@@ -128,7 +128,7 @@ const Search = () => {
         </div>}
       </Header>
 
-      <div className="pt-3 pb-25 overflow-y-auto px-3 space-y-3">
+      <div className="pt-3 pb-20 overflow-y-auto px-3 space-y-3">
         {activeSection === "books" && <Books search={search} />}
         {activeSection === "people" && <People search={search} />}
         {activeSection === "connections" && <Connections search={search} />}
