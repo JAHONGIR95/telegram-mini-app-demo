@@ -46,10 +46,8 @@ const tabs: Array<ITab> = [
 
 const HomeLayout = () => {
   const location = useLocation();
-  
   const { safeAreaBottom } = useSafeAreaBottom();
 
-  // const [currentTab, setCurrentTab] = useState(tabs[0].id);
   const getActiveTab = () => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
     return tabs.find((tab) => pathSegments.includes(tab.id))?.id || tabs[0].id;
@@ -57,34 +55,60 @@ const HomeLayout = () => {
   const currentTab = getActiveTab();
 
   return (
+    // <Page back={true}>
+    //   <div className="relative h-50" style={{ paddingBottom: safeAreaBottom }}>
+    //     <Outlet />
+
+    //     <div
+    //       style={{ bottom: safeAreaBottom }}
+    //       className={`fixed left-0 right-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]`}
+    //     >
+    //       {tabs.map(({ id, Icon }) => (
+    //         <Link
+    //           to={`/${id}`}
+    //           key={id}
+    //           className={`flex flex-col items-center justify-center h-full w-full`}
+    //         >
+    //           <Icon isActive={id === currentTab} />
+    //         </Link>
+    //       ))}
+    //     </div>
+    //     <div
+    //       style={{
+    //         height: safeAreaBottom,
+    //         backgroundColor: "#000", // safe area fon rangi
+    //       }}
+    //       className="fixed left-0 right-0 bottom-0"
+    //     />
+    //   </div>
+    // </Page>
+
     <Page back={true}>
-      {/* <NavigationBar color="#ffffff" /> */}
-
-      <div className="relative h-50" style={{ paddingBottom: safeAreaBottom }}>
-        <Outlet />
-
-        <div
-          style={{ bottom: safeAreaBottom }}
-          // className={`fixed left-0 right-0 flex justify-around items-center h-[80px] bg-white rounded-t-4xl shadow-[0_-1px_30px_2px_#a0a0a09d]`}
-          className={`fixed left-0 right-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]`}
-        >
-          {tabs.map(({ id, Icon }) => (
-            <Link
-              to={`/${id}`}
-              key={id}
-              className={`flex flex-col items-center justify-center h-full w-full`}
-            >
-              <Icon isActive={id === currentTab} />
-            </Link>
-          ))}
+      <div
+        className="relative flex flex-col min-h-screen"
+        style={{ paddingBottom: safeAreaBottom }}
+      >
+        <div className="flex-1 overflow-y-auto">
+          <Outlet />
         </div>
-        <div
-          style={{
-            height: safeAreaBottom,
-            backgroundColor: "#000", // safe area fon rangi
-          }}
-          className="fixed left-0 right-0 bottom-0"
-        />
+
+        <div className="relative">
+          {/* Navigation bar */}
+          <div
+            className="absolute left-0 right-0 bottom-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]"
+            style={{ paddingBottom: safeAreaBottom }}
+          >
+            {tabs.map(({ id, Icon }) => (
+              <Link
+                to={`/${id}`}
+                key={id}
+                className="flex flex-col items-center justify-center h-full w-full"
+              >
+                <Icon isActive={id === currentTab} />
+              </Link>
+            ))}
+          </div>
+        </div>
       </div>
     </Page>
   );
