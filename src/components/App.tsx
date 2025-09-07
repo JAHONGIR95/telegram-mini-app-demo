@@ -38,12 +38,14 @@ declare global {
 export {};
 
 export function useSafeAreaBottom() {
-  const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+  const [safeAreaBottom, setSafeAreaBottom] = useState<number>(0);
+  const [safeAreaTop, setSafeAreaTop] = useState<number>(0);
 
   useEffect(() => {
     const updateSafeArea = () => {
       const insets = viewport.safeAreaInsets();
       setSafeAreaBottom(insets?.bottom || 0);
+      setSafeAreaTop(insets?.top || 0);
     };
 
     updateSafeArea(); // Birinchi marta chaqiramiz
@@ -61,15 +63,14 @@ export function useSafeAreaBottom() {
     };
   }, []);
 
-  return safeAreaBottom;
+  return { safeAreaBottom, safeAreaTop };
 }
-
 
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
-  
-  const safeAreaBottom = useSafeAreaBottom();
+
+  const { safeAreaBottom } = useSafeAreaBottom();
 
   useEffect(() => {
     // Header hududini kengaytiradi

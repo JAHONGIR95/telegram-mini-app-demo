@@ -55,7 +55,7 @@ const Search = () => {
   ];
 
   return (
-    <div className="flex flex-col h-full bg-globe">
+    <div className="flex flex-col h-screen bg-globe">
       <Header imageClassName="!pb-2">
         <div className="px-3">
           <div className="search_wrapper mb-4">
