@@ -70,8 +70,6 @@ export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
 
-  const { safeAreaBottom } = useSafeAreaBottom();
-
   useEffect(() => {
     // Header hududini kengaytiradi
     WebApp.expand();
@@ -92,7 +90,7 @@ export function App() {
     <HashRouter>
       <Routes>
         <Route
-          element={<HomeLayout safeAreaBottom={safeAreaBottom} />}
+          element={<HomeLayout />}
           path="/"
         >
           <Route index element={<HomePage />} />

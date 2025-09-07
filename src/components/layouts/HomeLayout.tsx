@@ -5,6 +5,7 @@ import SearchIcon from "../icons/SearchIcon";
 import BookmarksIcon from "../icons/BookmarksIcon";
 import UserIcon from "../icons/UserIcon";
 import { Page } from "../Page";
+import { useSafeAreaBottom } from "../App";
 
 interface ITab {
   id: string;
@@ -43,8 +44,10 @@ const tabs: Array<ITab> = [
   },
 ];
 
-const HomeLayout = ({ safeAreaBottom }: { safeAreaBottom: number }) => {
+const HomeLayout = () => {
   const location = useLocation();
+  
+  const { safeAreaBottom } = useSafeAreaBottom();
 
   // const [currentTab, setCurrentTab] = useState(tabs[0].id);
   const getActiveTab = () => {
