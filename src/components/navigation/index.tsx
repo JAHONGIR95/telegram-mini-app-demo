@@ -1,3 +1,4 @@
+import { useKeyboardOpen } from "@/hooks/useKeyboardOpen";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -13,7 +14,17 @@ interface BottomNavigationProps {
 
 const BottomNavigation: React.FC<BottomNavigationProps> = ({ tabs, safeAreaBottom = 0 }) => {
   const location = useLocation();
-  const currentTab = location.pathname.replace("/", "");
+
+  const getActiveTab = () => {
+    const pathSegments = location.pathname.split("/").filter(Boolean);
+    return tabs.find((tab) => pathSegments.includes(tab.id))?.id || tabs[0].id;
+  };
+  const currentTab = getActiveTab();
+
+  const isKeyboardOpen = useKeyboardOpen();
+
+  // Klaviatura ochilganda panelni yashiramiz
+  if (isKeyboardOpen) return null;
 
   return (
     <div

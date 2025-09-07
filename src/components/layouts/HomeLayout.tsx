@@ -86,33 +86,6 @@ const HomeLayout = () => {
     // </Page>
 
     <Page back={true}>
-      {/* <div
-        className="relative flex flex-col min-h-screen"
-        style={{ paddingBottom: safeAreaBottom }}
-      >
-        <div className="flex-1 overflow-y-auto">
-          <Outlet />
-        </div>
-
-        <div className="relative"> */}
-          {/* Navigation bar */}
-          {/* <div
-            className="absolute left-0 right-0 bottom-0 flex justify-around items-center h-[60px] bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d]"
-            style={{ paddingBottom: safeAreaBottom }}
-          >
-            {tabs.map(({ id, Icon }) => (
-              <Link
-                to={`/${id}`}
-                key={id}
-                className="flex flex-col items-center justify-center h-full w-full"
-              >
-                <Icon isActive={id === currentTab} />
-              </Link>
-            ))}
-          </div>
-        </div>
-      </div> */}
-
       <div className="relative flex flex-col min-h-screen">
       {/* Scroll area */}
       <div className="flex-1 overflow-y-auto">
