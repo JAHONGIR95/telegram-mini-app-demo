@@ -2,6 +2,7 @@ import Button from "@/components/buttons/Button";
 import Header from "@/components/Header";
 import PostCard from "@/components/postCard";
 import SortButtons from "@/components/sort";
+import { Post, posts } from "@/utils/constantValues";
 import clsx from "clsx";
 import { useState } from "react";
 
@@ -11,6 +12,10 @@ const Folder = () => {
     { label: "Комментариям", value: "comments" },
     { label: "Популярным", value: "popular" },
   ];
+
+  const handlePostComment = (data: Post) => {
+      console.log(data);
+    };
 
   const [activeSort, setActiveSort] = useState("date");
   return (
@@ -49,12 +54,14 @@ const Folder = () => {
       </Header>
 
       <div className="pt-3 pb-25 overflow-y-auto px-3 space-y-5">
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
+        {posts?.map((post) => (
+          <PostCard
+            key={post.id}
+            data={post}
+            handlePostComment={handlePostComment}
+          />
+        ))
+        }
       </div>
     </div>
   );

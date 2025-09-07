@@ -7,11 +7,16 @@ import bookmarkIcon from "/icons/bookmark-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
 import React from "react";
 import { Link } from "react-router-dom";
+import { Post } from "@/utils/constantValues";
 
 export default function PostCard({
   footer,
+  data,
+  handlePostComment,
 }: {
   footer?: () => React.ReactNode;
+  data: Post;
+  handlePostComment: (data: Post) => void;
 }) {
   return (
     <div className="rounded-2xl shadow-xl p-1 bg-white ">
@@ -26,21 +31,16 @@ export default function PostCard({
               loading="lazy"
             />
             <div>
-              <div className="font-semibold">Сергей Александрович</div>
+              <div className="font-semibold">{data?.name}</div>
               <div className="text-xs text-gray-500">5 мая</div>
             </div>
           </Link>
           <span className="text-gray-400 font-extrabold">⋮</span>
         </div>
 
-        <ExpandableText collapsedLines={3}>
-          “Мы говорим с тобой на разных языках, как всегда, - отозвался Воланд,
-          - но вещи, о которых мы говорим, от этого не меняются.”“Мы говорим с
-          тобой на разных языках, как всегда, - отозвался Воланд, - но вещи, о
-          которых мы говорим, от этого не меняются.”“Мы говорим с тобой на
-          разных языках, как всегда, - отозвался Воланд, - но вещи, о которых мы
-          говорим, от этого не меняются.”
-        </ExpandableText>
+        {data?.story && (
+          <ExpandableText collapsedLines={3}>{data?.story}</ExpandableText>
+        )}
 
         <div className="mt-2 flex items-center justify-between">
           <span className="font-semibold text-[#6b6b6b]">
@@ -61,22 +61,14 @@ export default function PostCard({
               <span>#Tag</span>
             </div>
 
-            <ExpandableText
-              overlayClass="bg-gradient-to-t from-white via-white/80 to-transparent"
-              collapsedLines={3}
-            >
-              "Но тебе придется примириться с этим, – возразил Воланд, и усмешка
-              искривила его рот, – не успел ты появиться на крыше, как уже сразу
-              отвесил нелепость, и я тебе скажу, в чем она, – в твоих
-              интонациях. Ты произнес «свои слова так, как будто ты не признаешь
-              теней, а также и зла. Не будешь ли ты так добр подумать над
-              вопросом: что бы делало твое добро, если бы не существовало зла, и
-              как бы выглядела земля, если бы с нее исчезли тени? Ведь тени
-              получаются от предметов и людей. Вот тень от моей шпаги. Но бывают
-              тени от деревьев и от живых существ. Не хочешь ли ты ободрать весь
-              земной шар, снеся с него прочь все деревья и все живое из-за твоей
-              фантазии наслаждаться голым светом? Ты глуп"
-            </ExpandableText>
+            {data?.meaning && (
+              <ExpandableText
+                overlayClass="bg-gradient-to-t from-white via-white/80 to-transparent"
+                collapsedLines={3}
+              >
+                {data?.meaning}
+              </ExpandableText>
+            )}
             {/* </p> */}
             {/* <div className="absolute bottom-0 left-0 right-0 h-13 bg-gradient-to-t from-white via-white/80 to-transparent"></div> */}
           </div>
@@ -89,16 +81,19 @@ export default function PostCard({
             <div className="flex items-center mt-4 px-3 gap-5">
               <div className="flex items-center text-orange-500 font-semibold gap-2">
                 <img src={topIcon} alt="top" className="w-6" loading="lazy" />
-                <span>46</span>
+                <span>{data?.likes}</span>
               </div>
-              <div className="flex items-center gap-2 text-gray-600 font-semibold">
+              <div
+                className="flex items-center gap-2 text-gray-600 font-semibold"
+                onClick={() => handlePostComment(data)}
+              >
                 <img
                   src={commentIcon}
                   className="w-6"
                   alt="comments"
                   loading="lazy"
                 />
-                <span>3</span>
+                <span>{data?.comments}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 font-semibold">
                 <img

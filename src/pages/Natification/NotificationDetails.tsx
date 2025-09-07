@@ -1,7 +1,12 @@
 import PostCard from "@/components/postCard";
 import mainLogo from "/images/main-logo.svg";
+import { Post, posts } from "@/utils/constantValues";
 
 const NotificationDetails = () => {
+  const handlePostComment = (data: Post) => {
+    console.log(data);
+  };
+
   return (
     <div className="h-screen bg-accent flex flex-col">
       <div className="flex justify-center py-6 opacity-50">
@@ -13,7 +18,13 @@ const NotificationDetails = () => {
       </h1>
       <div className="">
         <div className="px-3 pt-7 pb-20 overflow-y-auto">
-          <PostCard />
+          {posts?.map((post) => (
+            <PostCard
+              key={post.id}
+              data={post}
+              handlePostComment={handlePostComment}
+            />
+          ))}
         </div>
       </div>
     </div>

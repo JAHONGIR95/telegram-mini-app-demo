@@ -5,13 +5,16 @@ import SortButtons from "@/components/sort";
 import clsx from "clsx";
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
+import { Post, posts } from "@/utils/constantValues";
 
 const ConnectionDetails = () => {
   const { state } = useLocation();
   const category = state as { id: number; image: string; title: string };
   const [activeSort, setActiveSort] = useState("date");
 
-  console.log(state);
+  const handlePostComment = (data: Post) => {
+      console.log(data);
+    };
 
   const data = [
     { label: "Дате", value: "date" },
@@ -55,12 +58,13 @@ const ConnectionDetails = () => {
       </Header>
 
       <div className="pt-3 pb-25 overflow-y-auto px-3 space-y-5">
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
-       <PostCard />
+        {posts?.map((post) => (
+          <PostCard
+            key={post.id}
+            data={post}
+            handlePostComment={handlePostComment}
+          />
+        ))}
       </div>
     </div>
   );

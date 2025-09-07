@@ -68,8 +68,7 @@ export function useSafeAreaBottom() {
 export function App() {
   // const lp = useMemo(() => retrieveLaunchParams(), [])
   // const isDark = useSignal(isMiniAppDark)
-
-  // const [safeAreaBottom, setSafeAreaBottom] = useState(0);
+  
   const safeAreaBottom = useSafeAreaBottom();
 
   useEffect(() => {
@@ -82,16 +81,6 @@ export function App() {
     // Boshqa kerakli sozlamalar
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
-
-    // const updateSafeArea = () => {
-      // const insets = viewport.safeAreaInsets();
-      // setSafeAreaBottom(insets?.bottom || 0);
-    // };
-
-    // updateSafeArea(); // birinchi chaqirish
-    // const interval = setInterval(updateSafeArea, 100); // 500ms da tekshiradi
-
-    // return () => clearInterval(interval);
   }, []);
 
   return (

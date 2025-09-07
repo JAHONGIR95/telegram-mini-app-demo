@@ -1,15 +1,10 @@
 import Loader from "@/components/Loader";
 import PostCard from "@/components/postCard";
+import { Post, posts } from "@/utils/constantValues";
 import  { useEffect, useState } from "react";
 
 const PostsView = () => {
   const [isLoading, setIsLoading] = useState(!false);
-
-  const responses = [
-    { id: 1, title: "Posts 1" },
-    { id: 2, title: "Posts 2" },
-    { id: 3, title: "Posts 3" },
-  ];
 
   useEffect(() => {
     setTimeout(() => {
@@ -17,14 +12,18 @@ const PostsView = () => {
     }, 1000);
   }, []);
 
+  const handlePostComment = (data: Post) => {
+      console.log(data);
+    };
+
   if (isLoading) {
     return <Loader />;
   }
 
   return (
     <>
-      {responses.map((response) => (
-        <PostCard key={response.id} />
+      {posts.map((post) => (
+        <PostCard key={post.id} data={post} handlePostComment={handlePostComment} />
       ))}
     </>
   );
