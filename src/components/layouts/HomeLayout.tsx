@@ -94,6 +94,13 @@ const HomeLayout = () => {
 
       {/* Bottom navigation */}
       <BottomNavigation tabs={tabs} safeAreaBottom={safeAreaBottom} />
+      <div
+          style={{
+            height: safeAreaBottom,
+            backgroundColor: "#000", // safe area fon rangi
+          }}
+          className="fixed left-0 right-0 bottom-0"
+        />
     </div>
     </Page>
   );
