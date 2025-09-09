@@ -76,7 +76,7 @@ const ReadingPage = () => {
             showToolbar ? "translate-y-0" : "translate-y-full"
           }`}
           style={{
-            bottom: showToolbar ? safeAreaBottom + 10 : 0,
+            bottom: showToolbar ? safeAreaBottom : 0,
           }}
         >
           {/* <div className="flex justify-around"> */}
