@@ -88,7 +88,8 @@ const ReadingPage = () => {
         </div>
 
         <BottomSheet
-          className={clsx("flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26", activeSegment === 'searching' && 'h-full')}
+          className={clsx("flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",  activeSegment === 'searching' && 'h-full')}
+        //   style={{paddingBottom: safeAreaBottom}}
           backdropClassName="!bg-black/0"
           isOpen={isBottomSheetOpen}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
