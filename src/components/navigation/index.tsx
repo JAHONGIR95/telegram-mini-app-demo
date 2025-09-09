@@ -25,6 +25,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ tabs, safeAreaBotto
 
   // Klaviatura ochilganda panelni yashiramiz
   if (isKeyboardOpen) return null;
+  console.log(isKeyboardOpen)
 
   return (
     <div

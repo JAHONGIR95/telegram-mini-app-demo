@@ -28,6 +28,7 @@ import Search from "@/pages/Search";
 import ConnectionDetails from "@/pages/Search/ConnectionDetails";
 import Settings from "@/pages/Profile/Settings";
 import BookOverview from "@/pages/Book/BookOverview";
+import ReadingPage from "@/pages/ReadingPage";
 
 declare global {
   interface Window {
@@ -119,6 +120,7 @@ export function App() {
           <Route path="/about" element={<About />} />
         </Route>
         <Route path="/book-overview/:id" element={<BookOverview />} />
+        <Route path="/reading-page" element={<ReadingPage />} />
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </HashRouter>
