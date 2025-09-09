@@ -125,7 +125,7 @@ const BookOverview = () => {
                     max="100"
                   />
                 </div>
-                <Link to={"/"}>
+                <Link to={"/reading-page"}>
                   <Button
                     className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
                     variant="primary"
@@ -135,7 +135,7 @@ const BookOverview = () => {
                 </Link>
               </div>
             ) : (
-              <Link to="/">
+              <Link to="/reading-page">
                 <Button
                   className="w-full p-4 !bg-primaryDefault !font-extrabold !text-base !tracking-wider !leading-4"
                   variant="primary"
