@@ -173,7 +173,7 @@ const HomePage = () => {
 
       <div
         className="px-3 pt-4 pb-20 overflow-y-auto space-y-5"
-        style={{ paddingBottom: safeAreaBottom }}
+        style={{ paddingBottom: safeAreaBottom + 20 }}
       >
         {posts?.map((post) => (
           <PostCard
