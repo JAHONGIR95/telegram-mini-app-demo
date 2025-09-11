@@ -10,6 +10,7 @@ import FragmentsView from "@/views/readingPage/Fragments";
 import SearchingView from "@/views/readingPage/Searching";
 import ReadingView from "@/views/readingPage/ReadingView";
 import clsx from "clsx";
+// import { BookReader } from "@/components/epubReader";
 
 const ReadingPage = () => {
   const [showToolbar, setShowToolbar] = useState(false);
@@ -64,9 +65,12 @@ const ReadingPage = () => {
         </div>
       </Header>
 
+      {/* <CustomReader url="public/Ramaiana.epub" /> */}
+      {/* <BookReader /> */}
+
       <div className="px-3 p-4 overflow-y-auto space-y-5">
         <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
-         {readingPassage}
+          {readingPassage}
         </p>
 
         {/* Toolbar */}
@@ -80,26 +84,48 @@ const ReadingPage = () => {
           }}
         >
           {/* <div className="flex justify-around"> */}
-          <button className="px-4 py-2 bg-gray-700 rounded" onClick={() => setActiveSegment('reading')}>RE</button>
-          <button className="px-4 py-2 bg-gray-700 rounded" onClick={() => setActiveSegment('settings')}>St</button>
-          <button className="px-4 py-2 bg-gray-700 rounded" onClick={() => setActiveSegment('fragments')}>Fr</button>
-          <button className="px-4 py-2 bg-gray-700 rounded" onClick={() => setActiveSegment('searching')}>Se</button>
+          <button
+            className="px-4 py-2 bg-gray-700 rounded"
+            onClick={() => setActiveSegment("reading")}
+          >
+            RE
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-700 rounded"
+            onClick={() => setActiveSegment("settings")}
+          >
+            St
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-700 rounded"
+            onClick={() => setActiveSegment("fragments")}
+          >
+            Fr
+          </button>
+          <button
+            className="px-4 py-2 bg-gray-700 rounded"
+            onClick={() => setActiveSegment("searching")}
+          >
+            Se
+          </button>
           {/* </div> */}
         </div>
 
         <BottomSheet
-          className={clsx("flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",  activeSegment === 'searching' && 'h-full')}
-        //   style={{paddingBottom: safeAreaBottom}}
+          className={clsx(
+            "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",
+            activeSegment === "searching" && "h-full"
+          )}
+          //   style={{paddingBottom: safeAreaBottom}}
           backdropClassName="!bg-black/0"
           isOpen={isBottomSheetOpen}
           onClick={(e: React.MouseEvent) => e.stopPropagation()}
           onClose={() => setIsBottomSheetOpen(false)}
         >
-          {activeSegment === 'reading' && <ReadingView />}
-          {activeSegment === 'settings' && <SettingsView />}
-          {activeSegment === 'fragments' && <FragmentsView />}
-          {activeSegment === 'searching' && <SearchingView />}
-
+          {activeSegment === "reading" && <ReadingView />}
+          {activeSegment === "settings" && <SettingsView />}
+          {activeSegment === "fragments" && <FragmentsView />}
+          {activeSegment === "searching" && <SearchingView />}
         </BottomSheet>
       </div>
     </div>
