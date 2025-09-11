@@ -29,7 +29,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({ tabs, safeAreaBotto
 
   return (
     <div
-    className="absolute left-0 right-0 bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d] z-50"
+    className="absolute left-0 right-0 bg-white rounded-t-4xl shadow-[0_-20px_20px_-20px_#a0a0a09d] z-1"
     style={{ bottom: safeAreaBottom }}
     >
       <div className="flex justify-around items-center h-[60px]">

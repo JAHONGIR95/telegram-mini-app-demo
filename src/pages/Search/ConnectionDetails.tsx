@@ -22,6 +22,11 @@ const ConnectionDetails = () => {
     { label: "Популярным", value: "popular" },
   ];
 
+    const [isMarked, setIsMarked] = useState(false);
+  const handleMarks = () => {
+    setIsMarked(!isMarked);
+  };
+
   return (
     <div className="flex flex-col h-screen bg-globe">
       <Header>
@@ -63,6 +68,8 @@ const ConnectionDetails = () => {
             key={post.id}
             data={post}
             handlePostComment={handlePostComment}
+            handleMarks={handleMarks}
+            isMarked={isMarked}
           />
         ))}
       </div>

@@ -9,9 +9,10 @@ interface IOSModalProps {
   className?: string;
   backdropClassName?: string;
   onClick?: (e: React.MouseEvent) => void;
+  [key: string]: any;
 }
 
-const BottomSheet: React.FC<IOSModalProps> = ({ isOpen, onClose, children, className, backdropClassName, onClick }) => {
+const BottomSheet: React.FC<IOSModalProps> = ({ isOpen, onClose, children, className, backdropClassName, onClick, ...rest }) => {
   return (
     <AnimatePresence>
       {isOpen && (
@@ -33,6 +34,7 @@ const BottomSheet: React.FC<IOSModalProps> = ({ isOpen, onClose, children, class
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onClick={onClick}
+            {...rest}
           >
             {/* Drag handle */}
             <div className="w-32 h-1.5 bg-black rounded-full mx-auto mb-4" />

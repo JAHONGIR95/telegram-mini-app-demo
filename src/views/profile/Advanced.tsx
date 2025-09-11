@@ -16,6 +16,11 @@ const AdvancedView = () => {
     console.log(data);
   };
 
+    const [isMarked, setIsMarked] = useState(false);
+  const handleMarks = () => {
+    setIsMarked(!isMarked);
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -27,6 +32,8 @@ const AdvancedView = () => {
           key={post.id}
           data={post}
           handlePostComment={handlePostComment}
+          handleMarks={handleMarks}
+          isMarked={isMarked}
         />
       ))}
     </>

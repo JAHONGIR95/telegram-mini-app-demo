@@ -3,20 +3,24 @@ import topIcon from "/icons/top-icon.svg";
 import goToBookIcon from "/icons/go-to-book-icon.svg";
 import commentIcon from "/icons/comment-icon-2.svg";
 import shareIcon from "/icons/share-icon.svg";
-import bookmarkIcon from "/icons/bookmark-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
 import React from "react";
 import { Link } from "react-router-dom";
 import { Post } from "@/utils/constantValues";
+import BookmarksIconTwo from "../icons/Icon";
 
 export default function PostCard({
   footer,
   data,
   handlePostComment,
+  isMarked,
+  handleMarks,
 }: {
   footer?: () => React.ReactNode;
   data: Post;
   handlePostComment: (data: Post) => void;
+  isMarked?: boolean;
+  handleMarks: (data: Post) => void;
 }) {
   return (
     <div className="rounded-2xl shadow-xl p-1 bg-white ">
@@ -46,12 +50,14 @@ export default function PostCard({
           <span className="font-semibold text-[#6b6b6b]">
             Мастер и Маргарита
           </span>
-          <img
-            src={goToBookIcon}
-            alt="icon"
-            loading="lazy"
-            className="w-6 h-6"
-          />
+          <Link to="/reading-page" className="flex items-center gap-2">
+            <img
+              src={goToBookIcon}
+              alt="icon"
+              loading="lazy"
+              className="w-6 h-6 block"
+            />
+          </Link>
         </div>
 
         <div className="bg-white rounded-2xl -mx-3 -mb-3 mt-3 pb-3">
@@ -96,21 +102,24 @@ export default function PostCard({
                 <span>{data?.comments}</span>
               </div>
               <div className="flex items-center gap-2 text-gray-600 font-semibold">
-                <img
-                  src={shareIcon}
-                  className="w-6 h-6"
-                  alt="comments"
-                  loading="lazy"
-                />
+                <a href="https://t.me/share/url?url={ENCODED_URL}&text={ENCODED_TEXT}">
+                  <img
+                    src={shareIcon}
+                    className="w-6 h-6"
+                    alt="comments"
+                    loading="lazy"
+                  />
+                </a>
               </div>
 
               <div className="flex items-center gap-2 text-gray-600 font-semibold ml-auto">
-                <img
-                  src={bookmarkIcon}
-                  className="w-6 h-6"
-                  alt="comments"
-                  loading="lazy"
+                <BookmarksIconTwo
+                  active={isMarked}
+                  size={22}
+                  color="#6B6B6B"
+                  onClick={() => handleMarks(data)}
                 />
+                {/* <TelegramShareButton url="https://t.me/share/url?url={ENCODED_URL}&text={ENCODED_TEXT}" /> */}
               </div>
             </div>
           )}

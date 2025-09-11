@@ -12,9 +12,14 @@ const Folder = () => {
     { label: "Комментариям", value: "comments" },
     { label: "Популярным", value: "popular" },
   ];
-
+  
   const handlePostComment = (data: Post) => {
     console.log(data);
+  };
+  
+  const [isMarked, setIsMarked] = useState(false);
+  const handleMarks = () => {
+    setIsMarked(!isMarked);
   };
 
   const [activeSort, setActiveSort] = useState("date");
@@ -59,6 +64,8 @@ const Folder = () => {
             key={post.id}
             data={post}
             handlePostComment={handlePostComment}
+            handleMarks={handleMarks}
+            isMarked
           />
         ))}
       </div>

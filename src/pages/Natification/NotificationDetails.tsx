@@ -1,11 +1,17 @@
 import PostCard from "@/components/postCard";
 import mainLogo from "/images/main-logo.svg";
 import { Post, posts } from "@/utils/constantValues";
+import { useState } from "react";
 
 const NotificationDetails = () => {
   const handlePostComment = (data: Post) => {
     console.log(data);
   };
+
+    const [isMarked, setIsMarked] = useState(false);
+    const handleMarks = () => {
+      setIsMarked(!isMarked);
+    };
 
   return (
     <div className="h-screen bg-accent flex flex-col">
@@ -23,6 +29,8 @@ const NotificationDetails = () => {
               key={post.id}
               data={post}
               handlePostComment={handlePostComment}
+              handleMarks={handleMarks}
+              isMarked={isMarked}
             />
           ))}
         </div>

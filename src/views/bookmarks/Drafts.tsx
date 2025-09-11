@@ -17,6 +17,11 @@ const Drafts = () => {
       console.log(data);
     };
 
+      const [isMarked, setIsMarked] = useState(false);
+  const handleMarks = () => {
+    setIsMarked(!isMarked);
+  };
+
   if (isLoading) {
     return <Loader />;
   }
@@ -28,6 +33,8 @@ const Drafts = () => {
           key={post.id}
           data={post}
           handlePostComment={handlePostComment}
+          handleMarks={handleMarks}
+          isMarked={isMarked}
           footer={() => (
             <div className="flex items-center justify-between">
               <p className="text-xs font-semibold leading-2.5 text-red-500">
