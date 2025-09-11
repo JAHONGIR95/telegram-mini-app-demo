@@ -86,7 +86,7 @@ const HomeLayout = () => {
     // </Page>
 
     <Page back={true}>
-      <div className="relative flex flex-col min-h-screen" style={{ paddingBottom: safeAreaBottom }}>
+      <div className="relative flex flex-col min-h-screen">
         {/* Scroll area */}
         <div className="flex-1 overflow-y-auto">
           <Outlet />
