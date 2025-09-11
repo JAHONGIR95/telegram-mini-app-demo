@@ -188,7 +188,6 @@ const HomePage = () => {
           className="flex flex-col max-h-3/4 overflow-y-auto px-5 h-full"
           isOpen={isBottomSheetOpen}
           onClose={() => setIsBottomSheetOpen(false)}
-          style={{ marginBottom: safeAreaBottom + 20 }}
         >
           <h2 className="text-sm leading-4 mb-4 font-extrabold font-primaryColor text-center">
             Комментарии

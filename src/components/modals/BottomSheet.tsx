@@ -50,7 +50,7 @@ const BottomSheet: React.FC<IOSModalProps> = ({
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onClick={onClick}
-            style={{ bottom: safeAreaBottom }}
+            style={{ marginBottom: safeAreaBottom }}
             {...rest}
           >
             {/* Drag handle */}
