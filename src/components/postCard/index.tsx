@@ -115,7 +115,7 @@ export default function PostCard({
               <div className="flex items-center gap-2 text-gray-600 font-semibold ml-auto">
                 <BookmarksIconTwo
                   active={isMarked}
-                  size={22}
+                  size={24}
                   color="#6B6B6B"
                   onClick={() => handleMarks(data)}
                 />

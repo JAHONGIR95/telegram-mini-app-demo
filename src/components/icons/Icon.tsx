@@ -4,7 +4,7 @@ interface IconProps {
   active?: boolean; // true bo'lsa Active, false bo'lsa Inactive ko'rinadi
   size?: number; // ikonkaning o'lchami, default = 24
   color?: string; // ixtiyoriy rang parametri
-  onClick: () => void | undefined;
+  onClick?: () => void | undefined;
 }
 
 const BookmarksIconTwo: React.FC<IconProps> = ({
