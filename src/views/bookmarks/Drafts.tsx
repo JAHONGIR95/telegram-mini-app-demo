@@ -14,10 +14,10 @@ const Drafts = () => {
   }, []);
 
   const handlePostComment = (data: Post) => {
-      console.log(data);
-    };
+    console.log(data);
+  };
 
-      const [isMarked, setIsMarked] = useState(false);
+  const [isMarked, setIsMarked] = useState(false);
   const handleMarks = () => {
     setIsMarked(!isMarked);
   };

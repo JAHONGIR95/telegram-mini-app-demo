@@ -7,16 +7,6 @@ interface IconProps {
   onClick: () => void | undefined;
 }
 
-/*************  ✨ Windsurf Command ⭐  *************/
-/**
- * BookmarksIconTwo component.
- * @param {boolean} [active=false] - Ikona holatini (active/inactive) belgilash.
- * @param {number} [size=24] - Ikona o'lchami. Default = 24.
- * @param {string} [color="black"] - Ikona rangi. Default = "black".
- * @param {function} onClick - onClick eventi uchun funksiya.
- * @returns {React.ReactElement} - React elementi.
- */
-/*******  a6b66292-3ae7-412a-ae05-c8eb6a66573f  *******/
 const BookmarksIconTwo: React.FC<IconProps> = ({
   active = false,
   size = 24,

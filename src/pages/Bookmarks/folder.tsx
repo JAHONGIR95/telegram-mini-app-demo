@@ -65,7 +65,7 @@ const Folder = () => {
             data={post}
             handlePostComment={handlePostComment}
             handleMarks={handleMarks}
-            isMarked
+            isMarked={isMarked}
           />
         ))}
       </div>

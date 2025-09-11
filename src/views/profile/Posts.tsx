@@ -1,7 +1,7 @@
 import Loader from "@/components/Loader";
 import PostCard from "@/components/postCard";
 import { Post, posts } from "@/utils/constantValues";
-import  { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const PostsView = () => {
   const [isLoading, setIsLoading] = useState(!false);
@@ -13,10 +13,10 @@ const PostsView = () => {
   }, []);
 
   const handlePostComment = (data: Post) => {
-      console.log(data);
-    };
+    console.log(data);
+  };
 
-      const [isMarked, setIsMarked] = useState(false);
+  const [isMarked, setIsMarked] = useState(false);
   const handleMarks = () => {
     setIsMarked(!isMarked);
   };
@@ -28,7 +28,13 @@ const PostsView = () => {
   return (
     <>
       {posts.map((post) => (
-        <PostCard key={post.id} data={post} handlePostComment={handlePostComment} handleMarks={handleMarks} isMarked={isMarked}  />
+        <PostCard
+          key={post.id}
+          data={post}
+          handlePostComment={handlePostComment}
+          handleMarks={handleMarks}
+          isMarked={isMarked}
+        />
       ))}
     </>
   );
