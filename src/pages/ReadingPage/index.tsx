@@ -59,7 +59,7 @@ const ReadingPage = () => {
   }, []);
   return (
     <Page back={true}>
-      <div className="flex flex-col h-screen bg-globe">
+      <div className="flex flex-col h-screen bg-globe" style={{ paddingBottom: safeAreaBottom }}>
         <Header imageClassName="pb-5">
           <div className="flex items-center justify-between px-3 pb-3">
             <p className="text-sm leading-3 font-normal">12 / 2465</p>
@@ -131,6 +131,13 @@ const ReadingPage = () => {
           </BottomSheet>
         </div>
       </div>
+      <div
+        style={{
+          height: safeAreaBottom,
+          backgroundColor: "#000", // safe area fon rangi
+        }}
+        className="fixed left-0 right-0 bottom-0"
+      />
     </Page>
   );
 };
