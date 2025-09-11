@@ -1,3 +1,4 @@
+import { useSafeAreaBottom } from "@/components/App";
 import Button from "@/components/buttons/Button";
 import Header from "@/components/Header";
 import Books from "@/views/bookmarks/Books";
@@ -8,6 +9,7 @@ import { useState } from "react";
 
 const Bookmarks = () => {
   const [activeSection, setActiveSection] = useState("books");
+  const { safeAreaBottom } = useSafeAreaBottom();
   const buttons = [
     {
       label: "Книги",
@@ -47,7 +49,7 @@ const Bookmarks = () => {
         <div className="divider before:bg-[#A5a5a5] after:bg-[#a5a5a5] mb-1 px-3"></div>
       </Header>
 
-      <div className="pt-3 pb-25 overflow-y-auto px-3 space-y-5">
+      <div className="pt-3 overflow-y-auto px-3 space-y-5" style={{ paddingBottom: safeAreaBottom + 80}}>
         {activeSection === "books" && <Books />}
         {activeSection === "drafts" && <Drafts />}
         {activeSection === "meanings" && <Meanings />}
