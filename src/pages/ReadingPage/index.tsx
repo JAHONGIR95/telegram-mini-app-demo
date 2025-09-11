@@ -10,6 +10,7 @@ import FragmentsView from "@/views/readingPage/Fragments";
 import SearchingView from "@/views/readingPage/Searching";
 import ReadingView from "@/views/readingPage/ReadingView";
 import clsx from "clsx";
+import { Page } from "@/components/Page";
 // import { BookReader } from "@/components/epubReader";
 
 const ReadingPage = () => {
@@ -57,78 +58,80 @@ const ReadingPage = () => {
     };
   }, []);
   return (
-    <div className="flex flex-col h-screen bg-globe">
-      <Header imageClassName="pb-5">
-        <div className="flex items-center justify-between px-3 pb-3">
-          <p className="text-sm leading-3 font-normal">12 / 2465</p>
-          <BookmarkIcon />
+    <Page back={true}>
+      <div className="flex flex-col h-screen bg-globe">
+        <Header imageClassName="pb-5">
+          <div className="flex items-center justify-between px-3 pb-3">
+            <p className="text-sm leading-3 font-normal">12 / 2465</p>
+            <BookmarkIcon />
+          </div>
+        </Header>
+
+        {/* <CustomReader url="public/Ramaiana.epub" /> */}
+        {/* <BookReader /> */}
+
+        <div className="px-3 p-4 overflow-y-auto space-y-5">
+          <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
+            {readingPassage}
+          </p>
+
+          {/* Toolbar */}
+          <div
+            onClick={handleToolbar} // Click propagation to‘xtadi
+            className={`flex items-center justify-around fixed left-0 right-0 bottom-0 bg-white text-white h-[70px] transition-transform rounded-[40px] duration-300 z-100 mb-0 mx-5 border border-borderColor shadow-[0_8px_16px_0_#29292947] ${
+              showToolbar ? "translate-y-0" : "translate-y-full"
+            }`}
+            style={{
+              bottom: showToolbar ? safeAreaBottom : 0,
+            }}
+          >
+            {/* <div className="flex justify-around"> */}
+            <button
+              className="px-4 py-2 bg-gray-700 rounded"
+              onClick={() => setActiveSegment("reading")}
+            >
+              RE
+            </button>
+            <button
+              className="px-4 py-2 bg-gray-700 rounded"
+              onClick={() => setActiveSegment("settings")}
+            >
+              St
+            </button>
+            <button
+              className="px-4 py-2 bg-gray-700 rounded"
+              onClick={() => setActiveSegment("fragments")}
+            >
+              Fr
+            </button>
+            <button
+              className="px-4 py-2 bg-gray-700 rounded"
+              onClick={() => setActiveSegment("searching")}
+            >
+              Se
+            </button>
+            {/* </div> */}
+          </div>
+
+          <BottomSheet
+            className={clsx(
+              "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",
+              activeSegment === "searching" && "h-full"
+            )}
+            //   style={{paddingBottom: safeAreaBottom}}
+            backdropClassName="!bg-black/0"
+            isOpen={isBottomSheetOpen}
+            onClick={(e: React.MouseEvent) => e.stopPropagation()}
+            onClose={() => setIsBottomSheetOpen(false)}
+          >
+            {activeSegment === "reading" && <ReadingView />}
+            {activeSegment === "settings" && <SettingsView />}
+            {activeSegment === "fragments" && <FragmentsView />}
+            {activeSegment === "searching" && <SearchingView />}
+          </BottomSheet>
         </div>
-      </Header>
-
-      {/* <CustomReader url="public/Ramaiana.epub" /> */}
-      {/* <BookReader /> */}
-
-      <div className="px-3 p-4 overflow-y-auto space-y-5">
-        <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
-          {readingPassage}
-        </p>
-
-        {/* Toolbar */}
-        <div
-          onClick={handleToolbar} // Click propagation to‘xtadi
-          className={`flex items-center justify-around fixed left-0 right-0 bottom-0 bg-white text-white h-[70px] transition-transform rounded-[40px] duration-300 z-100 mb-0 mx-5 border border-borderColor shadow-[0_8px_16px_0_#29292947] ${
-            showToolbar ? "translate-y-0" : "translate-y-full"
-          }`}
-          style={{
-            bottom: showToolbar ? safeAreaBottom : 0,
-          }}
-        >
-          {/* <div className="flex justify-around"> */}
-          <button
-            className="px-4 py-2 bg-gray-700 rounded"
-            onClick={() => setActiveSegment("reading")}
-          >
-            RE
-          </button>
-          <button
-            className="px-4 py-2 bg-gray-700 rounded"
-            onClick={() => setActiveSegment("settings")}
-          >
-            St
-          </button>
-          <button
-            className="px-4 py-2 bg-gray-700 rounded"
-            onClick={() => setActiveSegment("fragments")}
-          >
-            Fr
-          </button>
-          <button
-            className="px-4 py-2 bg-gray-700 rounded"
-            onClick={() => setActiveSegment("searching")}
-          >
-            Se
-          </button>
-          {/* </div> */}
-        </div>
-
-        <BottomSheet
-          className={clsx(
-            "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",
-            activeSegment === "searching" && "h-full"
-          )}
-          //   style={{paddingBottom: safeAreaBottom}}
-          backdropClassName="!bg-black/0"
-          isOpen={isBottomSheetOpen}
-          onClick={(e: React.MouseEvent) => e.stopPropagation()}
-          onClose={() => setIsBottomSheetOpen(false)}
-        >
-          {activeSegment === "reading" && <ReadingView />}
-          {activeSegment === "settings" && <SettingsView />}
-          {activeSegment === "fragments" && <FragmentsView />}
-          {activeSegment === "searching" && <SearchingView />}
-        </BottomSheet>
       </div>
-    </div>
+    </Page>
   );
 };
 
