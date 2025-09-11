@@ -34,6 +34,7 @@ const BottomSheet: React.FC<IOSModalProps> = ({ isOpen, onClose, children, class
             exit={{ y: "100%" }}
             transition={{ type: "spring", stiffness: 300, damping: 30 }}
             onClick={onClick}
+            style={{bottom: "env(safe-area-inset-bottom)"}}
             {...rest}
           >
             {/* Drag handle */}
