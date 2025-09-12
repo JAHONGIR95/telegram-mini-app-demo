@@ -208,6 +208,8 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             style={{
               marginBottom: safeAreaBottom,
               touchAction: "none", // iOS gesture bloklanadi
+              overscrollBehavior: "none",
+              WebkitOverflowScrolling: "touch",
             }}
             onClick={onClick}
           >
