@@ -147,3 +147,9 @@ body {
   background: url("/icons/arrowbottom.svg") no-repeat right 10px center;
   background-size: 12px;
 }
+
+html, body {
+  overscroll-behavior: none; /* iOS pull-to-refresh o‘chiriladi */
+  touch-action: none;         /* Safari gesture o‘chiriladi */
+  overflow: hidden;           /* Asosiy sahifa scroll bo‘lmaydi */
+}
