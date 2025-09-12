@@ -22,7 +22,7 @@ const Comment = ({
       <div className="flex-1 flex flex-col gap-2">
         <div className="flex gap-3">
           <p className="text-xs leading-2 font-bold text-black">
-            {comment.userName}
+            @{comment.userName}
           </p>
           <p className="text-[10px] leading-2 font-normal text-tertiary">
             {comment.date}

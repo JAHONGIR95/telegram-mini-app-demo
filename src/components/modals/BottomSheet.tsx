@@ -111,7 +111,7 @@ const BottomSheet: React.FC<IOSModalProps> = ({
           {/* Modal content */}
           <motion.div
             className={clsx(
-              "fixed bottom-0 left-0 right-0 border-t border-[#BDBDBD] bg-white rounded-t-4xl py-5 px-3 z-50 shadow-lg",
+              "fixed bottom-0 left-0 right-0 border-t border-[#BDBDBD] bg-white rounded-t-4xl py-5 px-3 z-50 shadow-lg touch-none",
               className
             )}
             initial={{ y: "100%" }}
@@ -127,7 +127,7 @@ const BottomSheet: React.FC<IOSModalProps> = ({
               }
             }}
             onClick={onClick}
-            style={{ marginBottom: safeAreaBottom }}
+            style={{ marginBottom: safeAreaBottom, touchAction: "none" }}
             {...rest}
           >
             {/* Drag handle */}
