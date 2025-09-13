@@ -44,18 +44,18 @@ export function Page({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (window.history.length > 1) {
-      if (back) {
+    if (back) {
+      if (window.history.length > 1) {
         showBackButton();
         return onBackButtonClick(() => {
           navigate(-1);
         });
+      } else {
+        window.Telegram?.WebApp?.MainButton?.setText("Close");
+        return onMainButtonClick(() => {
+          window.Telegram?.WebApp?.close();
+        });
       }
-    } else {
-      window.Telegram?.WebApp?.MainButton?.setText("Close");
-      return onMainButtonClick(() => {
-        window.Telegram?.WebApp?.close();
-      });
     }
     hideBackButton();
   }, [back]);
