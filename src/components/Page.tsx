@@ -128,12 +128,12 @@ export function Page({
   const navigate = useNavigate();
   const [canGoBack, setCanGoBack] = useState<boolean>(() => {
     // boshlang'ich tekshiruv (SPAda har doim ishonchli emas, lekin yetadi)
-    return window.history.length > 1;
+    return window.history.length > 0;
   });
 
   // agar history dinamik o'zgarsa (popstate), qayta tekshirish uchun listener
   useEffect(() => {
-    const onPop = () => setCanGoBack(window.history.length > 1);
+    const onPop = () => setCanGoBack(window.history.length > 0);
     window.addEventListener("popstate", onPop);
     return () => window.removeEventListener("popstate", onPop);
   }, []);
@@ -160,7 +160,7 @@ export function Page({
     }
 
     // back=true
-    if (window.history.length > 1) {
+    if (window.history.length > 0) {
       // history mavjud -> Back tugmasi
       try {
         showBackButton();
