@@ -4,10 +4,12 @@ import goToBookIcon from "/icons/go-to-book-icon.svg";
 import commentIcon from "/icons/comment-icon-2.svg";
 import shareIcon from "/icons/share-icon.svg";
 import ExpandableText from "../expandableText/expandableText";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Post } from "@/utils/constantValues";
 import BookmarksIconTwo from "../icons/Icon";
+import Button from "../buttons/Button";
+import BottomSheet from "../modals/BottomSheet";
 
 export default function PostCard({
   footer,
@@ -22,11 +24,13 @@ export default function PostCard({
   isMarked?: boolean;
   handleMarks: (data: Post) => void;
 }) {
+  const [isOpen, setIsOpen] = useState(false);
+
   return (
     <div className="rounded-2xl shadow-xl p-1 bg-white ">
       {/* Автор */}
       <div className="bg-[#f5f5f5] rounded-2xl p-3">
-        <div className="flex justify-between mb-4">
+        <div className="flex justify-between mb-4 items-start">
           <Link to="/guest-profile/1" className="flex items-center gap-3">
             <img
               src={human}
@@ -39,7 +43,13 @@ export default function PostCard({
               <div className="text-xs text-gray-500">5 мая</div>
             </div>
           </Link>
-          <span className="text-gray-400 font-extrabold">⋮</span>
+          <Button
+            variant="ghost"
+            className="px-2 py-0 h-auto text-secondaryColor text-xl font-extrabold"
+            onClick={() => setIsOpen(true)}
+          >
+            ⋮
+          </Button>
         </div>
 
         {data?.story && (
@@ -125,6 +135,19 @@ export default function PostCard({
           )}
         </div>
       </div>
+
+      <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)} className="bg-white pb-10">
+          <div className="flex flex-col gap-2">
+            <Button variant="ghost" className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4">
+              <img src="icons/edit.svg" alt="" />
+              <p className="text-primaryColor text-base leading-4 font-extrabold">Редактировать</p>
+            </Button>
+            <Button variant="ghost" className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4">
+              <img src="icons/warning.svg" alt="" />
+              <p className="text-primaryColor text-base leading-4 font-extrabold">Пожаловаться</p>
+            </Button>
+          </div>
+      </BottomSheet>
     </div>
   );
 }

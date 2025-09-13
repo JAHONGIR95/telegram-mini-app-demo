@@ -214,7 +214,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
             onClick={onClick}
           >
             {/* Drag handle */}
-            <div className="w-32 h-1.5 bg-black/20 rounded-full mx-auto mb-4" />
+            <div className="w-32 h-1.5 bg-black rounded-full mx-auto mb-4" />
 
             {children}
           </motion.div>
