@@ -19,26 +19,27 @@ export function Page({
   const navigate = useNavigate();
 
   useEffect(() => {
+    const mainButton = window.Telegram?.WebApp?.MainButton || null;
     if (back) {
-      if (window.history?.state?.idx === 0) {
-        const mainButton = window.Telegram?.WebApp?.MainButton || null;
-        hideBackButton();
-        mainButton?.setText?.("Close");
-        mainButton?.show?.();
-
-        const offMain = onMainButtonClick(() => {
-          window.Telegram?.WebApp?.close();
-        });
-
-        return () => {
-          mainButton?.hide?.();
-          offMain?.();
-        };
-      } else {
+      if (window.history?.state?.idx > 0) {
+        mainButton?.hide?.();
         showBackButton();
         return onBackButtonClick(() => {
           navigate(-1);
         });
+      } else {
+        hideBackButton();
+        mainButton?.setText?.("Close");
+        mainButton?.show?.();
+
+        return onMainButtonClick(() => {
+          window.Telegram?.WebApp?.close();
+        });
+
+        // return () => {
+        //   mainButton?.hide?.();
+        //   offMain?.();
+        // };
       }
     }
     hideBackButton();
