@@ -109,108 +109,81 @@
 //   return <>{children}</>;
 // }
 
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
 import {
   hideBackButton,
   onBackButtonClick,
   onMainButtonClick,
   showBackButton,
-  // don't import showMainButton — it doesn't exist
-  // import mainButton if your sdk exports it; otherwise we fallback to window.Telegram
-  // import { mainButton } from "@telegram-apps/sdk-react";
 } from "@telegram-apps/sdk-react";
-import { type PropsWithChildren, useEffect, useState } from "react";
 
 export function Page({
   children,
   back = true,
-}: PropsWithChildren<{ back?: boolean }>) {
+}: {
+  children: React.ReactNode;
+  back?: boolean;
+}) {
   const navigate = useNavigate();
-  const [canGoBack, setCanGoBack] = useState<boolean>(() => {
-    // boshlang'ich tekshiruv (SPAda har doim ishonchli emas, lekin yetadi)
-    return window.history.length > 0;
-  });
+  const location = useLocation();
+  const navType = useNavigationType();
 
-  // agar history dinamik o'zgarsa (popstate), qayta tekshirish uchun listener
-  useEffect(() => {
-    const onPop = () => setCanGoBack(window.history.length > 0);
-    window.addEventListener("popstate", onPop);
-    return () => window.removeEventListener("popstate", onPop);
-  }, []);
+  // O'zimiz stack yuritamiz
+  const [stack, setStack] = useState<string[]>([location.pathname]);
 
   useEffect(() => {
-    // Helper: mainButton obyektini olish (SDK eksport qilsa uni import qilish yaxshi)
-    const telegramMainButton =
-      // @ts-ignore
-      (typeof (globalThis as any).mainButton !== "undefined" && (globalThis as any).mainButton) ||
-      // @ts-ignore
-      (typeof (globalThis as any).Telegram !== "undefined" &&
-        (globalThis as any).Telegram?.WebApp?.MainButton) ||
-      null;
+    // PUSH -> yangi sahifa stackga qo'shiladi
+    // POP -> orqaga qaytildi -> stackdan o'chiramiz
+    setStack((prev) => {
+      if (navType === "PUSH") {
+        return [...prev, location.pathname];
+      } else if (navType === "POP") {
+        return prev.slice(0, -1);
+      } else {
+        return prev; // REPLACE -> stack o'zgarmaydi
+      }
+    });
+  }, [location.pathname, navType]);
+
+  useEffect(() => {
+    const mainButton =
+      window.Telegram?.WebApp?.MainButton || null;
 
     if (!back) {
-      // Back ruxsat etilmagan — ikkala tugmani yashiramiz
-      try {
-        hideBackButton();
-      } catch {}
-      try {
-        telegramMainButton?.hide?.();
-      } catch {}
+      hideBackButton();
+      mainButton?.hide?.();
       return;
     }
 
-    // back=true
-    if (window.history.length > 0) {
-      // history mavjud -> Back tugmasi
-      try {
-        showBackButton();
-      } catch {}
-      // yashiramiz main buttonni (agar ko'rsatilgan bo'lsa)
-      try {
-        telegramMainButton?.hide?.();
-      } catch {}
+    if (stack.length > 1) {
+      // Stackda sahifalar bor -> Back tugmasi
+      showBackButton();
+      mainButton?.hide?.();
 
       const off = onBackButtonClick(() => {
         navigate(-1);
       });
-
       return () => {
-        // tozalash
-        try {
-          hideBackButton();
-        } catch {}
-        if (typeof off === "function") off();
+        hideBackButton();
+        off?.();
       };
     } else {
-      // history yo'q -> Close (MainButton) ko'rsatamiz
-      try {
-        hideBackButton();
-      } catch {}
-
-      try {
-        telegramMainButton?.setText?.("Close");
-        telegramMainButton?.show?.();
-      } catch {
-        // fallback: beparvo
-      }
+      // Stack bo'sh -> Close tugmasi
+      hideBackButton();
+      mainButton?.setText?.("Close");
+      mainButton?.show?.();
 
       const offMain = onMainButtonClick(() => {
-        try {
-          window.Telegram?.WebApp?.close();
-        } catch {
-          // fallback: nothing
-        }
+        window.Telegram?.WebApp?.close();
       });
-
       return () => {
-        // tozalash
-        if (typeof offMain === "function") offMain();
-        try {
-          telegramMainButton?.hide?.();
-        } catch {}
+        mainButton?.hide?.();
+        offMain?.();
       };
     }
-  }, [back, navigate, canGoBack]);
+  }, [back, stack]);
 
   return <>{children}</>;
 }
+
