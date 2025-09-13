@@ -85,7 +85,7 @@ const HomeLayout = () => {
     //   </div>
     // </Page>
 
-    <Page back={true}>
+    <Page>
       <div className="relative flex flex-col min-h-screen">
         {/* Scroll area */}
         <div className="flex-1 overflow-y-auto">

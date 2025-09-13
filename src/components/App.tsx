@@ -81,7 +81,6 @@ export function App() {
     // Boshqa kerakli sozlamalar
     WebApp.enableVerticalSwipes();
     WebApp.setHeaderColor("#ffffff");
-    WebApp.close();
   }, []);
 
   return (
