@@ -1,35 +1,59 @@
-// import { useNavigate } from 'react-router-dom';
-// import { hideBackButton, onBackButtonClick, showBackButton } from '@telegram-apps/sdk-react';
-// import { type PropsWithChildren, useEffect } from 'react';
+import { useNavigate } from "react-router-dom";
+import {
+  hideBackButton,
+  onBackButtonClick,
+  onMainButtonClick,
+  showBackButton,
+} from "@telegram-apps/sdk-react";
+import { type PropsWithChildren, useEffect } from "react";
 
-// export function Page({ children, back = true }: PropsWithChildren<{
-//   /**
-//    * True if it is allowed to go back from this page.
-//    */
-//   back?: boolean
-// }>) {
-//   const navigate = useNavigate();
+export function Page({
+  children,
+  back = true,
+}: PropsWithChildren<{
+  /**
+   * True if it is allowed to go back from this page.
+   */
+  back?: boolean;
+}>) {
+  const navigate = useNavigate();
 
-//   useEffect(() => {
-//     if (back) {
-//       showBackButton();
-//       return onBackButtonClick(() => {
-//         navigate(-1);
-//       });
-//     }
-//     hideBackButton();
-//   }, [back]);
+  useEffect(() => {
+    if (back) {
+      if (window.history?.state?.idx === 0) {
+        const mainButton = window.Telegram?.WebApp?.MainButton || null;
+        hideBackButton();
+        mainButton?.setText?.("Close");
+        mainButton?.show?.();
 
-//   return <>{children}</>;
-// }
+        const offMain = onMainButtonClick(() => {
+          window.Telegram?.WebApp?.close();
+        });
 
-import { useTelegramNavigation } from "@/hooks/useTelegramNavigation";
-import { PropsWithChildren } from "react";
+        return () => {
+          mainButton?.hide?.();
+          offMain?.();
+        };
+      } else {
+        showBackButton();
+        return onBackButtonClick(() => {
+          navigate(-1);
+        });
+      }
+    }
+    hideBackButton();
+  }, [back, navigate, window.history?.state?.idx]);
 
-export function Page({ children }: PropsWithChildren<{}>) {
-  useTelegramNavigation();
   return <>{children}</>;
 }
+
+// import { useTelegramNavigation } from "@/hooks/useTelegramNavigation";
+// import { PropsWithChildren } from "react";
+
+// export function Page({ children }: PropsWithChildren<{}>) {
+//   useTelegramNavigation();
+//   return <>{children}</>;
+// }
 
 // import { useNavigate } from "react-router-dom";
 // import {
@@ -194,4 +218,3 @@ export function Page({ children }: PropsWithChildren<{}>) {
 
 //   return <>{children}</>;
 // }
-

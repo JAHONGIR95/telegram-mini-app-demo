@@ -58,7 +58,7 @@ const ReadingPage = () => {
     };
   }, []);
   return (
-    <Page>
+    <Page back={true}>
       <div className="flex flex-col h-screen bg-globe" style={{ paddingBottom: safeAreaBottom }}>
         <Header imageClassName="pb-5">
           <div className="flex items-center justify-between px-3 pb-3">

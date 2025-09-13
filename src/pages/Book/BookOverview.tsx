@@ -42,7 +42,7 @@ const BookOverview = () => {
   ];
 
   return (
-    <Page>
+    <Page back={true}>
       <div className="relative w-full h-screen">
         {/* Background image */}
         <div className="h-1/2 w-full bg-cover absolute top-0 bg-[url('/images/book-cover.jpg')] bg-no-repeat bg-contain bg-top">
