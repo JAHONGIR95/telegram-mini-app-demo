@@ -26,8 +26,8 @@ export function useTelegramNavigation() {
   // Back / Close tugmalarini boshqarish
   useEffect(() => {
     const mainButton = window.Telegram?.WebApp?.MainButton || null;
-
-    if (stack.length > 1) {
+console.log(stack)
+    if (stack.length > 0) {
       // Back tugmasi
       showBackButton();
       mainButton?.hide?.();
