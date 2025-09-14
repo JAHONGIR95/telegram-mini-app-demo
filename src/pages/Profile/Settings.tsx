@@ -24,7 +24,7 @@ const Settings = () => {
       </Header>
 
       <form
-        className="px-3 pt-3 overflow-y-auto" style={{ paddingBottom: safeAreaBottom + 80 }}
+        className="px-3 pt-3 overflow-y-auto" style={{ paddingBottom: safeAreaBottom + 100 }}
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
