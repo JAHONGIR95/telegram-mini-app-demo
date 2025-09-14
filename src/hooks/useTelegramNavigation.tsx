@@ -1,5 +1,5 @@
-import { useEffect, useState } from "react";
-import { useLocation, useNavigate, useNavigationType } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   showBackButton,
   hideBackButton,
@@ -7,27 +7,18 @@ import {
   onMainButtonClick,
 } from "@telegram-apps/sdk-react";
 
-export function useTelegramNavigation() {
+/**
+ * Telegram WebApp ichida Back va Close tugmalarini boshqaradi
+ * window.history.state.idx orqali
+ */
+export function useTelegramBackClose() {
   const navigate = useNavigate();
-  const location = useLocation();
-  const navType = useNavigationType();
 
-  const [stack, setStack] = useState<string[]>([location.pathname]);
-
-  // Stackni boshqarish
   useEffect(() => {
-    setStack((prev) => {
-      if (navType === "PUSH") return [...prev, location.pathname];
-      if (navType === "POP") return prev.slice(0, -1);
-      return prev; // REPLACE -> stack o'zgarmaydi
-    });
-  }, [location.pathname, navType]);
-
-  // Back / Close tugmalarini boshqarish
-  useEffect(() => {
+    const idx = window.history?.state?.idx ?? 0;
     const mainButton = window.Telegram?.WebApp?.MainButton || null;
-console.log(stack)
-    if (stack.length > 0) {
+
+    if (idx > 0) {
       // Back tugmasi
       showBackButton();
       mainButton?.hide?.();
@@ -55,5 +46,5 @@ console.log(stack)
         offMain?.();
       };
     }
-  }, [stack, navigate]);
+  }, [navigate, window.history?.state?.idx]);
 }

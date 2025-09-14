@@ -1,60 +1,43 @@
-import { useNavigate } from "react-router-dom";
-import {
-  hideBackButton,
-  onBackButtonClick,
-  onMainButtonClick,
-  showBackButton,
-} from "@telegram-apps/sdk-react";
-import { type PropsWithChildren, useEffect } from "react";
+// import { useNavigate } from "react-router-dom";
+// import {
+//   hideBackButton,
+//   onBackButtonClick,
+//   showBackButton,
+// } from "@telegram-apps/sdk-react";
+// import { type PropsWithChildren, useEffect } from "react";
 
-export function Page({
-  children,
-  back = true,
-}: PropsWithChildren<{
-  /**
-   * True if it is allowed to go back from this page.
-   */
-  back?: boolean;
-}>) {
-  const navigate = useNavigate();
+// export function Page({
+//   children,
+//   back = true,
+// }: PropsWithChildren<{
+//   /**
+//    * True if it is allowed to go back from this page.
+//    */
+//   back?: boolean;
+// }>) {
+//   const navigate = useNavigate();
+//   console.log(navigate);
 
-  useEffect(() => {
-    const mainButton = window.Telegram?.WebApp?.MainButton || null;
-    if (back) {
-      if (window.history?.state?.idx > 0) {
-        mainButton?.hide?.();
-        showBackButton();
-        return onBackButtonClick(() => {
-          navigate(-1);
-        });
-      } else {
-        hideBackButton();
-        mainButton?.setText?.("Close");
-        mainButton?.show?.();
+//   useEffect(() => {
+//     if (back) {
+//       showBackButton();
+//       return onBackButtonClick(() => {
+//         navigate(-1);
+//       });
+//     }
+//     hideBackButton();
+//   }, [back]);
 
-        return onMainButtonClick(() => {
-          window.Telegram?.WebApp?.close();
-        });
-
-        // return () => {
-        //   mainButton?.hide?.();
-        //   offMain?.();
-        // };
-      }
-    }
-    hideBackButton();
-  }, [back, navigate, window.history?.state?.idx]);
-
-  return <>{children}</>;
-}
-
-// import { useTelegramNavigation } from "@/hooks/useTelegramNavigation";
-// import { PropsWithChildren } from "react";
-
-// export function Page({ children }: PropsWithChildren<{}>) {
-//   useTelegramNavigation();
 //   return <>{children}</>;
 // }
+
+import { useTelegramBackClose } from "@/hooks/useTelegramNavigation";
+import { PropsWithChildren } from "react";
+
+export function Page({ children }: PropsWithChildren<{}>) {
+  useTelegramBackClose();
+  return <>{children}</>;
+}
 
 // import { useNavigate } from "react-router-dom";
 // import {
