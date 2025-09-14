@@ -6,6 +6,6 @@ export default function SortButtons({
   renderItem: (item: { label: string; value: string }) => React.ReactNode;
 }) {
   return (
-    <div className="flex gap-2">{data.map((item) => renderItem(item))}</div>
+    <div className="flex gap-2 flex-wrap">{data.map((item) => renderItem(item))}</div>
   );
 }

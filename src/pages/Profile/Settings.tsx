@@ -33,7 +33,7 @@ const Settings = () => {
           Настройка профиля
         </p>
         <div className="flex justify-between gap-4 mb-6">
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2 max-w-[200px]">
             <p className="text-[#AFAFAF] font-normal leading-2 text-[10px] pl-4">
               Имя
             </p>
