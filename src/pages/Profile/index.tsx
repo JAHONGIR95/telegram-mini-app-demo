@@ -9,6 +9,7 @@ import AdvancedView from "@/views/profile/Advanced";
 import AchievementsView from "@/views/profile/Achievements";
 import { Link } from "react-router-dom";
 import BottomSheet from "@/components/modals/BottomSheet";
+import { useSafeAreaBottom } from "@/components/App";
 
 const buttons = [
   {
@@ -36,10 +37,11 @@ const buttons = [
 const ProfilePage = () => {
   const [activeSection, setActiveSection] = useState<string>("posts");
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  const { safeAreaTop } = useSafeAreaBottom();
 
   return (
     <div className="h-screen flex flex-col bg-profile">
-      <div className="flex justify-center pt-10 pb-2 opacity-50">
+      <div className="flex justify-center pb-2 opacity-50" style={{ paddingTop: safeAreaTop }}>
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">

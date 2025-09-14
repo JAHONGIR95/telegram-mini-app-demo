@@ -28,7 +28,7 @@ const Bookmarks = () => {
   return (
     <div className="flex flex-col h-screen bg-globe">
       <Header className="shadow-[0px_5px_10px_-2px_#F8F4ED]">
-        <h1 className="font-extrabold text-tertiary text-2xl text-center mb-6">
+        <h1 className="font-extrabold text-tertiary text-2xl text-center mb-4">
           Закладки
         </h1>
         <div className="flex justify-between gap-4 px-3">

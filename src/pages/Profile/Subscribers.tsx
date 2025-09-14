@@ -29,7 +29,7 @@ const Subscribers = () => {
   return (
     <div className="h-screen bg-accent flex flex-col">
       <Header className="shadow-[0px_5px_10px_-2px_#FFF0D8]">
-        <h1 className="font-extrabold text-tertiary text-2xl text-center mb-6">
+        <h1 className="font-extrabold text-tertiary text-2xl text-center mb-4">
           Подписки
         </h1>
         <div className="flex justify-between gap-4 px-3">

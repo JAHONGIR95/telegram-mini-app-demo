@@ -70,7 +70,7 @@ const Users = () => {
       {subscribers.map((subscriber) => (
         <Link
           to={`/guest-profile/${subscriber.id}`}
-          className="flex justify-between items-center bg-islandInner p-4 rounded-2xl border border-borderColor shadow-[0_4px_16px_0px_#FC8F285E]"
+          className="flex justify-between items-center bg-islandInner p-3 rounded-2xl border border-borderColor shadow-[0_4px_16px_0px_#FC8F285E]"
         >
           <div className="flex items-center gap-3 cursor-pointer">
             <img src={subscriber.img} className="w-9 h-9 rounded-full" />

@@ -10,6 +10,8 @@ import AchievementsView from "@/views/profile/Achievements";
 import human from "/images/human.webp";
 import BottomSheet from "@/components/modals/BottomSheet";
 import Toggle from "@/components/toggle";
+import { Link } from "react-router-dom";
+import { useSafeAreaBottom } from "@/components/App";
 
 const buttons = [
   {
@@ -39,6 +41,7 @@ const GuestProfile = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [isOpenSubscribe, setIsOpenSubscribe] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
+  const { safeAreaTop } = useSafeAreaBottom();
 
   const [toggles, setToggles] = useState({
     publications: true,
@@ -56,7 +59,7 @@ const GuestProfile = () => {
 
   return (
     <div className="h-screen flex flex-col bg-profile">
-      <div className="flex justify-center pt-6 pb-2 opacity-50">
+      <div className="flex justify-center pb-2 opacity-50" style={{ paddingTop: safeAreaTop }}>
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
@@ -89,20 +92,26 @@ const GuestProfile = () => {
             </Button>
           )}
           <div className="flex justify-center gap-8">
-            <div className="flex flex-col gap-1 items-center">
+            <Link
+              to="/profile/subscribers"
+              className="flex flex-col gap-1 items-center"
+            >
               <p className="text-sm leading-3 font-extrabold">298</p>
               <p className="text-[10px] leading-1.5 text-tertiary">
                 Подписчиков
               </p>
-            </div>
+            </Link>
             <div className="flex flex-col gap-1 items-center">
               <p className="text-sm leading-3 font-extrabold">88</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Смыслов</p>
             </div>
-            <div className="flex flex-col gap-1 items-center">
+            <Link
+              to="/profile/subscriptions"
+              className="flex flex-col gap-1 items-center"
+            >
               <p className="text-sm leading-3 font-extrabold">2654</p>
               <p className="text-[10px] leading-1.5 text-tertiary">Подписок</p>
-            </div>
+            </Link>
           </div>
         </div>
         <p className="font-normal text-tertiary text-xs leading-4 text-center px-12">
