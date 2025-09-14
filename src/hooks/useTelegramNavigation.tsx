@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import {
   showBackButton,
   hideBackButton,
@@ -13,12 +13,15 @@ import {
  */
 export function useTelegramBackClose() {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isClose = pathname.split('/').filter(Boolean).length === 0
 
   useEffect(() => {
-    const idx = window.history?.state?.idx ?? 0;
+    // const idx = window.history?.state?.idx ?? 0;
     const mainButton = window.Telegram?.WebApp?.MainButton || null;
 
-    if (idx >= 0) {
+    console.log(isClose);
+    if (!isClose) {
       // Back tugmasi
       showBackButton();
       mainButton?.hide?.();
