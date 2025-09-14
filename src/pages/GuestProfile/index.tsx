@@ -41,7 +41,7 @@ const GuestProfile = () => {
   const [subscribed, setSubscribed] = useState(false);
   const [isOpenSubscribe, setIsOpenSubscribe] = useState(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
-  const { safeAreaTop } = useSafeAreaBottom();
+  const { safeAreaTop, safeAreaBottom } = useSafeAreaBottom();
 
   const [toggles, setToggles] = useState({
     publications: true,
@@ -149,7 +149,7 @@ const GuestProfile = () => {
         </div>
 
         <div className="">
-          <div className="px-3 pt-7 pb-25 overflow-y-auto space-y-5">
+          <div className="px-3 pt-7 overflow-y-auto space-y-5" style={{ paddingBottom: safeAreaBottom + 80 }}>
             {activeSection === "posts" && <PostsView />}
             {activeSection === "requests" && <ResponseView />}
             {activeSection === "comments" && <CommentsView />}

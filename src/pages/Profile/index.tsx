@@ -37,7 +37,7 @@ const buttons = [
 const ProfilePage = () => {
   const [activeSection, setActiveSection] = useState<string>("posts");
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState<boolean>(false);
-  const { safeAreaTop } = useSafeAreaBottom();
+  const { safeAreaTop, safeAreaBottom } = useSafeAreaBottom();
 
   return (
     <div className="h-screen flex flex-col bg-profile">
@@ -116,7 +116,7 @@ const ProfilePage = () => {
         </div>
 
         <div className="">
-          <div className="px-3 pt-7 pb-25 overflow-y-auto space-y-5">
+          <div className="px-3 pt-7 overflow-y-auto space-y-5" style={{ paddingBottom: safeAreaBottom + 80 }}>
             {activeSection === "posts" && <PostsView />}
             {activeSection === "requests" && <ResponseView />}
             {activeSection === "comments" && <CommentsView />}
