@@ -18,7 +18,7 @@ export function useTelegramBackClose() {
     const idx = window.history?.state?.idx ?? 0;
     const mainButton = window.Telegram?.WebApp?.MainButton || null;
 
-    if (idx > 0) {
+    if (idx >= 0) {
       // Back tugmasi
       showBackButton();
       mainButton?.hide?.();
