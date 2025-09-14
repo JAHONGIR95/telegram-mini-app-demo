@@ -1,3 +1,4 @@
+import { useSafeAreaBottom } from "@/components/App";
 import Button from "@/components/buttons/Button";
 import Header from "@/components/Header";
 import PostCard from "@/components/postCard";
@@ -7,6 +8,7 @@ import clsx from "clsx";
 import { useState } from "react";
 
 const Folder = () => {
+  const { safeAreaBottom } = useSafeAreaBottom();
   const data = [
     { label: "Дате", value: "date" },
     { label: "Комментариям", value: "comments" },
@@ -58,7 +60,7 @@ const Folder = () => {
         <div className="divider before:bg-[#a5a5a5] after:bg-[#a5a5a5] mb-1 px-3 mt-2"></div>
       </Header>
 
-      <div className="pt-3 pb-25 overflow-y-auto px-3 space-y-5">
+      <div className="pt-3 overflow-y-auto px-3 space-y-5" style={{ paddingBottom: safeAreaBottom + 80 }}>
         {posts?.map((post) => (
           <PostCard
             key={post.id}

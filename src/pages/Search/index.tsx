@@ -1,3 +1,4 @@
+import { useSafeAreaBottom } from "@/components/App";
 import Button from "@/components/buttons/Button";
 import Header from "@/components/Header";
 import Books from "@/views/search/Books";
@@ -11,6 +12,7 @@ const Search = () => {
   const [activeSection, setActiveSection] = useState("books");
   const [activeCategory, setActiveCategory] = useState("all");
   const [isOpen, setIsOpen] = useState(false);
+  const { safeAreaBottom } = useSafeAreaBottom();
 
   const buttons = [
     {
@@ -128,7 +130,7 @@ const Search = () => {
         </div>}
       </Header>
 
-      <div className="pt-3 pb-20 overflow-y-auto px-3 space-y-3">
+      <div className="pt-3 overflow-y-auto px-3 space-y-3" style={{ paddingBottom: safeAreaBottom + 80 }}>
         {activeSection === "books" && <Books search={search} />}
         {activeSection === "people" && <People search={search} />}
         {activeSection === "connections" && <Connections search={search} />}
