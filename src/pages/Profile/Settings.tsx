@@ -1,3 +1,4 @@
+import { useSafeAreaBottom } from "@/components/App";
 import Button from "@/components/buttons/Button";
 import Header from "@/components/Header";
 import ImageFileInput from "@/components/imageInput";
@@ -9,6 +10,7 @@ import { useState } from "react";
 const Settings = () => {
   const [avatar, setAvatar] = useState<File | null>(null);
   const [activeSort, setActiveSort] = useState("light");
+  const { safeAreaBottom } = useSafeAreaBottom();
 
   const data = [
     { label: "Светлая", value: "light" },
@@ -22,7 +24,7 @@ const Settings = () => {
       </Header>
 
       <form
-        className="px-3 pt-3 pb-28 overflow-y-auto"
+        className="px-3 pt-3 overflow-y-auto" style={{ paddingBottom: safeAreaBottom + 80 }}
         onSubmit={(e) => {
           e.preventDefault();
           const formData = new FormData(e.currentTarget);
