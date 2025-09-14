@@ -6,11 +6,12 @@ import Button from "@/components/buttons/Button";
 import Users from "@/views/subscribers/Users";
 import Books from "@/views/subscribers/Books";
 import Connections from "@/views/subscribers/Connections";
+import { useSafeAreaBottom } from "@/components/App";
 
 const Subscribers = () => {
-  
-
   const [activeSection, setActiveSection] = useState("users");
+  const { safeAreaBottom } = useSafeAreaBottom();
+
   const buttons = [
     {
       label: "Пользователи",
@@ -50,7 +51,7 @@ const Subscribers = () => {
         <div className="divider before:bg-[#FFD5AE] after:bg-[#FFD5AE] mb-1 px-3"></div>
       </Header>
 
-      <div className="px-3 pt-4 pb-25 overflow-y-auto  space-y-2.5">
+      <div className="px-3 pt-4 overflow-y-auto space-y-2.5" style={{ paddingBottom: safeAreaBottom + 80 }}>
         {activeSection === 'users' && <Users />}
         {activeSection === 'books' && <Books />}
         {activeSection === 'connections' && <Connections />}

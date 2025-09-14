@@ -1,8 +1,10 @@
 import Header from "@/components/Header";
 import human from "/images/human.webp";
 import { Link } from "react-router-dom";
+import { useSafeAreaBottom } from "@/components/App";
 
 const Subscriptions = () => {
+  const { safeAreaBottom } = useSafeAreaBottom();
   const subscribers = [
     {
       id: 1,
@@ -50,7 +52,7 @@ const Subscriptions = () => {
         <div className="divider before:bg-[#FFD5AE] after:bg-[#FFD5AE] mb-1 px-3"></div>
       </Header>
 
-      <div className="px-3 pt-4 pb-25 overflow-y-auto  space-y-2.5">
+      <div className="px-3 pt-4 overflow-y-auto  space-y-2.5" style={{ paddingBottom: safeAreaBottom + 80 }}>
         {subscribers.map((subscriber) => (
           <Link
             to={`/guest-profile/${subscriber.id}`}
