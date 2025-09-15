@@ -90,10 +90,7 @@ export function App() {
     // >
     <HashRouter>
       <Routes>
-        <Route
-          element={<HomeLayout />}
-          path="/"
-        >
+        <Route element={<HomeLayout />} path="/">
           <Route index element={<HomePage />} />
           <Route path="/notifications" element={<NotificationsPage />} />
           <Route path="/notifications/:id" element={<NotificationDetails />} />

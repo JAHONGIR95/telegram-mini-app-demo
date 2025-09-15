@@ -33,7 +33,7 @@ const ConnectionDetails = () => {
         <h1 className="font-extrabold text-tertiary text-2xl text-center mb-6">
           {category?.title}
         </h1>
-        <div className="px-3 flex items-center gap-2">
+        <div className="px-3 flex items-center gap-2 flex-wrap">
           <p className="text-sm font-bold text-[#484848]">Сортировка по:</p>
           <SortButtons
             data={data}
