@@ -27,14 +27,14 @@ const tabs: Array<ITab> = [
     id: "search",
     text: "Поиск",
     Icon: (props: { isActive: boolean }) => (
-      <BookmarksIcon active={props.isActive} />
+      <SearchIcon active={props.isActive} />
     ),
   },
   {
     id: "bookmarks",
     text: "Закладки",
     Icon: (props: { isActive: boolean }) => (
-      <SearchIcon active={props.isActive} />
+      <BookmarksIcon active={props.isActive} />
     ),
   },
   {
