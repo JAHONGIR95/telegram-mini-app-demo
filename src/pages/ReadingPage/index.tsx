@@ -10,8 +10,46 @@ import FragmentsView from "@/views/readingPage/Fragments";
 import SearchingView from "@/views/readingPage/Searching";
 import ReadingView from "@/views/readingPage/ReadingView";
 import clsx from "clsx";
+import { motion } from "framer-motion";
 import { Page } from "@/components/Page";
+import SettingsIcon from "@/components/icons/Settings";
+import ChaptersIcon from "@/components/icons/Chapters";
+import FragmentsIcon from "@/components/icons/Fragments";
+import BookSearchingIcon from "@/components/icons/BookSearching";
+// import SearchIcon from "@/components/icons/BookSearching";
 // import { BookReader } from "@/components/epubReader";
+
+interface ITab {
+  id: string;
+  Icon(props: { isActive: boolean }): React.ReactElement;
+}
+
+const settings: Array<ITab> = [
+  {
+    id: "reading",
+    Icon: (props: { isActive: boolean }) => (
+      <ChaptersIcon active={props.isActive} />
+    ),
+  },
+  {
+    id: "settings",
+    Icon: (props: { isActive: boolean }) => (
+      <SettingsIcon active={props.isActive} />
+    ),
+  },
+  {
+    id: "fragments",
+    Icon: (props: { isActive: boolean }) => (
+      <FragmentsIcon active={props.isActive} />
+    ),
+  },
+  {
+    id: "searching",
+    Icon: (props: { isActive: boolean }) => (
+      <BookSearchingIcon active={props.isActive} />
+    ),
+  },
+];
 
 const ReadingPage = () => {
   const [showToolbar, setShowToolbar] = useState(false);
@@ -57,9 +95,13 @@ const ReadingPage = () => {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
   return (
     <Page>
-      <div className="flex flex-col h-screen bg-globe" style={{ paddingBottom: safeAreaBottom }}>
+      <div
+        className="flex flex-col h-screen bg-globe"
+        style={{ paddingBottom: safeAreaBottom }}
+      >
         <Header imageClassName="pb-5">
           <div className="flex items-center justify-between px-3 pb-3">
             <p className="text-sm leading-3 font-normal">12 / 2465</p>
@@ -82,34 +124,60 @@ const ReadingPage = () => {
               showToolbar ? "translate-y-0" : "translate-y-full"
             }`}
             style={{
-              bottom: showToolbar ? safeAreaBottom : 0,
+              bottom: showToolbar ? safeAreaBottom + 20 : 0,
             }}
           >
             {/* <div className="flex justify-around"> */}
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
+            {settings.map(({ id, Icon }) => (
+              <div
+                key={id}
+                className="flex-1 flex items-center justify-center cursor-pointer"
+                onClick={() => setActiveSegment(id)}
+              >
+                <motion.div
+                  whileTap={{ scale: 0.9 }} // bosilganda kichrayadi
+                  whileHover={{ scale: 1.05 }} // hoverda kattalashadi
+                  transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                  className="flex items-center justify-center"
+                >
+                  <Icon isActive={activeSegment === id} />
+                </motion.div>
+              </div>
+            ))}
+            {/* <div
+              className="flex-1 flex items-center justify-center cursor-pointer"
               onClick={() => setActiveSegment("reading")}
             >
-              RE
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
+              <motion.div
+                whileTap={{ scale: 0.9 }} // bosilganda kichrayadi
+                whileHover={{ scale: 1.05 }} // hoverda kattalashadi
+                transition={{ type: "spring", stiffness: 300, damping: 10 }}
+                className="flex items-center justify-center"
+              >
+                <ChaptersIcon active={activeSegment === "reading"} />
+              </motion.div>
+            </div>
+            <div
+              className="flex-1 flex items-center justify-center cursor-pointer"
               onClick={() => setActiveSegment("settings")}
             >
-              St
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
+              <SettingsIcon active={activeSegment === "settings"} />
+            </div>
+            <div
+              className="flex-1 flex items-center justify-center cursor-pointer"
               onClick={() => setActiveSegment("fragments")}
             >
-              Fr
-            </button>
-            <button
-              className="px-4 py-2 bg-gray-700 rounded"
+              <FragmentsIcon active={activeSegment === "fragments"} />
+            </div>
+            <div
+              className="flex-1 flex items-center justify-center cursor-pointer"
               onClick={() => setActiveSegment("searching")}
             >
-              Se
-            </button>
+              <BookSearchingIcon
+                active={activeSegment === "searching"}
+                size={36}
+              />
+            </div> */}
             {/* </div> */}
           </div>
 
@@ -118,7 +186,7 @@ const ReadingPage = () => {
               "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",
               activeSegment === "searching" && "h-full"
             )}
-            //   style={{paddingBottom: safeAreaBottom}}
+            style={{ paddingBottom: safeAreaBottom + 100 }}
             backdropClassName="!bg-black/0"
             isOpen={isBottomSheetOpen}
             onClick={(e: React.MouseEvent) => e.stopPropagation()}

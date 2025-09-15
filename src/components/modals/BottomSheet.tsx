@@ -155,6 +155,7 @@ interface BottomSheetProps {
   className?: string;
   backdropClassName?: string;
   onClick?: (e: React.MouseEvent) => void;
+  [key: string]: any;
 }
 
 const BottomSheet: React.FC<BottomSheetProps> = ({
@@ -164,6 +165,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
   className,
   backdropClassName,
   onClick,
+  ...rest
 }) => {
   const { safeAreaBottom } = useSafeAreaBottom();
   const [dragging, setDragging] = useState(false);
@@ -212,6 +214,7 @@ const BottomSheet: React.FC<BottomSheetProps> = ({
               WebkitOverflowScrolling: "touch",
             }}
             onClick={onClick}
+            {...rest}
           >
             {/* Drag handle */}
             <div className="w-32 h-1.5 bg-black rounded-full mx-auto mb-4" />
