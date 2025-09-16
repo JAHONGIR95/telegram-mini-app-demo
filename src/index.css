@@ -148,8 +148,20 @@ body {
   background-size: 12px;
 }
 
-html, body {
-  overscroll-behavior: none; /* iOS pull-to-refresh o‘chiriladi */
-  touch-action: none;         /* Safari gesture o‘chiriladi */
-  overflow: hidden;           /* Asosiy sahifa scroll bo‘lmaydi */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;  /* IE va Edge */
+  scrollbar-width: none;     /* Firefox */
+}
+
+.scroll-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  touch-action: pan-x;
+  overscroll-behavior-x: contain;
+  overscroll-behavior-y: none;
 }

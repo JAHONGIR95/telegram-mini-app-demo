@@ -136,7 +136,7 @@ const Search = () => {
 
       <div
         className="pt-3 overflow-y-auto px-3 space-y-3"
-        style={{ paddingBottom: safeAreaBottom + (isKeyboardOpen ? 0 : 80) }}
+        style={{ paddingBottom: safeAreaBottom + (isKeyboardOpen ? 20 : 80) }}
       >
         {activeSection === "books" && <Books search={search} />}
         {activeSection === "people" && <People search={search} />}

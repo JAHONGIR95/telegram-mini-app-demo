@@ -41,7 +41,10 @@ const ProfilePage = () => {
 
   return (
     <div className="h-screen flex flex-col bg-profile">
-      <div className="flex justify-center pb-2 opacity-50" style={{ paddingTop: safeAreaTop }}>
+      <div
+        className="flex justify-center pb-2 opacity-50"
+        style={{ paddingTop: safeAreaTop }}
+      >
         <img src={mainLogo} className="w-24 h-12" />
       </div>
       <div className="overflow-y-auto">
@@ -53,7 +56,12 @@ const ProfilePage = () => {
             loading="lazy"
           />
           <Link to={"/profile/settings"}>
-            <img src="icons/settings.svg" alt="settings" className="w-5 h-5 absolute top-4 right-3 cursor-pointer" loading="lazy" />
+            <img
+              src="icons/settings.svg"
+              alt="settings"
+              className="w-5 h-5 absolute top-4 right-3 cursor-pointer"
+              loading="lazy"
+            />
           </Link>
           <p className="text-2xl leading-6 font-extrabold text-primaryColor">
             Илон Маск
@@ -93,8 +101,30 @@ const ProfilePage = () => {
           см. ещё
         </p>
 
-        <div className="pl-3 mt-3">
+        {/* <div className="pl-3 mt-3">
           <div className="w-full overflow-x-auto no-scrollbar">
+            <div className="flex gap-2 w-max">
+              {buttons?.map((button, idx) => (
+                <Button
+                  key={idx}
+                  variant={
+                    button.value === activeSection ? "primary" : "outline"
+                  }
+                  className={clsx(
+                    button.value === activeSection &&
+                      "bg-primaryClicked text-primaryWhite"
+                  )}
+                  onClick={() => setActiveSection(button.value)}
+                >
+                  {button.label}
+                </Button>
+              ))}
+            </div>
+          </div>
+        </div> */}
+
+        <div className="pl-3 mt-3">
+          <div className="w-full scroll-container no-scrollbar">
             <div className="flex gap-2 w-max">
               {buttons?.map((button, idx) => (
                 <Button
@@ -116,7 +146,10 @@ const ProfilePage = () => {
         </div>
 
         <div className="">
-          <div className="px-3 pt-7 overflow-y-auto space-y-5" style={{ paddingBottom: safeAreaBottom + 80 }}>
+          <div
+            className="px-3 pt-7 overflow-y-auto space-y-5"
+            style={{ paddingBottom: safeAreaBottom + 80 }}
+          >
             {activeSection === "posts" && <PostsView />}
             {activeSection === "requests" && <ResponseView />}
             {activeSection === "comments" && <CommentsView />}
