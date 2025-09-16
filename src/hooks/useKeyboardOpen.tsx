@@ -1,28 +1,43 @@
 import { useEffect, useState } from "react";
 
-declare global {
-  interface Window {
-    Telegram?: any;
-  }
-}
-
-export function useTelegramKeyboardOpen(threshold = 150) {
+export function useKeyboardOpen(threshold = 150) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   useEffect(() => {
     const tg = window.Telegram?.WebApp;
-    if (!tg) return;
+    const viewport = window.visualViewport;
 
-    const handleViewportChange = () => {
-      const heightDiff = tg.viewportStableHeight - tg.viewportHeight;
+    const checkKeyboard = () => {
+      let heightDiff = 0;
+
+      if (tg?.viewportHeight && tg?.viewportStableHeight) {
+        // Telegram WebApp orqali
+        heightDiff = tg.viewportStableHeight - tg.viewportHeight;
+      } else if (viewport) {
+        // visualViewport orqali
+        heightDiff = window.innerHeight - viewport.height;
+      }
+
       setIsKeyboardOpen(heightDiff > threshold);
     };
 
-    // Dastlab bir marta tekshirib olish
-    handleViewportChange();
+    // Boshlanishida tekshiramiz
+    checkKeyboard();
 
-    tg.onEvent("viewportChanged", handleViewportChange);
-    return () => tg.offEvent("viewportChanged", handleViewportChange);
+    // Telegram event
+    if (tg) {
+      tg.onEvent("viewportChanged", checkKeyboard);
+    }
+
+    // visualViewport event
+    if (viewport) {
+      viewport.addEventListener("resize", checkKeyboard);
+    }
+
+    return () => {
+      if (tg) tg.offEvent("viewportChanged", checkKeyboard);
+      if (viewport) viewport.removeEventListener("resize", checkKeyboard);
+    };
   }, [threshold]);
 
   return isKeyboardOpen;

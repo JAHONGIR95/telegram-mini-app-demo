@@ -53,7 +53,7 @@
 
 // export default BottomNavigation;
 
-import { useTelegramKeyboardOpen } from "@/hooks/useKeyboardOpen";
+import { useKeyboardOpen } from "@/hooks/useKeyboardOpen";
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
@@ -72,7 +72,7 @@ const BottomNavigation: React.FC<BottomNavigationProps> = ({
   safeAreaBottom = 0,
 }) => {
   const location = useLocation();
-  const isKeyboardOpen = useTelegramKeyboardOpen();
+  const isKeyboardOpen = useKeyboardOpen();
 
   const getActiveTab = () => {
     const pathSegments = location.pathname.split("/").filter(Boolean);
