@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
-// Telegram WebApp global object
-// declare global {
-//   interface Window {
-//     Telegram: any;
-//   }
-// }
+declare global {
+  interface Window {
+    Telegram?: any;
+  }
+}
 
 export function useTelegramKeyboardOpen(threshold = 150) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
@@ -18,6 +17,9 @@ export function useTelegramKeyboardOpen(threshold = 150) {
       const heightDiff = tg.viewportStableHeight - tg.viewportHeight;
       setIsKeyboardOpen(heightDiff > threshold);
     };
+
+    // Dastlab bir marta tekshirib olish
+    handleViewportChange();
 
     tg.onEvent("viewportChanged", handleViewportChange);
     return () => tg.offEvent("viewportChanged", handleViewportChange);
