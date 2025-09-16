@@ -31,6 +31,7 @@ const HomeIcon = ({ active }: { active: boolean }) => (
       // fill="url(#paint0_linear_6459_4812)"
       fill={active ? 'url(#paint0)' : ''}
       stroke={active ? 'url(#paint1)' : '#B0B0B0'}
+      strokeWidth={1.5}
     />
   </svg>
 );
