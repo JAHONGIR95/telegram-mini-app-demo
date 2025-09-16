@@ -4,39 +4,39 @@ export function useKeyboardOpen(threshold = 150) {
   const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
 
   useEffect(() => {
-    const tg = window.Telegram?.WebApp;
-    const viewport = window.visualViewport;
+    let initialHeight = window.innerHeight;
 
     const checkKeyboard = () => {
-      let heightDiff = 0;
-
-      if (tg?.viewportHeight && tg?.viewportStableHeight) {
-        // Telegram WebApp orqali
-        heightDiff = tg.viewportStableHeight - tg.viewportHeight;
-      } else if (viewport) {
-        // visualViewport orqali
-        heightDiff = window.innerHeight - viewport.height;
-      }
-
+      const heightDiff = initialHeight - window.innerHeight;
       setIsKeyboardOpen(heightDiff > threshold);
     };
 
-    // Boshlanishida tekshiramiz
-    checkKeyboard();
-
-    // Telegram event
-    if (tg) {
-      tg.onEvent("viewportChanged", checkKeyboard);
+    // Telegram WebApp eventlari
+    const tg = (window as any).Telegram?.WebApp;
+    if (tg && tg.onEvent) {
+      tg.onEvent("viewportChanged", () => {
+        const isExpanded = tg.viewportStableHeight < initialHeight - threshold;
+        setIsKeyboardOpen(isExpanded);
+      });
     }
 
-    // visualViewport event
+    // Fallback: visualViewport yoki resize orqali
+    const viewport = window.visualViewport;
     if (viewport) {
       viewport.addEventListener("resize", checkKeyboard);
+    } else {
+      window.addEventListener("resize", checkKeyboard);
     }
 
     return () => {
-      if (tg) tg.offEvent("viewportChanged", checkKeyboard);
-      if (viewport) viewport.removeEventListener("resize", checkKeyboard);
+      if (viewport) {
+        viewport.removeEventListener("resize", checkKeyboard);
+      } else {
+        window.removeEventListener("resize", checkKeyboard);
+      }
+      if (tg && tg.offEvent) {
+        tg.offEvent("viewportChanged", checkKeyboard);
+      }
     };
   }, [threshold]);
 
