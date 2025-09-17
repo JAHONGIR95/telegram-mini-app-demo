@@ -52,9 +52,7 @@ export default function PostCard({
           </Button>
         </div>
 
-        {data?.story && (
-          <ExpandableText collapsedLines={3}>{data?.story}</ExpandableText>
-        )}
+        {data?.story && <ExpandableText>{data?.story}</ExpandableText>}
 
         <div className="mt-2 flex items-center justify-between">
           <span className="font-semibold text-[#6b6b6b]">
@@ -80,7 +78,7 @@ export default function PostCard({
             {data?.meaning && (
               <ExpandableText
                 overlayClass="bg-gradient-to-t from-white via-white/80 to-transparent"
-                collapsedLines={3}
+                // collapsedLines={3}
               >
                 {data?.meaning}
               </ExpandableText>
@@ -136,17 +134,31 @@ export default function PostCard({
         </div>
       </div>
 
-      <BottomSheet isOpen={isOpen} onClose={() => setIsOpen(false)} className="bg-white pb-10">
-          <div className="flex flex-col gap-2">
-            <Button variant="ghost" className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4">
-              <img src="icons/edit.svg" alt="" />
-              <p className="text-primaryColor text-base leading-4 font-extrabold">Редактировать</p>
-            </Button>
-            <Button variant="ghost" className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4">
-              <img src="icons/warning.svg" alt="" />
-              <p className="text-primaryColor text-base leading-4 font-extrabold">Пожаловаться</p>
-            </Button>
-          </div>
+      <BottomSheet
+        isOpen={isOpen}
+        onClose={() => setIsOpen(false)}
+        className="bg-white pb-10"
+      >
+        <div className="flex flex-col gap-2">
+          <Button
+            variant="ghost"
+            className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4"
+          >
+            <img src="icons/edit.svg" alt="" />
+            <p className="text-primaryColor text-base leading-4 font-extrabold">
+              Редактировать
+            </p>
+          </Button>
+          <Button
+            variant="ghost"
+            className="!w-full bg-island !rounded-2xl flex items-center justify-start h-14 gap-4"
+          >
+            <img src="icons/warning.svg" alt="" />
+            <p className="text-primaryColor text-base leading-4 font-extrabold">
+              Пожаловаться
+            </p>
+          </Button>
+        </div>
       </BottomSheet>
     </div>
   );

@@ -153,8 +153,10 @@ body {
 }
 
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE va Edge */
-  scrollbar-width: none;     /* Firefox */
+  -ms-overflow-style: none;
+  /* IE va Edge */
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .scroll-container {
@@ -164,4 +166,18 @@ body {
   touch-action: pan-x;
   overscroll-behavior-x: contain;
   overscroll-behavior-y: none;
+}
+
+/* global.css yoki index.css ichida */
+/* body {
+  user-select: none;
+}
+
+.no-select {
+  user-select: none;
+} */
+
+/* Faqat ExpandableText ichida ruxsat beramiz */
+.expandable-text {
+  user-select: text;
 }

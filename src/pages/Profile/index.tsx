@@ -101,28 +101,6 @@ const ProfilePage = () => {
           см. ещё
         </p>
 
-        {/* <div className="pl-3 mt-3">
-          <div className="w-full overflow-x-auto no-scrollbar">
-            <div className="flex gap-2 w-max">
-              {buttons?.map((button, idx) => (
-                <Button
-                  key={idx}
-                  variant={
-                    button.value === activeSection ? "primary" : "outline"
-                  }
-                  className={clsx(
-                    button.value === activeSection &&
-                      "bg-primaryClicked text-primaryWhite"
-                  )}
-                  onClick={() => setActiveSection(button.value)}
-                >
-                  {button.label}
-                </Button>
-              ))}
-            </div>
-          </div>
-        </div> */}
-
         <div className="pl-3 mt-3">
           <div className="w-full scroll-container no-scrollbar">
             <div className="flex gap-2 w-max">
