@@ -125,6 +125,81 @@
 //   }, [navigate, pathname]);
 // }
 
+// import { useEffect } from "react";
+// import { useLocation, useNavigate } from "react-router-dom";
+// import {
+//   showBackButton,
+//   hideBackButton,
+//   onBackButtonClick,
+//   onMainButtonClick,
+// } from "@telegram-apps/sdk-react";
+
+// /**
+//  * Telegram WebApp ichida Back va Main (Close) tugmalarini boshqaradi.
+//  * URL path bo'ylab harakatlanishni aniqlash orqali tugmalar holatini boshqaradi.
+//  * Bu usul yanada ishonchli va barqaror animatsiyani ta'minlaydi.
+//  */
+// export function useTelegramBackClose() {
+//   const navigate = useNavigate();
+//   const { pathname } = useLocation();
+
+//   useEffect(() => {
+//     const isRootPath = pathname === '/'; // Asosiy sahifa ekanligini tekshirish
+//     const mainButton = window.Telegram?.WebApp?.MainButton;
+
+//     // Back tugmasi bosilganda bajariladigan funksiya
+//     const backButtonHandler = () => {
+//       navigate(-1); // Bir bosqich orqaga qaytish
+//     };
+
+//     // MainButton (Close tugmasi) bosilganda bajariladigan funksiya
+//     const mainButtonHandler = () => {
+//       window.Telegram?.WebApp?.close(); // Ilova oynasini yopish
+//     };
+
+//     if (isRootPath) {
+//       // Agar asosiy sahifada bo'lsa:
+      
+//       // 1. Back tugmasini yashirish
+//       hideBackButton();
+
+//       // 2. MainButton (Close tugmasi) ko'rsatish va sozlash
+//       mainButton?.setText("Close"); // Tugma matnini "Close" qilish
+//       mainButton?.show();          // Tugmani ko'rsatish
+
+//       // MainButton uchun hodisa tinglovchisini biriktirish
+//       const offMain = onMainButtonClick(mainButtonHandler);
+
+//       // Tozalash funksiyasi: Komponent o'chirilganda yoki dep. o'zgarganda ishlaydi
+//       return () => {
+//         mainButton?.hide();      // MainButtonni yashirish
+//         offMain();               // Hodisa tinglovchisini olib tashlash
+//       };
+
+//     } else {
+//       // Agar asosiy sahifada bo'lmasa (boshqa sahifada):
+
+//       // 1. MainButtonni yashirish
+//       mainButton?.hide();
+
+//       // 2. Back tugmasini ko'rsatish
+//       showBackButton();
+
+//       // Back tugmasi uchun hodisa tinglovchisini biriktirish
+//       const offBack = onBackButtonClick(backButtonHandler);
+
+//       // Tozalash funksiyasi: Komponent o'chirilganda yoki dep. o'zgarganda ishlaydi
+//       return () => {
+//         hideBackButton();      // Back tugmasini yashirish
+//         offBack();             // Hodisa tinglovchisini olib tashlash
+//       };
+//     }
+    
+//     // useEffect faqat navigate yoki pathname o'zgargandagina qayta ishga tushadi.
+//     // window.history.state.idx olib tashlangani sababli, ortiqcha ishga tushishlar va miltillash yo'qoladi.
+//   }, [navigate, pathname]);
+// }
+
 import { useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import {
@@ -134,68 +209,41 @@ import {
   onMainButtonClick,
 } from "@telegram-apps/sdk-react";
 
-/**
- * Telegram WebApp ichida Back va Main (Close) tugmalarini boshqaradi.
- * URL path bo'ylab harakatlanishni aniqlash orqali tugmalar holatini boshqaradi.
- * Bu usul yanada ishonchli va barqaror animatsiyani ta'minlaydi.
- */
 export function useTelegramBackClose() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
+  const isClose = pathname.split("/").filter(Boolean).length === 0;
 
   useEffect(() => {
-    const isRootPath = pathname === '/'; // Asosiy sahifa ekanligini tekshirish
-    const mainButton = window.Telegram?.WebApp?.MainButton;
+    const mainButton = window.Telegram?.WebApp?.MainButton || null;
 
-    // Back tugmasi bosilganda bajariladigan funksiya
-    const backButtonHandler = () => {
-      navigate(-1); // Bir bosqich orqaga qaytish
-    };
-
-    // MainButton (Close tugmasi) bosilganda bajariladigan funksiya
-    const mainButtonHandler = () => {
-      window.Telegram?.WebApp?.close(); // Ilova oynasini yopish
-    };
-
-    if (isRootPath) {
-      // Agar asosiy sahifada bo'lsa:
-      
-      // 1. Back tugmasini yashirish
-      hideBackButton();
-
-      // 2. MainButton (Close tugmasi) ko'rsatish va sozlash
-      mainButton?.setText("Close"); // Tugma matnini "Close" qilish
-      mainButton?.show();          // Tugmani ko'rsatish
-
-      // MainButton uchun hodisa tinglovchisini biriktirish
-      const offMain = onMainButtonClick(mainButtonHandler);
-
-      // Tozalash funksiyasi: Komponent o'chirilganda yoki dep. o'zgarganda ishlaydi
-      return () => {
-        mainButton?.hide();      // MainButtonni yashirish
-        offMain();               // Hodisa tinglovchisini olib tashlash
-      };
-
-    } else {
-      // Agar asosiy sahifada bo'lmasa (boshqa sahifada):
-
-      // 1. MainButtonni yashirish
-      mainButton?.hide();
-
-      // 2. Back tugmasini ko'rsatish
+    if (!isClose) {
+      // Back tugmasi
       showBackButton();
+      mainButton?.hide?.();
 
-      // Back tugmasi uchun hodisa tinglovchisini biriktirish
-      const offBack = onBackButtonClick(backButtonHandler);
+      const off = onBackButtonClick(() => {
+        navigate(-1);
+      });
 
-      // Tozalash funksiyasi: Komponent o'chirilganda yoki dep. o'zgarganda ishlaydi
       return () => {
-        hideBackButton();      // Back tugmasini yashirish
-        offBack();             // Hodisa tinglovchisini olib tashlash
+        hideBackButton();
+        off?.();
+      };
+    } else {
+      // Close tugmasi
+      hideBackButton();
+      mainButton?.setText?.("Close");
+      mainButton?.show?.();
+
+      const offMain = onMainButtonClick(() => {
+        window.Telegram?.WebApp?.close();
+      });
+
+      return () => {
+        mainButton?.hide?.();
+        offMain?.();
       };
     }
-    
-    // useEffect faqat navigate yoki pathname o'zgargandagina qayta ishga tushadi.
-    // window.history.state.idx olib tashlangani sababli, ortiqcha ishga tushishlar va miltillash yo'qoladi.
-  }, [navigate, pathname]);
+  }, [pathname, navigate]); // faqat URL o‘zgarsa ishga tushadi
 }
