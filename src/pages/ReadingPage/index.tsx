@@ -16,6 +16,8 @@ import SettingsIcon from "@/components/icons/Settings";
 import ChaptersIcon from "@/components/icons/Chapters";
 import FragmentsIcon from "@/components/icons/Fragments";
 import BookSearchingIcon from "@/components/icons/BookSearching";
+// import NewReader from "@/components/epubReader/NewReader";
+// import EpubReader from "@/components/epubReader";
 // import SearchIcon from "@/components/icons/BookSearching";
 // import { BookReader } from "@/components/epubReader";
 
@@ -69,6 +71,7 @@ const ReadingPage = () => {
 
     const handleClick = () => {
       // faqat scroll bo'lmaganda toolbar chiqsin
+      return;
       if (!isScrolling) {
         setShowToolbar((prev) => !prev);
       }
@@ -109,8 +112,11 @@ const ReadingPage = () => {
           </div>
         </Header>
 
+        {/* <h1 className="text-2xl font-bold mb-4">EPUB Reader TMA</h1> */}
+      {/* <NewReader /> */}
+
         {/* <CustomReader url="public/Ramaiana.epub" /> */}
-        {/* <BookReader /> */}
+        {/* <EpubReader epubUrl="public/Ramaiana.epub" storageKey="Ramaiana" /> */}
 
         <div className="px-3 p-4 overflow-y-auto space-y-5">
           <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">

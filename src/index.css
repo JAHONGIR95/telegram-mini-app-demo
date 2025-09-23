@@ -181,3 +181,19 @@ body {
 .expandable-text {
   user-select: text;
 }
+
+.react-reader__arrow {
+  display: none !important;
+}
+
+/* Ensure sidebar is scrollable and fits content */
+/* aside {
+  @apply max-h-[calc(100vh-80px)] overflow-y-auto;
+} */
+
+/* .epubjs-hl {
+  background: #b78011 !important;
+  color: #000000 !important;
+} */
+
+
