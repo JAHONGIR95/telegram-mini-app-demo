@@ -16,6 +16,7 @@ import SettingsIcon from "@/components/icons/Settings";
 import ChaptersIcon from "@/components/icons/Chapters";
 import FragmentsIcon from "@/components/icons/Fragments";
 import BookSearchingIcon from "@/components/icons/BookSearching";
+import MyReader from "@/components/epubReader/MyReader";
 // import NewReader from "@/components/epubReader/NewReader";
 // import EpubReader from "@/components/epubReader";
 // import SearchIcon from "@/components/icons/BookSearching";
@@ -111,6 +112,8 @@ const ReadingPage = () => {
             <BookmarkIcon />
           </div>
         </Header>
+
+        <MyReader />
 
         {/* <h1 className="text-2xl font-bold mb-4">EPUB Reader TMA</h1> */}
       {/* <NewReader /> */}
