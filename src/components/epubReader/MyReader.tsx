@@ -1,11 +1,12 @@
 // import { useEffect, useRef, useState } from "react";
-// import { EpubViewStyle, ReactReader, ReactReaderStyle } from "react-reader";
+// import { ReactReader, ReactReaderStyle } from "react-reader";
 
 // const MyReader = () => {
 //   // And your own state logic to persist state
 //   const [size, setSize] = useState(100);
 //   const [selections, setSelections] = useState([]);
 //   const [page, setPage] = useState("");
+//   const [showToc, setShowToc] = useState(false);
 //   const [location, setLocation] = useState(null);
 //   const [firstRenderDone, setFirstRenderDone] = useState(false);
 //   const tocRef = useRef(null);
@@ -13,7 +14,10 @@
 //   const locationChanged = (epubcifi: any) => {
 //     if (renditionRef.current && tocRef.current) {
 //       const { displayed, href } = renditionRef.current.location.start;
-//       const chapter = tocRef.current.find((item) => item.href === href);
+//       const chapter = tocRef.current.find(
+//         (item) => item.href?.split("#")?.[0] === href
+//       );
+//       console.log(tocRef.current, chapter, href);
 //       setPage(
 //         `Page ${displayed.page} of ${displayed.total} in chapter ${
 //           chapter ? chapter.label : "n/a"
@@ -31,8 +35,23 @@
 //     setLocation(epubcifi);
 //   };
 
-//   const changeSize = (newSize) => {
+//   const changeSize = (newSize: number) => {
 //     setSize(newSize);
+//   };
+
+//   const handleChapterClick = async (item: any) => {
+//     if (renditionRef.current && item.href) {
+//       try {
+//         await renditionRef.current.display(item.href);
+//         setLocation(item.href);
+//         localStorage.setItem("book-progress", item.href);
+//         setShowToc(false);
+//       } catch (error) {
+//         console.error("Chapter o'tishda xato:", error);
+//       }
+//     } else {
+//       console.warn("Rendition yoki href mavjud emas");
+//     }
 //   };
 //   useEffect(() => {
 //     if (renditionRef.current) {
@@ -69,79 +88,39 @@
 
 //   const ownStyles = {
 //     ...ReactReaderStyle,
+//     reader: {
+//       ...ReactReaderStyle.reader,
+//       background: "#F8F4ED", // tashqi container foni
+//       position: "sticky",
+//       inset: 0,
+//       width: "100%",
+//       height: "100vh",
+//       padding: 0,
+//       margin: 0,
+//       boxSizing: "border-box",
+//     },
+//     container: {
+//       ...ReactReaderStyle.container,
+//       width: "100%",
+//       height: "100%",
+//       padding: 0,
+//       margin: 0,
+//     },
+//     view: {
+//       ...ReactReaderStyle.view,
+//       padding: 0,
+//       margin: 0,
+//     },
 //     arrow: {
 //       display: "none",
 //     },
-//     progress: {
-//       display: "none",
-//     },
-//     sidebar: {
-//       display: "none",
-//     },
-//     toc: {
-//       display: "none",
-//     },
-//     viewer: {
-//       height: "100vh",
-//       padding: 0,
-//       width: "100vw",
-//       display: 'none'
-//     },
-//     // container: {
-//       // height: "100vh",
-//       // padding: 0,
-//       // width: "100vw",
-//       // display: 'none'
-//     // },
-//     // content: {
-//     //   height: "100vh",
-//     //   padding: 0,
-//     //   width: "100vw",
-//     //   // display: 'none'
-//     // },
-//     // holder: {
-//     //   height: "100vh",
-//     //   padding: 0,
-//     //   width: "100vw",
-//     //   // display: 'none'
-//     // },
-//     // book: {
-//     //   height: "100vh",
-//     //   padding: 0,
-//     //   width: "100vw",
-//     //   // display: 'none'
-//     // },
 //   };
-
-//   const epubViewStyle = {
-//     ...EpubViewStyle,
-//     display: "none",
-//     viewer: {
-//       height: "100vh",
-//       padding: 0,
-//       width: "100vw",
-//       display: 'none'
-//     },
-//   };
-//   // const ownStyles = {
-//   //   ...ReactReaderStyle,
-//   //   arrow: {
-//   //     ...ReactReaderStyle.arrow,
-//   //     color: "red",
-//   //   },
-//   // };
 
 //   return (
 //     <>
-//       <div>
-//         <button onClick={() => changeSize(Math.max(80, size - 10))}>-</button>
-//         <span>Current size: {size}%</span>
-//         <button onClick={() => changeSize(Math.min(130, size + 10))}>+</button>
-//       </div>
-//       <div style={{ height: "100vh" }}>
+//       <div style={{ width: "100vw", height: "100vh", margin: 0, padding: 0, overflowY: 'auto' }}>
 //         <ReactReader
 //           readerStyles={ownStyles}
-//           epubViewStyles={epubViewStyle}
 //           location={location}
 //           locationChanged={locationChanged}
 //           url="https://react-reader.metabits.no/files/alice.epub"
@@ -152,7 +131,17 @@
 //                 background: "orange",
 //               },
 //             });
-//             setSelections([]);
+//             renditionRef.current.themes.register("custom", {
+//               "*": {
+//                 color: "#000",
+//                 background: "#F8F4ED !important",
+//               },
+//               "body.x-ebookmaker": {
+//                 padding: "16px !important",
+//                 margin: "0 !important",
+//               },
+//             });
+//             renditionRef.current.themes.select("custom");
 //           }}
 //           tocChanged={(toc) => (tocRef.current = toc)}
 //           showToc={false}
@@ -161,18 +150,67 @@
 //             manager: "continuous",
 //           }}
 //         />
-//         <div
+
+//         <button
+//           onClick={() => setShowToc(!showToc)}
 //           style={{
-//             //   position: 'absolute',
-//             //   bottom: '1rem',
-//             //   right: '1rem',
-//             //   left: '1rem',
-//             textAlign: "center",
-//             zIndex: 1,
+//             position: "absolute",
+//             top: "1rem",
+//             right: "1rem",
+//             zIndex: 10,
+//             padding: "8px 12px",
+//             background: "#333",
+//             color: "#fff",
+//             borderRadius: "4px",
+//             border: "none",
+//             cursor: "pointer",
 //           }}
 //         >
-//           {page}
-//         </div>
+//           ☰ Chapters
+//         </button>
+
+//         {showToc && (
+//           <div
+//             style={{
+//               position: "absolute",
+//               top: "3.5rem",
+//               right: "1rem",
+//               zIndex: 10,
+//               width: "250px",
+//               maxHeight: "60vh",
+//               overflowY: "auto",
+//               background: "#fff",
+//               border: "1px solid #ccc",
+//               borderRadius: "8px",
+//               boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+//             }}
+//           >
+//             <ul style={{ listStyle: "none", padding: "0.5rem", margin: 0 }}>
+//               {tocRef.current?.map((item) => (
+//                 <li
+//                   key={item.href}
+//                   onClick={() => {
+//                     handleChapterClick(item);
+//                   }}
+//                   style={{
+//                     padding: "8px",
+//                     cursor: "pointer",
+//                     borderRadius: "4px",
+//                     transition: "background 0.2s",
+//                   }}
+//                   onMouseEnter={(e) =>
+//                     (e.currentTarget.style.background = "#eee")
+//                   }
+//                   onMouseLeave={(e) =>
+//                     (e.currentTarget.style.background = "transparent")
+//                   }
+//                 >
+//                   {item.label}
+//                 </li>
+//               ))}
+//             </ul>
+//           </div>
+//         )}
 //       </div>
 //     </>
 //   );
@@ -180,10 +218,6 @@
 // };
 
 // export default MyReader;
-
-
-
-
 
 // import { useRef, useState } from "react";
 // import { ReactReader } from "react-reader";
@@ -298,13 +332,22 @@
 //   const [toc, setToc] = useState<any[]>([]);
 //   const [showToc, setShowToc] = useState(false);
 
-//   console.log(toc, location);
-
-//   // Oldingi pozitsiyani tiklash
+//   // Faqat birinchi yuklanishda localStorage dan o'qish
 //   useEffect(() => {
 //     const saved = localStorage.getItem("book-progress");
-//     if (saved) setLocation(saved);
-//   }, [location]);
+//     if (saved && !location) {
+//       setLocation(saved);
+//     }
+//   }, []);
+
+//   // Rendition tayyor bo'lganda location ni o'rnatish
+//   useEffect(() => {
+//     if (renditionRef.current && location) {
+//       renditionRef.current.display(location).catch((err: any) => {
+//         console.error("Location o'rnatishda xato:", err);
+//       });
+//     }
+//   }, [renditionRef.current, location]);
 
 //   const locationChanged = (epubcifi: string) => {
 //     setLocation(epubcifi);
@@ -313,39 +356,42 @@
 
 //   const handleChapterClick = async (item: any) => {
 //     if (renditionRef.current && item.href) {
-//       // Ehtiyot uchun kichik delay qo'yish
-//       await new Promise((resolve) => setTimeout(resolve, 50));
-//       renditionRef.current.display(item.href);
-//       localStorage.setItem("book-progress", item.href);
-//       setLocation(item.href);
-//       setShowToc(false);
+//       try {
+//         await renditionRef.current.display(item.href);
+//         setLocation(item.href);
+//         localStorage.setItem("book-progress", item.href);
+//         setShowToc(false);
+//       } catch (error) {
+//         console.error("Chapter o'tishda xato:", error);
+//       }
 //     } else {
-//       console.warn("Rendition hali yuklanmagan");
+//       console.warn("Rendition yoki href mavjud emas");
 //     }
 //   };
 
 //   return (
 //     <div style={{ position: "relative", height: "100vh" }}>
 //       <ReactReader
-//         location={'890231480751205683_11-h-3.htm.xhtml#pgepubid00005'}
+//         location={location}
 //         locationChanged={locationChanged}
 //         url="https://react-reader.metabits.no/files/alice.epub"
 //         getRendition={(rendition) => {
 //           renditionRef.current = rendition;
-//           renditionRef.current.themes.default({
+//           rendition.themes.default({
 //             "::selection": { background: "orange" },
 //           });
 //         }}
 //         tocChanged={(toc) => {
 //           setToc(toc);
+//           console.log("TOC:", toc); // Debug uchun
 //         }}
-//         epubOptions={{
-//           flow: "scrolled",
-//           manager: "continuous",
-//         }}
+//         // epubOptions={{
+//           // flow: "paginated",
+//           // manager: "continuous",
+//         // }}
 //         readerStyles={{
-//           arrow: { display: "none" },
-//           sidebar: { display: "none" },
+//           // arrow: { display: "none" },
+//           // sidebar: { display: "none" },
 //           toc: { display: "none" },
 //           progress: { display: "none" },
 //         }}
@@ -413,7 +459,7 @@
 //   );
 // }
 
-const MyReader = () => { 
+const MyReader = () => {
   return <div>MyReader</div>
 }
 

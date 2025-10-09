@@ -4,7 +4,6 @@ import BottomSheet from "@/components/modals/BottomSheet";
 import { useEffect, useState } from "react";
 import WebApp from "@twa-dev/sdk";
 import { useSafeAreaBottom } from "@/components/App";
-import { readingPassage } from "@/utils/constantValues";
 import SettingsView from "@/views/readingPage/Settings";
 import FragmentsView from "@/views/readingPage/Fragments";
 import SearchingView from "@/views/readingPage/Searching";
@@ -115,16 +114,10 @@ const ReadingPage = () => {
 
         <MyReader />
 
-        {/* <h1 className="text-2xl font-bold mb-4">EPUB Reader TMA</h1> */}
-      {/* <NewReader /> */}
-
-        {/* <CustomReader url="public/Ramaiana.epub" /> */}
-        {/* <EpubReader epubUrl="public/Ramaiana.epub" storageKey="Ramaiana" /> */}
-
         <div className="px-3 p-4 overflow-y-auto space-y-5">
-          <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
+          {/* <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
             {readingPassage}
-          </p>
+          </p> */}
 
           {/* Toolbar */}
           <div
