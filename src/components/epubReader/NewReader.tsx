@@ -1,139 +1,281 @@
-// import React, { useRef, useState } from 'react';
-// import { ReactReader } from 'react-reader';
+import { useReaderSettingsStore } from "@/store/useReaderSettingStore";
+import { useEffect, useRef, useState } from "react";
+import { IReactReaderStyle, ReactReader, ReactReaderStyle } from "react-reader";
+import type { Rendition } from "epubjs"; // 👉 type import
 
-// import { ReactReader } from "react-reader";
+interface Highlight {
+  cfiRange: string;
+  text?: string;
+}
 
-// const EpubReader: React.FC<{ url: string }> = ({ url }) => {
-//   const renditionRef = useRef<any>(null);
-//   const [highlights, setHighlights] = useState<string[]>([]);
-//   const [showCommentModal, setShowCommentModal] = useState(false);
-//   const [currentCfi, setCurrentCfi] = useState('');
-//   const [commentText, setCommentText] = useState('');
+export interface TocItem {
+  id?: string;
+  href?: string;
+  label?: string;
+  subitems?: TocItem[];
+}
 
-//   const handleRendition = (rendition: any) => {
-//     renditionRef.current = rendition;
-//     rendition.themes.default({
-//       body: {
-//         overflow: 'auto',
-//         height: '100vh',
-//       },
-//     });
-//     rendition.book.ready.then(() => {
-//       rendition.flow('scrolled');
-//       rendition.spread('none');
-//     });
-//     rendition.on('selected', (cfiRange: string) => {
-//       if (cfiRange) {
-//         setCurrentCfi(cfiRange);
-//         setShowCommentModal(true);
-//       }
-//     });
-//   };
+interface NewReaderProps {
+  setShowToolbar: (prev: React.SetStateAction<boolean>) => void;
+}
+const NewReader: React.FC<NewReaderProps> = ({ setShowToolbar }) => {
+  const { fontSize } = useReaderSettingsStore();
+  const [selections, setSelections] = useState<Highlight[]>([]);
+  // const [page, setPage] = useState("");
+  const [showToc, setShowToc] = useState(false);
+  const [location, setLocation] = useState<string | null>(null);
+  const [firstRenderDone, setFirstRenderDone] = useState(false);
+  const tocRef = useRef<TocItem[] | null>(null);
+  const renditionRef = useRef<Rendition | null>(null);
+  const locationChanged = (epubcifi: any) => {
+    if (renditionRef.current && tocRef.current) {
+      // const { displayed, href } = renditionRef.current.location.start;
+      // const chapter = tocRef.current.find(
+      //   (item) => item.href?.split("#")?.[0] === href
+      // );
+      // console.log(tocRef.current, chapter, href);
+      // setPage(
+      //   `Page ${displayed.page} of ${displayed.total} in chapter ${
+      //     chapter ? chapter.label : "n/a"
+      //   }`
+      // );
+    }
+    if (!firstRenderDone) {
+      setLocation(localStorage.getItem("book-progress"));
+      setFirstRenderDone(true);
+      return;
+    }
 
-//   const saveHighlight = (cfiRange: string, isComment = false, comment = '') => {
-//     if (renditionRef.current) {
-//       const styles = isComment ? { 'background-color': 'rgba(0, 255, 0, 0.3)' } : { 'background-color': 'rgba(255, 255, 0, 0.5)' };
-//       renditionRef.current.annotations.add(
-//         isComment ? 'comment' : 'highlight',
-//         cfiRange,
-//         { comment },
-//         () => console.log(isComment ? 'Comment added' : 'Highlight added'),
-//         isComment ? 'comment-class' : 'highlight-class',
-//         styles
-//       );
-//       setHighlights(prev => [...prev, cfiRange]);
-//       localStorage.setItem('highlights', JSON.stringify([...highlights, cfiRange]));
-//       if (isComment) {
-//         localStorage.setItem('comments', JSON.stringify([...(JSON.parse(localStorage.getItem('comments') || '[]')), { cfi: cfiRange, text: comment }]));
-//       }
-//     }
-//   };
+    localStorage.setItem("book-progress", epubcifi);
 
-//   return (
-//     <div className="flex h-[calc(100vh-80px)] c-reader">
-//       <div className="flex-1">
-//         <ReactReader
-//           url={url}
-//           title="EPUB Book"
-//           getRendition={handleRendition}
-//           className="h-full"
-//         />
-//       </div>
-//       <aside className="w-64 bg-white dark:bg-gray-800 p-4 overflow-y-auto shadow-lg">
-//         <h2 className="text-lg font-semibold mb-2 text-gray-800 dark:text-gray-200">Highlights & Comments</h2>
-//         <ul>
-//           {highlights.map((cfi, i) => (
-//             <li key={i} className="mb-2">
-//               <button
-//                 onClick={() => renditionRef.current.display(cfi)}
-//                 className="text-blue-500 hover:underline"
-//               >
-//                 Jump to {JSON.parse(localStorage.getItem('comments') || '[]').find((c: any) => c.cfi === cfi)?.text || 'Highlight'}
-//               </button>
-//             </li>
-//           ))}
-//         </ul>
-//       </aside>
-//       {showCommentModal && (
-//         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-//           <div className="bg-white dark:bg-gray-800 p-6 rounded-lg w-96">
-//             <h3 className="text-lg font-bold mb-4 text-gray-800 dark:text-gray-200">Add Comment</h3>
-//             <textarea
-//               value={commentText}
-//               onChange={(e) => setCommentText(e.target.value)}
-//               placeholder="Your comment..."
-//               className="w-full p-2 border rounded mb-4 text-gray-800 dark:text-gray-200 dark:bg-gray-700"
-//             />
-//             <div className="flex justify-end space-x-2">
-//               <button
-//                 onClick={() => {
-//                   setShowCommentModal(false);
-//                   saveHighlight(currentCfi);
-//                 }}
-//                 className="px-4 py-2 bg-yellow-500 text-white rounded"
-//               >
-//                 Highlight Only
-//               </button>
-//               <button
-//                 onClick={() => {
-//                   if (commentText) {
-//                     saveHighlight(currentCfi, true, commentText);
-//                     setShowCommentModal(false);
-//                     setCommentText('');
-//                   }
-//                 }}
-//                 className="px-4 py-2 bg-blue-500 text-white rounded"
-//               >
-//                 Save Comment
-//               </button>
-//             </div>
-//           </div>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
+    setLocation(epubcifi);
+  };
 
-// export default EpubReader;
+  const handleChapterClick = async (item: TocItem) => {
+    if (renditionRef.current && item.href) {
+      try {
+        await renditionRef.current.display(item.href);
+        setLocation(item.href);
+        localStorage.setItem("book-progress", item.href);
+        setShowToc(false);
+      } catch (error) {
+        console.error("Chapter o'tishda xato:", error);
+      }
+    } else {
+      console.warn("Rendition yoki href mavjud emas");
+    }
+  };
+  useEffect(() => {
+    if (renditionRef.current) {
+      renditionRef.current.themes.fontSize(`${fontSize}px`);
+      renditionRef.current.themes.font("arial");
+    }
+  }, [fontSize]);
 
-// import { useState } from "react";
-// import { ReactReader as Reader } from "react-reader";
+  useEffect(() => {
+    if (renditionRef.current) {
+      function setRenderSelection(cfiRange: string, contents: any): void {
+        setSelections(
+          selections.concat({
+            text: renditionRef.current?.getRange(cfiRange).toString(),
+            cfiRange,
+          })
+        );
 
-function NewReader() {
-  // const [open, setOpen] = useState(true);
+        localStorage.setItem(
+          "highlights",
+          JSON.stringify(
+            selections.concat({
+              text: renditionRef.current?.getRange(cfiRange).toString(),
+              cfiRange,
+            })
+          )
+        );
+
+        renditionRef.current?.annotations.add(
+          "highlight",
+          cfiRange,
+          {},
+          undefined,
+          "hl",
+          { fill: "green", "fill-opacity": "0.5", "mix-blend-mode": "multiply" }
+        );
+        contents.window.getSelection().removeAllRanges();
+      }
+      renditionRef.current.on("selected", setRenderSelection);
+      return () => {
+        renditionRef.current?.off("selected", setRenderSelection);
+      };
+    }
+  }, [setSelections, selections]);
+
+  const ownStyles: IReactReaderStyle = {
+    ...ReactReaderStyle,
+    reader: {
+      ...ReactReaderStyle.reader,
+      background: "#F8F4ED", // tashqi container foni
+      position: "sticky",
+      inset: 0,
+      width: "100%",
+      height: "100vh",
+      padding: 0,
+      margin: 0,
+      boxSizing: "border-box",
+    },
+    container: {
+      ...ReactReaderStyle.container,
+      width: "100%",
+      height: "100%",
+      padding: 0,
+      margin: 0,
+    },
+    arrow: {
+      display: "none",
+    },
+  };
+
+  useEffect(() => {
+    if (!renditionRef.current) return;
+
+    renditionRef.current.on("rendered", () => {
+      const iframe = document.querySelector("iframe");
+      if (iframe && iframe.contentWindow) {
+        iframe.contentWindow.document.addEventListener("click", () => {
+          setShowToolbar((prev) => !prev);
+        });
+      }
+    });
+  }, [renditionRef.current]);
 
   return (
-    <div className="h-screen w-screen bg-gray-100">
-      {/* Reader komponenti */}
-      {/* <Reader
-        url={'public/Ramaiana.epub'}
-        open={open}
-        onClose={() => setOpen(false)}
-        swipeable={true} // TMA da touch uchun
-        epubInitOptions={{ manager: "continuous" }} // Sahifa navigatsiyasi
-      /> */}
-    </div>
+    <>
+      <div
+        style={{
+          width: "100vw",
+          height: "100vh",
+          margin: 0,
+          padding: 0,
+          overflowY: "auto",
+        }}
+      >
+        <ReactReader
+          readerStyles={ownStyles}
+          location={location}
+          locationChanged={locationChanged}
+          url="https://react-reader.metabits.no/files/alice.epub"
+          getRendition={(rendition) => {
+            renditionRef.current = rendition;
+            renditionRef.current.themes.default({
+              "::selection": {
+                background: "orange",
+              },
+            });
+
+            const highlights = JSON.parse(
+              localStorage.getItem("highlights") || "[]"
+            );
+
+            highlights.forEach((highlight: Highlight) => {
+              renditionRef.current?.annotations.add(
+                "highlight",
+                highlight.cfiRange,
+                {},
+                undefined,
+                "hl",
+                {
+                  fill: "green",
+                  "fill-opacity": "0.5",
+                  "mix-blend-mode": "multiply",
+                }
+              );
+            });
+            setSelections(highlights);
+            renditionRef.current.themes.register("custom", {
+              "*": {
+                color: "#000",
+                background: "#F8F4ED !important",
+              },
+              "body.x-ebookmaker": {
+                padding: "16px !important",
+                margin: "0 !important",
+              },
+            });
+            renditionRef.current.themes.select("custom");
+          }}
+          tocChanged={(toc: TocItem[]) => (tocRef.current = toc)}
+          showToc={false}
+          epubOptions={{
+            flow: "scrolled",
+            manager: "continuous",
+            allowPopups: true, // Adds `allow-popups` to sandbox-attribute
+            allowScriptedContent: true, // Adds `allow-scripts` to sandbox-attribute
+          }}
+        />
+
+        <button
+          onClick={() => setShowToc(!showToc)}
+          style={{
+            position: "absolute",
+            top: "1rem",
+            right: "1rem",
+            zIndex: 10,
+            padding: "8px 12px",
+            background: "#333",
+            color: "#fff",
+            borderRadius: "4px",
+            border: "none",
+            cursor: "pointer",
+          }}
+        >
+          ☰ Chapters
+        </button>
+
+        {showToc && (
+          <div
+            style={{
+              position: "absolute",
+              top: "3.5rem",
+              right: "1rem",
+              zIndex: 10,
+              width: "250px",
+              maxHeight: "60vh",
+              overflowY: "auto",
+              background: "#fff",
+              border: "1px solid #ccc",
+              borderRadius: "8px",
+              boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+            }}
+          >
+            <ul style={{ listStyle: "none", padding: "0.5rem", margin: 0 }}>
+              {tocRef.current?.map((item) => (
+                <li
+                  key={item.href}
+                  onClick={() => {
+                    handleChapterClick(item);
+                  }}
+                  style={{
+                    padding: "8px",
+                    cursor: "pointer",
+                    borderRadius: "4px",
+                    transition: "background 0.2s",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.background = "#eee")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.background = "transparent")
+                  }
+                >
+                  {item.label}
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </>
   );
-}
+  // return null
+};
 
 export default NewReader;

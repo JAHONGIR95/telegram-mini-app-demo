@@ -15,7 +15,9 @@ import SettingsIcon from "@/components/icons/Settings";
 import ChaptersIcon from "@/components/icons/Chapters";
 import FragmentsIcon from "@/components/icons/Fragments";
 import BookSearchingIcon from "@/components/icons/BookSearching";
-import MyReader from "@/components/epubReader/MyReader";
+// import MyReader from "@/components/epubReader/MyReader";
+// import OnlyEpubReader from "@/components/epubReader/onlyEpubReader";
+import NewReader from "@/components/epubReader/NewReader";
 // import NewReader from "@/components/epubReader/NewReader";
 // import EpubReader from "@/components/epubReader";
 // import SearchIcon from "@/components/icons/BookSearching";
@@ -54,7 +56,7 @@ const settings: Array<ITab> = [
 ];
 
 const ReadingPage = () => {
-  const [showToolbar, setShowToolbar] = useState(false);
+  const [showToolbar, setShowToolbar] = useState<boolean>(false);
   const [isBottomSheetOpen, setIsBottomSheetOpen] = useState(false);
   const { safeAreaBottom } = useSafeAreaBottom();
   const [activeSegment, setActiveSegment] = useState<string | null>(null);
@@ -71,7 +73,7 @@ const ReadingPage = () => {
 
     const handleClick = () => {
       // faqat scroll bo'lmaganda toolbar chiqsin
-      return;
+      // return;
       if (!isScrolling) {
         setShowToolbar((prev) => !prev);
       }
@@ -112,12 +114,11 @@ const ReadingPage = () => {
           </div>
         </Header>
 
-        <MyReader />
+        {/* <MyReader /> */}
+        {/* <OnlyEpubReader /> */}
 
+          <NewReader setShowToolbar={setShowToolbar} />
         <div className="px-3 p-4 overflow-y-auto space-y-5">
-          {/* <p className="text-base leading-5 font-medium text-justify tracking-wider font-lato text-primaryColor">
-            {readingPassage}
-          </p> */}
 
           {/* Toolbar */}
           <div
@@ -185,14 +186,14 @@ const ReadingPage = () => {
 
           <BottomSheet
             className={clsx(
-              "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26",
+              "flex flex-col max-h-3/4 overflow-y-auto px-5 pb-26 z-101",
               activeSegment === "searching" && "h-full"
             )}
             style={{ paddingBottom: safeAreaBottom + 100 }}
             backdropClassName="!bg-black/0"
             isOpen={isBottomSheetOpen}
             onClick={(e: React.MouseEvent) => e.stopPropagation()}
-            onClose={() => setIsBottomSheetOpen(false)}
+            onClose={() => {setIsBottomSheetOpen(false), setActiveSegment(null)}}
           >
             {activeSegment === "reading" && <ReadingView />}
             {activeSegment === "settings" && <SettingsView />}

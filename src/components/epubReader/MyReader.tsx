@@ -1438,628 +1438,584 @@
 
 // export default MyReader;
 
-// import { useEffect, useRef, useState } from "react";
-// import { ReactReader, ReactReaderStyle } from "react-reader";
+import { useEffect, useRef, useState } from "react";
+import { ReactReader, ReactReaderStyle } from "react-reader";
 
-// interface Highlight {
-//   cfiRange: string;
-//   text: string;
-//   color: string;
-//   comment?: string;
-//   position?: { x: number; y: number }; // Joylashuv qo'shildi
-// }
+interface Highlight {
+  cfiRange: string;
+  text: string;
+  color: string;
+  comment?: string;
+  position?: { x: number; y: number }; // Joylashuv qo'shildi
+}
 
-// const MyReader = () => {
-//   const [size, setSize] = useState(100);
-//   const [selections, setSelections] = useState<Highlight[]>([]);
-//   const [page, setPage] = useState("");
-//   const [showToc, setShowToc] = useState(false);
-//   const [location, setLocation] = useState<string | null>(null);
-//   const [firstRenderDone, setFirstRenderDone] = useState(false);
-//   const [popup, setPopup] = useState<{
-//     x: number;
-//     y: number;
-//     cfi: string;
-//     text: string;
-//   } | null>(null);
-//   const [selectedCfi, setSelectedCfi] = useState<string | null>(null);
-//   const [selectedText, setSelectedText] = useState<string>("");
-//   const [showCommentInput, setShowCommentInput] = useState(false);
-//   const [commentText, setCommentText] = useState("");
+const MyReader = () => {
+  // const [size, setSize] = useState(100);
+  const [selections, setSelections] = useState<Highlight[]>([]);
+  // const [page, setPage] = useState("");
+  const [showToc, setShowToc] = useState(false);
+  const [location, setLocation] = useState<string | null>(null);
+  const [firstRenderDone, setFirstRenderDone] = useState(false);
+  const [popup, setPopup] = useState<{
+    x: number;
+    y: number;
+    cfi: string;
+    text: string;
+  } | null>(null);
+  const [selectedCfi, setSelectedCfi] = useState<string | null>(null);
+  const [selectedText, setSelectedText] = useState<string>("");
+  const [showCommentInput, setShowCommentInput] = useState(false);
+  const [commentText, setCommentText] = useState("");
 
-//   const tocRef = useRef<any>(null);
-//   const renditionRef = useRef<any>(null);
+  const tocRef = useRef<any>(null);
+  const renditionRef = useRef<any>(null);
 
-//   const colors = ["green", "yellow", "red", "blue"];
+  const colors = ["green", "yellow", "red", "blue"];
 
-//   // Telegram Web App SDK integratsiyasi
-//   useEffect(() => {
-//     if (typeof window !== "undefined" && (window as any).Telegram?.WebApp) {
-//       const tg = (window as any).Telegram.WebApp;
-//       tg.ready();
-//       tg.expand();
-//     }
-//   }, []);
+  // Telegram Web App SDK integratsiyasi
+  useEffect(() => {
+    if (typeof window !== "undefined" && (window as any).Telegram?.WebApp) {
+      const tg = (window as any).Telegram.WebApp;
+      tg.ready();
+      tg.expand();
+    }
+  }, []);
 
-//   const locationChanged = (epubcifi: any) => {
-//     if (renditionRef.current && tocRef.current) {
-//       const { displayed, href } = renditionRef.current.location.start;
-//       const chapter = tocRef.current.find(
-//         (item) => item.href?.split("#")?.[0] === href
-//       );
-//       setPage(
-//         `Page ${displayed.page} of ${displayed.total} in chapter ${
-//           chapter ? chapter.label : "n/a"
-//         }`
-//       );
-//     }
-//     if (!firstRenderDone) {
-//       setLocation(localStorage.getItem("book-progress"));
-//       setFirstRenderDone(true);
-//       return;
-//     }
+  const locationChanged = (epubcifi: any) => {
+    // if (renditionRef.current && tocRef.current) {
+    //   const { displayed, href } = renditionRef.current.location.start;
+    //   const chapter = tocRef.current.find(
+    //     (item) => item.href?.split("#")?.[0] === href
+    //   );
+    //   setPage(
+    //     `Page ${displayed.page} of ${displayed.total} in chapter ${
+    //       chapter ? chapter.label : "n/a"
+    //     }`
+    //   );
+    // }
+    if (!firstRenderDone) {
+      setLocation(localStorage.getItem("book-progress"));
+      setFirstRenderDone(true);
+      return;
+    }
 
-//     localStorage.setItem("book-progress", epubcifi);
-//     setLocation(epubcifi);
-//   };
+    localStorage.setItem("book-progress", epubcifi);
+    setLocation(epubcifi);
+  };
 
-//   const changeSize = (newSize: number) => {
-//     setSize(newSize);
-//   };
+  // const changeSize = (newSize: number) => {
+  //   setSize(newSize);
+  // };
 
-//   const handleChapterClick = async (item: any) => {
-//     if (renditionRef.current && item.href) {
-//       try {
-//         await renditionRef.current.display(item.href);
-//         setLocation(item.href);
-//         localStorage.setItem("book-progress", item.href);
-//         setShowToc(false);
-//       } catch (error) {
-//         console.error("Chapter o'tishda xato:", error);
-//       }
-//     } else {
-//       console.warn("Rendition yoki href mavjud emas");
-//     }
-//   };
+  const handleChapterClick = async (item: any) => {
+    if (renditionRef.current && item.href) {
+      try {
+        await renditionRef.current.display(item.href);
+        setLocation(item.href);
+        localStorage.setItem("book-progress", item.href);
+        setShowToc(false);
+      } catch (error) {
+        console.error("Chapter o'tishda xato:", error);
+      }
+    } else {
+      console.warn("Rendition yoki href mavjud emas");
+    }
+  };
 
-//   // Highlight tanlash
-//   const handleHighlight = (color: string) => {
-//     if (selectedCfi && renditionRef.current && popup) {
-//       renditionRef.current.annotations.add(
-//         "highlight",
-//         selectedCfi,
-//         {},
-//         null,
-//         "hl",
-//         {
-//           fill: color,
-//           "fill-opacity": "0.4",
-//           "mix-blend-mode": "multiply",
-//         }
-//       );
+  // Highlight tanlash
+  const handleHighlight = (color: string) => {
+    if (selectedCfi && renditionRef.current && popup) {
+      renditionRef.current.annotations.add(
+        "highlight",
+        selectedCfi,
+        {},
+        null,
+        "hl",
+        {
+          fill: color,
+          "fill-opacity": "0.4",
+          "mix-blend-mode": "multiply",
+        }
+      );
 
-//       const newHighlight: Highlight = {
-//         cfiRange: selectedCfi,
-//         color,
-//         text: selectedText,
-//         position: { x: popup.x, y: popup.y }, // Joylashuv saqlanadi
-//       };
+      const newHighlight: Highlight = {
+        cfiRange: selectedCfi,
+        color,
+        text: selectedText,
+        position: { x: popup.x, y: popup.y }, // Joylashuv saqlanadi
+      };
 
-//       const updated = [...selections, newHighlight];
-//       setSelections(updated);
-//       localStorage.setItem("highlights", JSON.stringify(updated));
+      const updated = [...selections, newHighlight];
+      setSelections(updated);
+      localStorage.setItem("highlights", JSON.stringify(updated));
 
-//       setPopup(null);
-//       setSelectedCfi(null);
-//       setSelectedText("");
-//     }
-//   };
+      setPopup(null);
+      setSelectedCfi(null);
+      setSelectedText("");
+    }
+  };
 
-//   const handleAddComment = () => {
-//     setShowCommentInput(true);
-//   };
+  const handleAddComment = () => {
+    setShowCommentInput(true);
+  };
 
-//   const handleSaveComment = () => {
-//     if (!commentText.trim() || !selectedCfi || !popup) return;
-//     const updated = selections.map((h) =>
-//       h.cfiRange === selectedCfi
-//         ? { ...h, comment: commentText, position: { x: popup.x, y: popup.y } }
-//         : h
-//     );
-//     if (!updated.some((h) => h.cfiRange === selectedCfi)) {
-//       updated.push({
-//         cfiRange: selectedCfi,
-//         text: selectedText,
-//         color: colors[0], // Default rang
-//         comment: commentText,
-//         position: { x: popup.x, y: popup.y },
-//       });
-//     }
-//     setSelections(updated);
-//     localStorage.setItem("highlights", JSON.stringify(updated));
-//     setCommentText("");
-//     setShowCommentInput(false);
-//     setPopup(null);
-//   };
+  const handleSaveComment = () => {
+    if (!commentText.trim() || !selectedCfi || !popup) return;
+    const updated = selections.map((h) =>
+      h.cfiRange === selectedCfi
+        ? { ...h, comment: commentText, position: { x: popup.x, y: popup.y } }
+        : h
+    );
+    if (!updated.some((h) => h.cfiRange === selectedCfi)) {
+      updated.push({
+        cfiRange: selectedCfi,
+        text: selectedText,
+        color: colors[0], // Default rang
+        comment: commentText,
+        position: { x: popup.x, y: popup.y },
+      });
+    }
+    setSelections(updated);
+    localStorage.setItem("highlights", JSON.stringify(updated));
+    setCommentText("");
+    setShowCommentInput(false);
+    setPopup(null);
+  };
 
-//   // Font o'lchami va uslubini yangilash
-//   useEffect(() => {
-//     if (renditionRef.current) {
-//       renditionRef.current.themes.fontSize(`${size}%`);
-//       renditionRef.current.themes.font("arial");
-//     }
-//   }, [size]);
+  // Font o'lchami va uslubini yangilash
+  useEffect(() => {
+    if (renditionRef.current) {
+      renditionRef.current.themes.fontSize(`${16}px`);
+      renditionRef.current.themes.font("arial");
+    }
+  }, []);
 
-//   // Highlight va commentlarni qayta yuklash
-//   useEffect(() => {
-//     if (renditionRef.current) {
-//       const highlights = JSON.parse(localStorage.getItem("highlights") || "[]");
-//       highlights.forEach((highlight: Highlight) => {
-//         renditionRef.current.annotations.add(
-//           "highlight",
-//           highlight.cfiRange,
-//           {},
-//           null,
-//           "hl",
-//           {
-//             fill: highlight.color || "green",
-//             "fill-opacity": "0.4",
-//             "mix-blend-mode": "multiply",
-//           }
-//         );
-//       });
+  // Highlight va commentlarni qayta yuklash
+  useEffect(() => {
+    if (renditionRef.current) {
+      const highlights = JSON.parse(localStorage.getItem("highlights") || "[]");
+      highlights.forEach((highlight: Highlight) => {
+        renditionRef.current.annotations.add(
+          "highlight",
+          highlight.cfiRange,
+          {},
+          null,
+          "hl",
+          {
+            fill: highlight.color || "green",
+            "fill-opacity": "0.4",
+            "mix-blend-mode": "multiply",
+          }
+        );
+        if (highlight) {
+          console.log('view ', renditionRef.current)
+          const view =
+            renditionRef.current.annotations.rendition.manager?.views
+              ?._views?.[0];
+          if (view) {
+            const rangeFromCfi = view.contents?.range(highlight.cfiRange);
+            if (rangeFromCfi) {
+              const dot = view.document.createElement("span");
+              dot.className = "annotation-dot";
+              dot.style.cssText = `
+                position: absolute;
+                width: 10px;
+                height: 10px;
+                background-color:#F59E0B;
+                border: 1px solid #F59E0B;
+                border-radius: 50%;
+                cursor: pointer;
+                z-index: 10;
+                box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+                transition: transform 0.2s;
+              `;
 
-//       setSelections(highlights);
-//     }
-//   }, []);
+              const rects = rangeFromCfi.getClientRects();
 
-//   // Matn tanlash va popupni ko'rsatish
-//   useEffect(() => {
-//     if (!renditionRef.current) return;
+              if (rects.length > 0) {
+                const firstRect = rects[0];
+                // console.log(firstRect, view);
 
-//     const setRenderSelection = (cfiRange: string, contents: any) => {
-//       try {
-//         const sel = contents?.window?.getSelection?.();
-//         let range, text, rect, iframeRect;
+                dot.style.left = `${
+                  firstRect.left - (firstRect.left - firstRect.right)
+                }px`;
+                dot.style.top = `${firstRect.top + firstRect.height / 2 - 6}px`;
+              }
+              dot.onclick = (e: MouseEvent) => {
+                e.stopPropagation();
+                // const iframe = view.window.frameElement;
+                // const iframeRect = iframe.getBoundingClientRect();
+                // const dotRect = dot.getBoundingClientRect();
 
-//         if (!sel || sel.rangeCount === 0) {
-//           try {
-//             const view = renditionRef.current.annotations.rendition.manager?.views?._views?.[0];
-//             if (view) {
-//               const rangeFromCfi = view.contents.range(cfiRange);
-//               if (rangeFromCfi) {
-//                 text = rangeFromCfi.toString();
-//                 const rects = rangeFromCfi.getClientRects();
-//                 if (rects.length > 0) {
-//                   rect = rects[0];
-//                   const iframeEl = view.window.frameElement;
-//                   iframeRect = iframeEl?.getBoundingClientRect?.() ?? {
-//                     left: 0,
-//                     top: 0,
-//                   };
-//                 }
-//               }
-//             }
-//           } catch (e) {
-//             console.warn("No DOM selection and fallback failed", e);
-//             return;
-//           }
-//         } else {
-//           range = sel.getRangeAt(0);
-//           if (!range) return;
-//           text = sel.toString();
-//           rect = range.getBoundingClientRect();
-//           const iframeEl =
-//             contents?.iframe ||
-//             contents?.window?.frameElement ||
-//             renditionRef.current.annotations.rendition.manager?.views?._views?.[0]?.window
-//               ?.frameElement;
-//           iframeRect = iframeEl?.getBoundingClientRect?.() ?? {
-//             left: 0,
-//             top: 0,
-//           };
-//           sel.removeAllRanges();
-//         }
+                // setSelectedAnnotation({ 
+                //    annotation,
+                //   position: {
+                //     top: iframeRect.top + dotRect.top + 20,
+                //     left: iframeRect.left + dotRect.left,
+                //   },
+                // });
+              };
 
-//         if (text && rect) {
-//           const x = iframeRect.left + rect.left + rect.width / 2;
-//           const y = iframeRect.top + rect.top + window.scrollY - 60;
-//           setPopup({ x, y, cfi: cfiRange, text });
-//           setSelectedCfi(cfiRange);
-//           setSelectedText(text);
-//           setShowCommentInput(false);
-//           setCommentText("");
-//         }
-//       } catch (err) {
-//         console.error("setRenderSelection error:", err);
-//       }
-//     };
+              // Добавляем точку в документ
+              view.document.body.appendChild(dot);   
+            }
+          }
+        }
+      });
 
-//     renditionRef.current.on("selected", setRenderSelection);
+      setSelections(highlights);
+    }
+  }, [renditionRef.current]);
+  
+  // Matn tanlash va popupni ko'rsatish
+  useEffect(() => {
+    if (!renditionRef.current) return;
 
-//     const handleClickOutside = () => {
-//       setPopup(null);
-//       setShowCommentInput(false);
-//       setCommentText("");
-//     };
+    const setRenderSelection = (cfiRange: string, contents: any) => {
+      try {
+        const sel = contents?.window?.getSelection?.();
+        let range, text, rect, iframeRect;
 
-//     renditionRef.current.on("click", handleClickOutside);
+        if (!sel || sel.rangeCount === 0) {
+          try {
+            const view =
+              renditionRef.current.annotations.rendition.manager?.views
+                ?._views?.[0];
+            if (view) {
+              // const rangeFromCfi = view.contents.range(cfiRange); 
+              // if (rangeFromCfi) {
+              //   const dot = view.document.createElement("span"); 
+              //   dot.className = "annotation-dot";
+              //   dot.style.cssText = `
+              //   position: absolute;
+              //   width: 10px;
+              //   height: 10px;
+              //   background-color: #FCD34D;
+              //   border: 1px solid #F59E0B;
+              //   border-radius: 50%;
+              //   cursor: pointer;
+              //   z-index: 10;
+              //   box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+              //   transition: transform 0.2s;  
+              // `;
+              //   text = rangeFromCfi.toString();
+              //   const rects = rangeFromCfi.getClientRects();
+              //   if (rects.length > 0) {
+              //     rect = rects[0];
+              //     const iframeEl = view.window.frameElement;
+              //     iframeRect = iframeEl?.getBoundingClientRect?.() ?? {
+              //       left: `${rect.left - (rect.left - rect.right)}px`,
+              //       top: `${rect.top + rect.height / 2 - 6}px`,
+              //     };
+              //   }
+              //   if (rects.length > 0) {
+              //     const firstRect = rects[0];
+              //     // console.log(firstRect, view);
 
-//     return () => {
-//       renditionRef.current.off("selected", setRenderSelection);
-//       renditionRef.current.off("click", handleClickOutside);
-//     };
-//   }, [selections, renditionRef.current]);
+              //     dot.style.left = `${
+              //       firstRect.left - (firstRect.left - firstRect.right)
+              //     }px`;
+              //     dot.style.top = `${
+              //       firstRect.top + firstRect.height / 2 - 6
+              //     }px`;
+              //   }
+              //   view.document.body.appendChild(dot);
+              // }
+            }
+          } catch (e) {
+            console.warn("No DOM selection and fallback failed", e);
+            return;
+          }
+        } else {
+          range = sel.getRangeAt(0);
+          if (!range) return;
+          text = sel.toString();
+          rect = range.getBoundingClientRect();
+          const iframeEl =
+            contents?.iframe ||
+            contents?.window?.frameElement ||
+            renditionRef.current.annotations.rendition.manager?.views
+              ?._views?.[0]?.window?.frameElement;
+          iframeRect = iframeEl?.getBoundingClientRect?.() ?? {
+            left: 0,
+            top: 0,
+          };
+          sel.removeAllRanges();
+        }
 
-//   const ownStyles = {
-//     ...ReactReaderStyle,
-//     reader: {
-//       ...ReactReaderStyle.reader,
-//       background: "#F8F4ED",
-//       position: "sticky",
-//       inset: 0,
-//       width: "100%",
-//       height: "100vh",
-//       padding: 0,
-//       margin: 0,
-//       boxSizing: "border-box",
-//     },
-//     container: {
-//       ...ReactReaderStyle.container,
-//       width: "100%",
-//       height: "100%",
-//       padding: 0,
-//       margin: 0,
-//     },
-//     view: {
-//       ...ReactReaderStyle.view,
-//       padding: 0,
-//       margin: 0,
-//     },
-//     arrow: {
-//       display: "none",
-//     },
-//   };
+        if (text && rect) {
+          const x = iframeRect.left + rect.left + rect.width / 2;
+          const y = iframeRect.top + rect.top + window.scrollY - 60;
+          setPopup({ x, y, cfi: cfiRange, text });
+          setSelectedCfi(cfiRange);
+          setSelectedText(text);
+          setShowCommentInput(false);
+          setCommentText("");
+        }
+      } catch (err) {
+        console.error("setRenderSelection error:", err);
+      }
+    };
 
-//   return (
-//     <div
-//       style={{
-//         width: "100vw",
-//         height: "100vh",
-//         margin: 0,
-//         padding: 0,
-//         overflowY: "auto",
-//         position: "relative",
-//       }}
-//     >
-//       <ReactReader
-//         readerStyles={ownStyles}
-//         location={location}
-//         locationChanged={locationChanged}
-//         url="https://react-reader.metabits.no/files/alice.epub"
-//         getRendition={(rendition) => {
-//           renditionRef.current = rendition;
-//           rendition.themes.default({
-//             "::selection": { background: "orange" },
-//           });
-//           rendition.themes.register("custom", {
-//             "*": {
-//               color: "#000",
-//               background: "#F8F4ED !important",
-//             },
-//             "body.x-ebookmaker": {
-//               padding: "16px !important",
-//               margin: "0 !important",
-//             },
-//           });
-//           rendition.themes.select("custom");
-//         }}
-//         tocChanged={(toc) => (tocRef.current = toc)}
-//         showToc={false}
-//         epubOptions={{
-//           flow: "scrolled",
-//           manager: "continuous",
-//           // allowPopups: true,
-//           // allowScriptedContent: true,
-//         }}
-//       />
+    renditionRef.current.on("selected", setRenderSelection);
 
-//       {/* Popup */}
-//       {popup && (
-//         <div
-//           className="absolute bg-white shadow-lg rounded-lg p-2 flex space-x-2"
-//           style={{
-//             position: "fixed",
-//             top: popup.y,
-//             left: popup.x,
-//             transform: "translate(-50%, -100%)",
-//             zIndex: 1000,
-//           }}
-//         >
-//           {colors.map((color) => (
-//             <button
-//               key={color}
-//               className="w-6 h-6 rounded-full border"
-//               style={{ backgroundColor: color }}
-//               onClick={() => handleHighlight(color)}
-//             />
-//           ))}
-//           <button
-//             onClick={handleAddComment}
-//             className="px-2 py-1 text-sm bg-gray-200 rounded"
-//           >
-//             💬
-//           </button>
-//         </div>
-//       )}
+    const handleClickOutside = () => {
+      setPopup(null);
+      setShowCommentInput(false);
+      setCommentText("");
+    };
 
-//       {/* Comment input */}
-//       {showCommentInput && popup && (
-//         <div
-//           className="absolute bg-white shadow-lg rounded-lg p-2 flex flex-col space-y-2"
-//           style={{
-//             position: "fixed",
-//             top: popup.y,
-//             left: popup.x,
-//             transform: "translate(-50%, -120%)",
-//             zIndex: 1000,
-//           }}
-//         >
-//           <textarea
-//             className="border rounded p-1 w-48 h-16 text-sm"
-//             placeholder="Write comment..."
-//             value={commentText}
-//             onChange={(e) => setCommentText(e.target.value)}
-//           />
-//           <button
-//             onClick={handleSaveComment}
-//             className="bg-blue-500 text-white text-sm px-2 py-1 rounded"
-//           >
-//             Save
-//           </button>
-//         </div>
-//       )}
+    renditionRef.current.on("click", handleClickOutside);
 
-//       {/* TOC */}
-//       <button
-//         onClick={() => setShowToc(!showToc)}
-//         style={{
-//           position: "fixed",
-//           top: "1rem",
-//           right: "1rem",
-//           zIndex: 1000,
-//           padding: "8px 12px",
-//           background: "#333",
-//           color: "#fff",
-//           borderRadius: "4px",
-//           border: "none",
-//           cursor: "pointer",
-//         }}
-//       >
-//         ☰ Chapters
-//       </button>
+    return () => {
+      renditionRef.current.off("selected", setRenderSelection);
+      renditionRef.current.off("click", handleClickOutside);
+    };
+  }, [selections, renditionRef.current]);
 
-//       {showToc && (
-//         <div
-//           style={{
-//             position: "fixed",
-//             top: "3.5rem",
-//             right: "1rem",
-//             zIndex: 1000,
-//             width: "250px",
-//             maxHeight: "60vh",
-//             overflowY: "auto",
-//             background: "#fff",
-//             border: "1px solid #ccc",
-//             borderRadius: "8px",
-//             boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
-//           }}
-//         >
-//           <ul style={{ listStyle: "none", padding: "0.5rem", margin: 0 }}>
-//             {tocRef.current?.map((item: any) => (
-//               <li
-//                 key={item.href}
-//                 onClick={() => handleChapterClick(item)}
-//                 style={{
-//                   padding: "8px",
-//                   cursor: "pointer",
-//                   borderRadius: "4px",
-//                   transition: "background 0.2s",
-//                 }}
-//                 onMouseEnter={(e) => (e.currentTarget.style.background = "#eee")}
-//                 onMouseLeave={(e) =>
-//                   (e.currentTarget.style.background = "transparent")
-//                 }
-//               >
-//                 {item.label}
-//               </li>
-//             ))}
-//           </ul>
-//         </div>
-//       )}
+  const ownStyles = {
+    ...ReactReaderStyle,
+    reader: {
+      ...ReactReaderStyle.reader,
+      background: "#F8F4ED",
+      position: "sticky",
+      inset: 0,
+      width: "100%",
+      height: "100vh",
+      padding: 0,
+      margin: 0,
+      boxSizing: "border-box",
+    },
+    container: {
+      ...ReactReaderStyle.container,
+      width: "100%",
+      height: "100%",
+      padding: 0,
+      margin: 0,
+    },
+    arrow: {
+      display: "none",
+    },
+  };
 
-//       {/* Comment belgisi */}
-//       {selections.map(
-//         (highlight, idx) =>
-//           highlight.comment &&
-//           highlight.position && (
-//             <div
-//               key={idx}
-//               className="absolute"
-//               style={{
-//                 position: "fixed",
-//                 top: highlight.position.y,
-//                 left: highlight.position.x + 10, // Highlight yonida joylashadi
-//                 zIndex: 999,
-//                 cursor: "pointer",
-//               }}
-//               title={highlight.comment} // Hover qilganda izoh ko'rinadi
-//               onClick={() => {
-//                 setPopup({
-//                   x: highlight.position.x,
-//                   y: highlight.position.y,
-//                   cfi: highlight.cfiRange,
-//                   text: highlight.text,
-//                 });
-//                 setSelectedCfi(highlight.cfiRange);
-//                 setSelectedText(highlight.text);
-//                 setCommentText(highlight.comment || "");
-//                 setShowCommentInput(true);
-//               }}
-//             >
-//               💬
-//             </div>
-//           )
-//       )}
+  return (
+    <div
+      style={{
+        width: "100vw",
+        height: "100vh",
+        margin: 0,
+        padding: 0,
+        overflowY: "auto",
+        position: "relative",
+      }}
+    >
+      <ReactReader
+        readerStyles={ownStyles as any}
+        location={location}
+        locationChanged={locationChanged}
+        url="https://react-reader.metabits.no/files/alice.epub"
+        getRendition={(rendition) => {
+          renditionRef.current = rendition;
+          rendition.themes.default({
+            "::selection": { background: "orange" },
+          });
+          rendition.themes.register("custom", {
+            "*": {
+              color: "#000",
+              background: "#F8F4ED !important",
+            },
+            "body.x-ebookmaker": {
+              padding: "16px !important",
+              margin: "0 !important",
+            },
+          });
+          rendition.themes.select("custom");
+        }}
+        tocChanged={(toc) => (tocRef.current = toc)}
+        showToc={false}
+        epubOptions={{
+          flow: "scrolled",
+          manager: "continuous",
+          allowPopups: true,
+          allowScriptedContent: true,
+        }}
+      />
 
-//       {/* Izohlar ro'yxati */}
-//       {selections.length > 0 && (
-//         <div className="absolute bottom-0 left-0 w-full bg-gray-100 p-2 max-h-40 overflow-y-auto">
-//           <h4 className="font-semibold mb-2">📌 Comments & Highlights</h4>
-//           {selections.map((h, idx) => (
-//             <div key={idx} className="mb-2 text-sm">
-//               <div>
-//                 <span
-//                   className="inline-block w-3 h-3 mr-2 rounded-full"
-//                   style={{ backgroundColor: h.color }}
-//                 ></span>
-//                 {h.text}
-//               </div>
-//               {h.comment && (
-//                 <div className="ml-5 italic text-gray-600">
-//                   💬 {h.comment}
-//                 </div>
-//               )}
-//             </div>
-//           ))}
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
+      {/* Popup */}
+      {popup && (
+        <div
+          className="absolute bg-white shadow-lg rounded-lg p-2 flex space-x-2"
+          style={{
+            position: "fixed",
+            top: popup.y,
+            left: popup.x,
+            transform: "translate(-50%, -100%)",
+            zIndex: 1000,
+          }}
+        >
+          {colors.map((color) => (
+            <button
+              key={color}
+              className="w-6 h-6 rounded-full border"
+              style={{ backgroundColor: color }}
+              onClick={() => handleHighlight(color)}
+            />
+          ))}
+          <button
+            onClick={handleAddComment}
+            className="px-2 py-1 text-sm bg-gray-200 rounded"
+          >
+            💬
+          </button>
+        </div>
+      )}
 
-// export default MyReader;
+      {/* Comment input */}
+      {showCommentInput && popup && (
+        <div
+          className="absolute bg-white shadow-lg rounded-lg p-2 flex flex-col space-y-2"
+          style={{
+            position: "fixed",
+            top: popup.y,
+            left: popup.x,
+            transform: "translate(-50%, -120%)",
+            zIndex: 1000,
+          }}
+        >
+          <textarea
+            className="border rounded p-1 w-48 h-16 text-sm"
+            placeholder="Write comment..."
+            value={commentText}
+            onChange={(e) => setCommentText(e.target.value)}
+          />
+          <button
+            onClick={handleSaveComment}
+            className="bg-blue-500 text-white text-sm px-2 py-1 rounded"
+          >
+            Save
+          </button>
+        </div>
+      )}
 
+      {/* TOC */}
+      <button
+        onClick={() => setShowToc(!showToc)}
+        style={{
+          position: "fixed",
+          top: "1rem",
+          right: "1rem",
+          zIndex: 1000,
+          padding: "8px 12px",
+          background: "#333",
+          color: "#fff",
+          borderRadius: "4px",
+          border: "none",
+          cursor: "pointer",
+        }}
+      >
+        ☰ Chapters
+      </button>
 
+      {showToc && (
+        <div
+          style={{
+            position: "fixed",
+            top: "3.5rem",
+            right: "1rem",
+            zIndex: 1000,
+            width: "250px",
+            maxHeight: "60vh",
+            overflowY: "auto",
+            background: "#fff",
+            border: "1px solid #ccc",
+            borderRadius: "8px",
+            boxShadow: "0 2px 10px rgba(0,0,0,0.2)",
+          }}
+        >
+          <ul style={{ listStyle: "none", padding: "0.5rem", margin: 0 }}>
+            {tocRef.current?.map((item: any) => (
+              <li
+                key={item.href}
+                onClick={() => handleChapterClick(item)}
+                style={{
+                  padding: "8px",
+                  cursor: "pointer",
+                  borderRadius: "4px",
+                  transition: "background 0.2s",
+                }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.background = "#eee")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.background = "transparent")
+                }
+              >
+                {item.label}
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-// 📄 components/MyReader.tsx
-// import { useEffect, useRef, useState } from "react";
-// import { ReactReader, ReactReaderStyle } from "react-reader";
-// import { readerStore } from "./readerStore";
-// import { AnnotationPopup } from "./AnnotationPopup";
-// import { AnnotationsRenderer } from "./annotations-renderer";
+      {/* Comment belgisi */}
+      {selections.map(
+        (highlight, idx) =>
+          highlight.comment &&
+          highlight.position && (
+            <div
+              key={idx}
+              className="absolute"
+              style={{
+                position: "fixed",
+                top: highlight.position.y,
+                left: highlight.position.x + 10, // Highlight yonida joylashadi
+                zIndex: 999,
+                cursor: "pointer",
+              }}
+              title={highlight.comment} // Hover qilganda izoh ko'rinadi
+              onClick={() => {
+                // setPopup({
+                //   x: highlight.position.x,
+                //   y: highlight.position.y,
+                //   cfi: highlight.cfiRange,
+                //   text: highlight.text,
+                // });
+                setSelectedCfi(highlight.cfiRange);
+                setSelectedText(highlight.text);
+                setCommentText(highlight.comment || "");
+                setShowCommentInput(true);
+              }}
+            >
+              💬
+            </div>
+          )
+      )}
 
-// export default function MyReader() {
-//   const renditionRef = useRef<any>(null);
-//   const [location, setLocation] = useState(localStorage.getItem("book-progress"));
-//   const [popup, setPopup] = useState<any>(null);
-//   const [selectedCfi, setSelectedCfi] = useState<string | null>(null);
-//   const [selectedText, setSelectedText] = useState<string>("");
+      {/* Izohlar ro'yxati */}
+      {selections.length > 0 && (
+        <div className="absolute bottom-0 left-0 w-full bg-gray-100 p-2 max-h-40 overflow-y-auto">
+          <h4 className="font-semibold mb-2">📌 Comments & Highlights</h4>
+          {selections.map((h, idx) => (
+            <div key={idx} className="mb-2 text-sm">
+              <div>
+                <span
+                  className="inline-block w-3 h-3 mr-2 rounded-full"
+                  style={{ backgroundColor: h.color }}
+                ></span>
+                {h.text}
+              </div>
+              {h.comment && (
+                <div className="ml-5 italic text-gray-600">💬 {h.comment}</div>
+              )}
+            </div>
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
-//   useEffect(() => {
-//     readerStore.loadFromStorage();
-//   }, []);
-
-//   const locationChanged = (epubcifi: any) => {
-//     setLocation(epubcifi);
-//     localStorage.setItem("book-progress", epubcifi);
-//   };
-
-//   // 📌 Matn tanlanganda popup ochiladi
-//   useEffect(() => {
-//     if (!renditionRef.current) return;
-//     const handleSelection = (cfiRange: string, contents: any) => {
-//       const range = contents.window.getSelection().getRangeAt(0);
-//       const rect = range.getBoundingClientRect();
-//       setSelectedCfi(cfiRange);
-//       setSelectedText(range.toString());
-//       setPopup({
-//         top: rect.top + window.scrollY,
-//         left: rect.left + rect.width / 2,
-//       });
-//     };
-
-//     renditionRef.current.on("selected", handleSelection);
-//     return () => renditionRef.current.off("selected", handleSelection);
-//   }, []);
-
-//   const handleSelectColor = (color: string) => {
-//     if (!selectedCfi || !renditionRef.current) return;
-
-//     renditionRef.current.annotations.add(
-//       "highlight",
-//       selectedCfi,
-//       {},
-//       null,
-//       "hl",
-//       {
-//         fill: color,
-//         "fill-opacity": "0.4",
-//         "mix-blend-mode": "multiply",
-//       }
-//     );
-
-//     readerStore.addAnnotation({
-//       cfi: selectedCfi,
-//       text: selectedText,
-//       color,
-//       comment: "",
-//     });
-
-//     setPopup(null);
-//     setSelectedCfi(null);
-//   };
-
-//   const handleAddComment = (comment: string) => {
-//     const updated = readerStore.annotations.map((a) =>
-//       a.cfi === selectedCfi ? { ...a, comment } : a
-//     );
-//     readerStore.annotations = updated;
-//     localStorage.setItem("annotations", JSON.stringify(updated));
-//     setPopup(null);
-//     setSelectedCfi(null);
-//   };
-
-//   return (
-//     <>
-//       <div style={{ width: "100vw", height: "100vh" }}>
-//         <ReactReader
-//           url="https://react-reader.metabits.no/files/alice.epub"
-//           location={location}
-//           locationChanged={locationChanged}
-//           getRendition={(rendition) => {
-//             renditionRef.current = rendition;
-//             readerStore.rendition = rendition;
-//           }}
-//           epubOptions={{
-//             flow: "scrolled",
-//             manager: "continuous",
-//           }}
-//           readerStyles={{
-//             ...ReactReaderStyle,
-//             arrow: { display: "none" },
-//           }}
-//         />
-
-//         {/* 📍 Highlightlar va dot popup */}
-//         <AnnotationsRenderer
-//           rendition={renditionRef.current}
-//           onDotClick={(annotation, position) => setPopup(position)}
-//         />
-
-//         {popup && (
-//           <AnnotationPopup
-//             position={popup}
-//             onSelectColor={handleSelectColor}
-//             onAddComment={handleAddComment}
-//             onClose={() => setPopup(null)}
-//           />
-//         )}
-//       </div>
-//     </>
-//   );
-// }
-
+export default MyReader;
 
 
 // import { useEffect, useRef, useState } from "react";
@@ -2448,8 +2404,8 @@
 
 // export default MyReader;
 
-const MyReader = () => {
-  return <div>MyReader</div>
-}
+// const MyReader = () => {
+//   return <div>MyReader</div>
+// }
 
-export default MyReader
+// export default MyReader

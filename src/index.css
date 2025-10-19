@@ -182,18 +182,44 @@ body {
   user-select: text;
 }
 
-.react-reader__arrow {
-  display: none !important;
+
+/* Range Slider */
+/* range uchun custom style */
+.range-orange {
+  appearance: none;
+  height: 6px;
+  background: linear-gradient(to right, orange 40%, #ffe4b3 40%);
+  border-radius: 5px;
+  outline: none;
 }
 
-/* Ensure sidebar is scrollable and fits content */
-/* aside {
-  @apply max-h-[calc(100vh-80px)] overflow-y-auto;
-} */
+/* progress (thumb) */
+.range-orange::-webkit-slider-thumb {
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  background: orange;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 2px solid white;
+  box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
 
-/* .epubjs-hl {
-  background: #b78011 !important;
-  color: #000000 !important;
-} */
+.range-orange::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  background: orange;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+}
+
+/* Firefox uchun track */
+.range-orange::-moz-range-track {
+  background: linear-gradient(to right, orange 40%, #ffe4b3 40%);
+  height: 6px;
+  border-radius: 5px;
+}
+
 
 
